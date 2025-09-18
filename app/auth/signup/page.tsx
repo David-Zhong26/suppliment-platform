@@ -194,8 +194,8 @@ export default function SignUpPage() {
               </Select>
             </div>
 
-            <div className="bg-blue-50 p-3 rounded-lg">
-              <p className="text-sm text-blue-800">
+            <div className="bg-[#F9FAF9] border border-[#A5D6A7] p-3 rounded-lg">
+              <p className="text-sm text-[#2E7D32]">
                 <strong>Demo Mode:</strong> All fields are optional! We'll generate random values for anything you leave empty.
               </p>
             </div>

@@ -116,13 +116,20 @@ export default function SupplementComparison({
   return (
     <div className="w-full">
       {/* Header */}
-      <div className="wellness-header p-6 mb-8 rounded-lg">
-        <h2 className="text-3xl font-bold text-[#212121] mb-2">
-          Supplement Comparison
-        </h2>
-        <p className="text-[#4E944F] text-lg">
-          Compare supplements side-by-side to find your perfect match
-        </p>
+      <div className="wellness-header p-8 mb-12 rounded-2xl">
+        <div className="text-center">
+          <h2 className="text-5xl font-bold text-[#212121] mb-4">
+            🎯 Your Personalized Matches
+          </h2>
+          <p className="text-[#4E944F] text-2xl mb-6">
+            Compare supplements side-by-side to find your perfect match
+          </p>
+          <div className="bg-[#F9FAF9] border border-[#A5D6A7] rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-[#2E7D32] font-medium">
+              💡 <strong>Pro Tip:</strong> Higher match percentages mean better compatibility with your health profile and goals!
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Comparison Grid */}
@@ -144,17 +151,24 @@ export default function SupplementComparison({
 
               <CardHeader className="text-center pb-4">
                 {/* Match Percentage - Main Focus */}
-                <div className="mb-4">
-                  <div className={`text-5xl font-bold ${getMatchColor(supplement.matchPercentage)} mb-2`}>
+                <div className="mb-6">
+                  <div className={`text-7xl font-bold ${getMatchColor(supplement.matchPercentage)} mb-3`}>
                     {supplement.matchPercentage}%
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className="w-full bg-gray-200 rounded-full h-4 mb-2">
                     <div 
-                      className={`h-3 rounded-full transition-all duration-500 ${getProgressColor(supplement.matchPercentage)}`}
+                      className={`h-4 rounded-full transition-all duration-500 ${getProgressColor(supplement.matchPercentage)}`}
                       style={{ width: `${supplement.matchPercentage}%` }}
                     />
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">Match Score</p>
+                  <p className="text-lg font-medium text-[#2E7D32]">Match Score</p>
+                  {isHighestMatch && (
+                    <div className="mt-2">
+                      <span className="bg-[#2E7D32] text-white px-3 py-1 rounded-full text-sm font-medium">
+                        🏆 Best Match
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Product Image */}

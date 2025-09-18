@@ -51,25 +51,25 @@ export default function LandingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen wellness-gradient">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Heart className="h-8 w-8 text-blue-600" />
+            <Heart className="h-8 w-8 text-[#2E7D32]" />
             <span className="text-2xl font-bold text-gray-900">Wellness Platform</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-            <a href="#community" className="text-gray-600 hover:text-blue-600 transition-colors">Community</a>
-            <a href="#safety" className="text-gray-600 hover:text-blue-600 transition-colors">Safety</a>
+            <a href="#features" className="text-gray-600 hover:text-[#2E7D32] transition-colors">Features</a>
+            <a href="#community" className="text-gray-600 hover:text-[#2E7D32] transition-colors">Community</a>
+            <a href="#safety" className="text-gray-600 hover:text-[#2E7D32] transition-colors">Safety</a>
           </nav>
           <div className="flex items-center space-x-4">
             <Link href="/auth/signin">
               <Button variant="ghost">Sign In</Button>
             </Link>
             <Link href="/auth/signup">
-              <Button>Get Started</Button>
+              <Button className="btn-primary-green">Get Started</Button>
             </Link>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function LandingPage() {
           </Badge>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             Your Personalized
-            <span className="text-blue-600 block">Wellness Journey</span>
+            <span className="text-[#2E7D32] block">Wellness Journey</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             Discover the right supplements for your health goals, avoid dangerous interactions, 
@@ -91,7 +91,7 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/signup">
-              <Button size="lg" className="text-lg px-8">
+              <Button size="lg" className="text-lg px-8 btn-primary-green">
                 Start Your Journey
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -109,7 +109,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index}>
-                <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                <div className="text-3xl md:text-4xl font-bold text-[#2E7D32] mb-2">
                   {stat.number}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
@@ -139,14 +139,14 @@ export default function LandingPage() {
                   key={index}
                   className={`p-6 rounded-lg cursor-pointer transition-all ${
                     activeFeature === index 
-                      ? 'bg-blue-600 text-white shadow-lg' 
+                      ? 'bg-[#2E7D32] text-white shadow-lg' 
                       : 'bg-white hover:shadow-md'
                   }`}
                   onClick={() => setActiveFeature(index)}
                 >
                   <div className="flex items-start space-x-4">
                     <div className={`p-2 rounded-lg ${
-                      activeFeature === index ? 'bg-blue-500' : 'bg-blue-100'
+                      activeFeature === index ? 'bg-[#66BB6A]' : 'bg-[#A5D6A7]'
                     }`}>
                       {feature.icon}
                     </div>

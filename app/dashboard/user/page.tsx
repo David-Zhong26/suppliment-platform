@@ -99,13 +99,13 @@ export default function UserDashboard() {
   const weeklyProgress = (todayLogs / weeklyGoal) * 100
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F9FAF9]">
       {/* Header */}
       <header className="bg-white border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Heart className="h-8 w-8 text-blue-600" />
+              <Heart className="h-8 w-8 text-[#2E7D32]" />
               <span className="text-2xl font-bold">Wellness Platform</span>
             </div>
             <div className="flex items-center space-x-4">
@@ -124,12 +124,44 @@ export default function UserDashboard() {
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-[#212121] mb-2">
             Good morning, {session?.user?.name?.split(' ')[0]}! 👋
           </h1>
-          <p className="text-gray-600">
+          <p className="text-[#4E944F]">
             Ready to continue your wellness journey? Here's what's happening today.
           </p>
+        </div>
+
+        {/* Comparison Feature Highlight */}
+        <div className="wellness-header p-6 mb-8 rounded-2xl border-2 border-[#A5D6A7]">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h2 className="text-3xl font-bold text-[#212121] mb-2">
+                🎯 Find Your Perfect Supplements
+              </h2>
+              <p className="text-[#4E944F] text-lg mb-4">
+                Compare supplements side-by-side with our AI-powered matching algorithm
+              </p>
+              <div className="flex items-center gap-4">
+                <Button 
+                  size="lg" 
+                  className="btn-primary-green text-lg px-8"
+                  onClick={() => router.push('/comparison')}
+                >
+                  Compare Supplements
+                  <TrendingUp className="ml-2 h-5 w-5" />
+                </Button>
+                <div className="text-sm text-[#2E7D32]">
+                  <span className="font-semibold">95%+ accuracy</span> in matching your profile
+                </div>
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <div className="w-32 h-32 bg-[#2E7D32] rounded-full flex items-center justify-center">
+                <span className="text-4xl">🎯</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -137,8 +169,8 @@ export default function UserDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Pill className="h-6 w-6 text-blue-600" />
+                <div className="p-2 bg-[#A5D6A7] rounded-lg">
+                  <Pill className="h-6 w-6 text-[#2E7D32]" />
                 </div>
                 <div>
                   <div className="text-2xl font-bold">{supplementStreak}</div>
@@ -151,8 +183,8 @@ export default function UserDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <Target className="h-6 w-6 text-green-600" />
+                <div className="p-2 bg-[#A5D6A7] rounded-lg">
+                  <Target className="h-6 w-6 text-[#2E7D32]" />
                 </div>
                 <div>
                   <div className="text-2xl font-bold">{todayLogs}/3</div>
@@ -165,8 +197,8 @@ export default function UserDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <Users className="h-6 w-6 text-purple-600" />
+                <div className="p-2 bg-[#A5D6A7] rounded-lg">
+                  <Users className="h-6 w-6 text-[#2E7D32]" />
                 </div>
                 <div>
                   <div className="text-2xl font-bold">2</div>

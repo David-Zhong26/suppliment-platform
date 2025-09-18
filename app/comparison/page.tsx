@@ -196,19 +196,75 @@ export default function ComparisonPage() {
   return (
     <div className="min-h-screen bg-[#F9FAF9]">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <Link href="/dashboard/user">
-            <Button variant="ghost" size="sm" className="text-[#4E944F] hover:text-[#2E7D32]">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-          </Link>
-          <div>
-            <h1 className="text-4xl font-bold text-[#212121]">Supplement Comparison</h1>
-            <p className="text-[#4E944F] text-lg mt-2">
-              Compare supplements to find your perfect match
+        {/* Hero Header */}
+        <div className="wellness-header p-8 mb-12 rounded-2xl">
+          <div className="flex items-center gap-4 mb-6">
+            <Link href="/dashboard/user">
+              <Button variant="ghost" size="sm" className="text-[#4E944F] hover:text-[#2E7D32]">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Dashboard
+              </Button>
+            </Link>
+          </div>
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-6xl font-bold text-[#212121] mb-4">
+              Find Your Perfect Match
+            </h1>
+            <p className="text-2xl text-[#4E944F] mb-6">
+              Our AI-powered matching algorithm analyzes your profile to find supplements with the highest compatibility
             </p>
+            <div className="flex items-center justify-center gap-8 text-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-[#2E7D32] rounded-full"></div>
+                <span className="text-[#212121]">Personalized Matching</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-[#66BB6A] rounded-full"></div>
+                <span className="text-[#212121]">Safety Verified</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-[#A5D6A7] rounded-full"></div>
+                <span className="text-[#212121]">Community Tested</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Matching Feature Highlight */}
+        <div className="bg-white rounded-2xl p-8 mb-8 border-2 border-[#A5D6A7]">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-[#212121] mb-4">
+              🎯 How Our Matching Works
+            </h2>
+            <p className="text-xl text-[#4E944F] max-w-3xl mx-auto">
+              Our advanced algorithm considers your health goals, dietary preferences, lifestyle, and current supplements to calculate the perfect match percentage for each product.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#2E7D32] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">📊</span>
+              </div>
+              <h3 className="text-xl font-semibold text-[#212121] mb-2">Profile Analysis</h3>
+              <p className="text-[#4E944F]">We analyze your health goals, age, gender, and dietary preferences</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#66BB6A] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🧬</span>
+              </div>
+              <h3 className="text-xl font-semibold text-[#212121] mb-2">Ingredient Matching</h3>
+              <p className="text-[#4E944F]">Compare supplement ingredients with your specific needs and goals</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#A5D6A7] rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h3 className="text-xl font-semibold text-[#212121] mb-2">Real-time Scoring</h3>
+              <p className="text-[#4E944F]">Get instant match percentages based on comprehensive analysis</p>
+            </div>
           </div>
         </div>
 
