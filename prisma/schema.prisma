@@ -1,0 +1,346 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  username      String    @unique
+  password      String?
+  age           Int?
+  gender        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // User type determines homepage layout
+  userType      UserType  @default(GENERAL_USER)
+  
+  // Wellness profile
+  wellnessGoals WellnessGoal[]
+  supplementLogs SupplementLog[]
+  
+  // Community features
+  posts         Post[]
+  comments      Comment[]
+  groupMemberships GroupMembership[]
+  messages      Message[] @relation("MessageSender")
+  receivedMessages Message[] @relation("MessageReceiver")
+  
+  // Seller features (if applicable)
+  sellerProfile SellerProfile?
+  
+  // Authentication
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map("users")
+}
+
+model SellerProfile {
+  id              String      @id @default(cuid())
+  userId          String      @unique
+  businessName    String
+  contactInfo     String
+  certification   String?     // File path or URL to certification
+  verificationStatus VerificationStatus @default(PENDING)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products        Product[]
+  sales           Sale[]
+
+  @@map("seller_profiles")
+}
+
+model WellnessGoal {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    String   // weight_loss, energy, clean_eating, muscle_gain, etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  users       User[]
+
+  @@map("wellness_goals")
+}
+
+model SupplementLog {
+  id          String   @id @default(cuid())
+  userId      String
+  productId   String
+  dosage      String
+  takenAt     DateTime
+  notes       String?
+  createdAt   DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id])
+
+  @@map("supplement_logs")
+}
+
+model Product {
+  id              String      @id @default(cuid())
+  name            String
+  description     String      @db.Text
+  ingredients     String      @db.Text
+  dosage          String
+  price           Decimal     @db.Decimal(10, 2)
+  imageUrl        String?
+  category        String
+  tags            String[]    // FDA-certified, organic, third-party-tested, etc.
+  matchScore      Float?      // Calculated match percentage for user profiles
+  
+  // Safety and credibility
+  safetyTags      SafetyTag[]
+  interactions    Interaction[]
+  
+  // Seller info
+  sellerId        String?
+  seller          SellerProfile? @relation(fields: [sellerId], references: [id])
+  
+  // E-commerce
+  affiliateLink   String?
+  discountCode    String?
+  
+  // Analytics
+  viewCount       Int         @default(0)
+  purchaseCount   Int         @default(0)
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  supplementLogs  SupplementLog[]
+  reviews         Review[]
+
+  @@map("products")
+}
+
+model SafetyTag {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  icon        String?
+  color       String?
+  createdAt   DateTime @default(now())
+  
+  products    Product[]
+
+  @@map("safety_tags")
+}
+
+model Interaction {
+  id              String   @id @default(cuid())
+  productId       String
+  conflictingProductId String?
+  conflictingMedication String?
+  severity        InteractionSeverity
+  description     String   @db.Text
+  recommendation  String   @db.Text
+  createdAt       DateTime @default(now())
+  
+  product         Product  @relation(fields: [productId], references: [id])
+
+  @@map("interactions")
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  productId   String
+  userId      String
+  rating      Int      // 1-5 stars
+  title       String
+  content     String   @db.Text
+  verified    Boolean  @default(false)
+  helpful     Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  product     Product  @relation(fields: [productId], references: [id])
+
+  @@map("reviews")
+}
+
+model Community {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @db.Text
+  category    String   // weight_loss, yoga, clean_eating, etc.
+  imageUrl    String?
+  memberCount Int      @default(0)
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  posts       Post[]
+  memberships GroupMembership[]
+
+  @@map("communities")
+}
+
+model Post {
+  id          String      @id @default(cuid())
+  title       String
+  content     String      @db.Text
+  type        PostType    @default(TEXT)
+  imageUrl    String?
+  videoUrl    String?
+  authorId    String
+  communityId String?
+  likes       Int         @default(0)
+  shares      Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  author      User        @relation(fields: [authorId], references: [id])
+  community   Community?  @relation(fields: [communityId], references: [id])
+  comments    Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  authorId  String
+  postId    String
+  parentId  String?  // For nested comments
+  likes     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  author    User     @relation(fields: [authorId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@map("comments")
+}
+
+model GroupMembership {
+  id          String   @id @default(cuid())
+  userId      String
+  communityId String
+  role        GroupRole @default(MEMBER)
+  joinedAt    DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id])
+  community   Community @relation(fields: [communityId], references: [id])
+
+  @@unique([userId, communityId])
+  @@map("group_memberships")
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  senderId    String
+  receiverId  String?
+  communityId String?
+  content     String   @db.Text
+  type        MessageType @default(DIRECT)
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  sender      User     @relation("MessageSender", fields: [senderId], references: [id])
+  receiver    User?    @relation("MessageReceiver", fields: [receiverId], references: [id])
+
+  @@map("messages")
+}
+
+model Sale {
+  id          String      @id @default(cuid())
+  sellerId    String
+  productId   String
+  amount      Decimal     @db.Decimal(10, 2)
+  discountCode String?
+  status      SaleStatus  @default(COMPLETED)
+  createdAt   DateTime    @default(now())
+  
+  seller      SellerProfile @relation(fields: [sellerId], references: [id])
+
+  @@map("sales")
+}
+
+// Enums
+enum UserType {
+  GENERAL_USER
+  VERIFIED_CREATOR
+  SELLER
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  FLAGGED
+  REJECTED
+}
+
+enum InteractionSeverity {
+  LOW
+  MODERATE
+  HIGH
+  CRITICAL
+}
+
+enum PostType {
+  TEXT
+  IMAGE
+  VIDEO
+  ARTICLE
+}
+
+enum GroupRole {
+  MEMBER
+  MODERATOR
+  ADMIN
+}
+
+enum MessageType {
+  DIRECT
+  GROUP
+}
+
+enum SaleStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
