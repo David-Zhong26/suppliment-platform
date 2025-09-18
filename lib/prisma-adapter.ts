@@ -49,7 +49,7 @@ export class PrismaAdapter implements DatabaseInterface {
 
   async joinCommunity(userId: string, communityId: string) {
     try {
-      await this.prisma.communityMembership.create({
+      await this.prisma.groupMembership.create({
         data: {
           userId,
           communityId
