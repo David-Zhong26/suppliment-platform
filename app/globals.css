@@ -4,26 +4,34 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Green Wellness Theme */
+    --background: 0 0% 98%; /* #F9FAF9 */
+    --foreground: 0 0% 13%; /* #212121 */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 13%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 122 39% 35%; /* #2E7D32 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 122 39% 60%; /* #66BB6A */
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 122 39% 80%; /* #A5D6A7 */
+    --accent-foreground: 0 0% 13%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 122 39% 35%; /* #2E7D32 */
     --radius: 0.5rem;
+    
+    /* Custom Green Palette */
+    --green-primary: 122 39% 35%; /* #2E7D32 */
+    --green-secondary: 122 39% 60%; /* #66BB6A */
+    --green-accent: 122 39% 80%; /* #A5D6A7 */
+    --green-text: 122 39% 30%; /* #4E944F */
+    --wellness-bg: 0 0% 98%; /* #F9FAF9 */
   }
 
   .dark {
@@ -55,5 +63,41 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+@layer components {
+  /* Green Theme Components */
+  .btn-primary-green {
+    @apply bg-[#2E7D32] text-white hover:bg-[#66BB6A] transition-colors;
+  }
+  
+  .btn-secondary-green {
+    @apply bg-[#66BB6A] text-white hover:bg-[#2E7D32] transition-colors;
+  }
+  
+  .progress-green {
+    background: linear-gradient(90deg, #2E7D32 0%, #66BB6A 100%);
+  }
+  
+  .wellness-gradient {
+    background: linear-gradient(135deg, #F9FAF9 0%, #ffffff 100%);
+  }
+  
+  .wellness-header {
+    @apply wellness-gradient border-l-4 border-[#2E7D32];
+  }
+  
+  .match-percentage {
+    @apply text-[#2E7D32] font-bold;
+  }
+  
+  .green-accent-text {
+    @apply text-[#4E944F];
+  }
+  
+  .comparison-highlight {
+    @apply border-2 border-[#A5D6A7] bg-[#F9FAF9];
   }
 }

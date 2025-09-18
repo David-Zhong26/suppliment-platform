@@ -55,11 +55,11 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-4">
+    <div className="min-h-screen wellness-gradient flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <Heart className="h-8 w-8 text-blue-600" />
+            <Heart className="h-8 w-8 text-[#2E7D32]" />
             <span className="text-2xl font-bold">Wellness Platform</span>
           </div>
           <CardTitle>Welcome Back</CardTitle>

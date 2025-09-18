@@ -77,11 +77,11 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen wellness-gradient flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <Heart className="h-12 w-12 text-green-600" />
+            <Heart className="h-12 w-12 text-[#2E7D32]" />
           </div>
           <CardTitle className="text-2xl font-bold text-gray-900">Join Wellness Platform</CardTitle>
           <CardDescription className="text-gray-600">
@@ -200,13 +200,13 @@ export default function SignUpPage() {
               </p>
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full btn-primary-green" disabled={isLoading}>
               {isLoading ? 'Creating Account...' : 'Create Account & Start Demo'}
             </Button>
 
             <div className="text-center text-sm text-gray-600">
               Already have an account?{' '}
-              <Link href="/auth/signin" className="text-green-600 hover:underline">
+              <Link href="/auth/signin" className="text-[#2E7D32] hover:underline">
                 Sign in here
               </Link>
             </div>
