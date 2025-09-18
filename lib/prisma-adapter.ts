@@ -64,8 +64,13 @@ export class PrismaAdapter implements DatabaseInterface {
   // Safety operations
   async checkSafety(supplements: string[], medications: string[] = []) {
     // Simple safety check - in real app, this would use a comprehensive database
-    const interactions = []
-    const warnings = []
+    const interactions: Array<{
+      supplement: string;
+      medication?: string;
+      severity: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
+      description: string;
+    }> = []
+    const warnings: string[] = []
     let safetyScore = 100
 
     // Mock safety checks
@@ -73,7 +78,7 @@ export class PrismaAdapter implements DatabaseInterface {
       interactions.push({
         supplement: 'Vitamin K',
         medication: 'Warfarin',
-        severity: 'CRITICAL',
+        severity: 'CRITICAL' as const,
         description: 'Vitamin K can reduce the effectiveness of Warfarin',
       })
       safetyScore -= 30
@@ -82,7 +87,7 @@ export class PrismaAdapter implements DatabaseInterface {
     if (supplements.includes('Iron') && supplements.includes('Calcium')) {
       interactions.push({
         supplement: 'Iron',
-        severity: 'MODERATE',
+        severity: 'MODERATE' as const,
         description: 'Calcium can interfere with iron absorption',
       })
       safetyScore -= 15

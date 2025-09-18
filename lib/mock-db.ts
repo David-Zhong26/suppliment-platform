@@ -211,8 +211,13 @@ export class MockDatabase implements DatabaseInterface {
     }>;
     warnings: string[];
   }> {
-    const interactions = [];
-    const warnings = [];
+    const interactions: Array<{
+      supplement: string;
+      medication?: string;
+      severity: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
+      description: string;
+    }> = [];
+    const warnings: string[] = [];
     let safetyScore = 100;
 
     // Mock safety checks
@@ -220,7 +225,7 @@ export class MockDatabase implements DatabaseInterface {
       interactions.push({
         supplement: 'Vitamin K',
         medication: 'Warfarin',
-        severity: 'CRITICAL',
+        severity: 'CRITICAL' as const,
         description: 'Vitamin K can reduce the effectiveness of Warfarin',
       });
       safetyScore -= 30;
@@ -229,7 +234,7 @@ export class MockDatabase implements DatabaseInterface {
     if (supplements.includes('Iron') && supplements.includes('Calcium')) {
       interactions.push({
         supplement: 'Iron',
-        severity: 'MODERATE',
+        severity: 'MODERATE' as const,
         description: 'Calcium can interfere with iron absorption',
       });
       safetyScore -= 15;
