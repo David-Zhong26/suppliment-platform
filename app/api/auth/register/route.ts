@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { prisma } from '@/lib/db'
+import { db } from '@/lib/db'
 import { z } from 'zod'
 
 const registerSchema = z.object({
@@ -19,9 +19,7 @@ export async function POST(request: NextRequest) {
     const validatedData = registerSchema.parse(body)
 
     // Check if email already exists
-    const existingUserByEmail = await prisma.user.findUnique({
-      where: { email: validatedData.email }
-    })
+    const existingUserByEmail = await db.findUserByEmail(validatedData.email)
 
     if (existingUserByEmail) {
       return NextResponse.json(
@@ -31,9 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if username already exists
-    const existingUserByUsername = await prisma.user.findUnique({
-      where: { username: validatedData.username }
-    })
+    const existingUserByUsername = await db.findUserByUsername(validatedData.username)
 
     if (existingUserByUsername) {
       return NextResponse.json(
@@ -46,43 +42,30 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(validatedData.password, 12)
 
     // Create user
-    const user = await prisma.user.create({
-      data: {
-        name: validatedData.name,
-        username: validatedData.username,
-        email: validatedData.email,
-        password: hashedPassword,
-        age: validatedData.age,
-        gender: validatedData.gender,
-        userType: validatedData.userType,
-      },
-      select: {
-        id: true,
-        name: true,
-        username: true,
-        email: true,
-        userType: true,
-        createdAt: true
-      }
+    const user = await db.createUser({
+      name: validatedData.name,
+      username: validatedData.username,
+      email: validatedData.email,
+      password: hashedPassword,
+      age: validatedData.age,
+      gender: validatedData.gender,
+      userType: validatedData.userType,
     })
 
-    // If user is a seller, create seller profile
-    if (validatedData.userType === 'SELLER') {
-      await prisma.sellerProfile.create({
-        data: {
-          userId: user.id,
-          businessName: '', // Will be filled in onboarding
-          contactInfo: '',
-          verificationStatus: 'PENDING'
+    return NextResponse.json(
+      {
+        message: 'User registered successfully',
+        user: {
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          userType: user.userType,
+          createdAt: user.createdAt
         }
-      })
-    }
-
-    return NextResponse.json({
-      message: 'User created successfully',
-      user
-    }, { status: 201 })
-
+      },
+      { status: 201 }
+    )
   } catch (error) {
     console.error('Registration error:', error)
     
