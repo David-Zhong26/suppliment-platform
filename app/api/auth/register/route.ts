@@ -4,13 +4,13 @@ import { db } from '@/lib/db'
 import { z } from 'zod'
 
 const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  username: z.string().min(3, 'Username must be at least 3 characters').regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters').regex(/^(?=.*[A-Z])(?=.*[!@#$%^&*])/, 'Password must contain at least one capital letter and one special character'),
+  name: z.string().optional().default('Demo User'),
+  username: z.string().optional().default(`user${Math.floor(Math.random() * 10000)}`),
+  email: z.string().email().optional().default(`demo${Math.floor(Math.random() * 10000)}@example.com`),
+  password: z.string().min(1, 'Password is required'),
   age: z.number().min(13).max(120).optional(),
   gender: z.enum(['male', 'female', 'non-binary', 'prefer-not-to-say']).optional(),
-  userType: z.enum(['GENERAL_USER', 'VERIFIED_CREATOR', 'SELLER'])
+  userType: z.enum(['GENERAL_USER', 'VERIFIED_CREATOR', 'SELLER']).default('GENERAL_USER')
 })
 
 export async function POST(request: NextRequest) {
