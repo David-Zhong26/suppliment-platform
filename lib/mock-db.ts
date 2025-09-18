@@ -1,5 +1,6 @@
 // Mock database implementation for development/demo purposes
 // This replaces Prisma with in-memory data for easy deployment
+import { DatabaseInterface } from './database-interface'
 
 export interface User {
   id: string;
@@ -129,7 +130,7 @@ const mockCommunities: Community[] = [
 ];
 
 // Mock database operations
-export class MockDatabase {
+export class MockDatabase implements DatabaseInterface {
   private users: User[] = [...mockUsers];
   private products: Product[] = [...mockProducts];
   private communities: Community[] = [...mockCommunities];
