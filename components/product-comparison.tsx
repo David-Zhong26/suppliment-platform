@@ -261,6 +261,9 @@ export default function ProductComparison() {
   const [showCart, setShowCart] = useState(false)
   const [favorites, setFavorites] = useState<string[]>([])
   const [showMatchBreakdown, setShowMatchBreakdown] = useState<string | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [showProductModal, setShowProductModal] = useState(false)
+  const [showCheckout, setShowCheckout] = useState(false)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const scrollLeft = () => {
@@ -335,6 +338,16 @@ export default function ProductComparison() {
         ? prev.filter(id => id !== productId)
         : [...prev, productId]
     )
+  }
+
+  const openProductModal = (product: Product) => {
+    setSelectedProduct(product)
+    setShowProductModal(true)
+  }
+
+  const proceedToCheckout = () => {
+    setShowCheckout(true)
+    setShowCart(false)
   }
 
   const getTotalPrice = () => {
@@ -558,6 +571,15 @@ export default function ProductComparison() {
                     <Button
                       variant="outline"
                       className="w-full text-sm border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white"
+                      onClick={() => openProductModal(product)}
+                    >
+                      <Info className="h-4 w-4 mr-2" />
+                      View Details
+                    </Button>
+                    
+                    <Button
+                      variant="outline"
+                      className="w-full text-sm border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white"
                     >
                       <MessageCircle className="h-4 w-4 mr-2" />
                       Ask a Nutritionist
@@ -647,7 +669,10 @@ export default function ProductComparison() {
                         </span>
                       </div>
                       
-                      <Button className="w-full btn-primary-wellness mb-2">
+                      <Button 
+                        className="w-full btn-primary-wellness mb-2"
+                        onClick={proceedToCheckout}
+                      >
                         Proceed to Checkout
                       </Button>
                       
@@ -717,6 +742,330 @@ export default function ProductComparison() {
           </Button>
         </div>
       </div>
+
+      {/* Product Detail Modal */}
+      {showProductModal && selectedProduct && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-8">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-[#F0FDF4] rounded-full flex items-center justify-center">
+                    {selectedProduct.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-gray-900">{selectedProduct.name}</h2>
+                    <p className="text-lg text-gray-600">{selectedProduct.brand}</p>
+                  </div>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => setShowProductModal(false)}
+                >
+                  <X className="h-6 w-6" />
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column - Product Info */}
+                <div className="space-y-6">
+                  {/* Match Score */}
+                  <div className="bg-[#F0FDF4] border border-[#16A34A] rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-semibold text-gray-900">Your Match Score</h3>
+                      <Badge className={`${getMatchColor(selectedProduct.matchPercentage)} px-3 py-1`}>
+                        {selectedProduct.matchPercentage}% Match
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-gray-600">{selectedProduct.whyMatch}</p>
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Description</h3>
+                    <p className="text-gray-600 leading-relaxed">{selectedProduct.description}</p>
+                  </div>
+
+                  {/* Benefits */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Key Benefits</h3>
+                    <ul className="space-y-2">
+                      {selectedProduct.benefits.map((benefit, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <CheckCircle className="h-5 w-5 text-[#16A34A] mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Trust Notes */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Quality Assurance</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.trustNotes.map((note, index) => (
+                        <Badge key={index} variant="secondary" className="text-sm">
+                          {note}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - Reviews & Purchase */}
+                <div className="space-y-6">
+                  {/* Reviews */}
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                      <span className="text-2xl font-bold text-gray-900">{selectedProduct.rating}</span>
+                      <span className="text-gray-600">({selectedProduct.reviews.toLocaleString()} reviews)</span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-600">5★</span>
+                        <div className="flex-1 bg-gray-200 rounded-full h-2">
+                          <div className="bg-yellow-500 h-2 rounded-full" style={{width: '85%'}}></div>
+                        </div>
+                        <span className="text-sm text-gray-600">85%</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-600">4★</span>
+                        <div className="flex-1 bg-gray-200 rounded-full h-2">
+                          <div className="bg-yellow-500 h-2 rounded-full" style={{width: '12%'}}></div>
+                        </div>
+                        <span className="text-sm text-gray-600">12%</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-600">3★</span>
+                        <div className="flex-1 bg-gray-200 rounded-full h-2">
+                          <div className="bg-yellow-500 h-2 rounded-full" style={{width: '2%'}}></div>
+                        </div>
+                        <span className="text-sm text-gray-600">2%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Price & Purchase */}
+                  <div className="border border-gray-200 rounded-lg p-6">
+                    <div className="text-center mb-6">
+                      <div className="text-4xl font-bold text-[#16A34A] mb-2">
+                        ${selectedProduct.price}
+                      </div>
+                      <p className="text-gray-600">One-time purchase</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Button
+                        onClick={() => {
+                          addToCart(selectedProduct)
+                          setShowProductModal(false)
+                        }}
+                        className="w-full btn-primary-wellness text-lg py-3"
+                        disabled={!selectedProduct.inStock}
+                      >
+                        <ShoppingCart className="h-5 w-5 mr-2" />
+                        Add to Cart - ${selectedProduct.price}
+                      </Button>
+                      
+                      <Button variant="outline" className="w-full">
+                        <Heart className="h-4 w-4 mr-2" />
+                        Add to Wishlist
+                      </Button>
+                    </div>
+
+                    <div className="mt-6 pt-6 border-t border-gray-200">
+                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <div className="flex items-center gap-1">
+                          <Truck className="h-4 w-4" />
+                          <span>Free shipping</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Shield className="h-4 w-4" />
+                          <span>30-day return</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Checkout Modal */}
+      {showCheckout && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-8">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Checkout</h2>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => setShowCheckout(false)}
+                >
+                  <X className="h-6 w-6" />
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Order Summary */}
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-4">Order Summary</h3>
+                  <div className="space-y-3">
+                    {shoppingCart.map((item) => (
+                      <div key={item.id} className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <Pill className="h-5 w-5 text-[#16A34A]" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-gray-900">{item.name}</h4>
+                            <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                          </div>
+                        </div>
+                        <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="border-t border-gray-200 pt-4 mt-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-semibold">Total:</span>
+                      <span className="text-2xl font-bold text-[#16A34A]">
+                        ${getTotalPrice().toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Info */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900">Payment Information</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Card Number
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="1234 5678 9012 3456"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Expiry Date
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="MM/YY"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        CVV
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="123"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        ZIP Code
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="12345"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Shipping Address */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-gray-900">Shipping Address</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        First Name
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="John"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Last Name
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="Doe"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Address
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="123 Wellness St"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        City
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="Health City"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        State
+                      </label>
+                      <input 
+                        type="text" 
+                        placeholder="CA"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#16A34A] focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Order Complete Button */}
+                <Button 
+                  className="w-full btn-primary-wellness text-lg py-3"
+                  onClick={() => {
+                    setShowCheckout(false)
+                    setShoppingCart([])
+                    alert('Order placed successfully! Thank you for your purchase.')
+                  }}
+                >
+                  <CreditCard className="h-5 w-5 mr-2" />
+                  Complete Order - ${getTotalPrice().toFixed(2)}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
