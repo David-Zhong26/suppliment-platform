@@ -69,7 +69,7 @@ export default function ProfilePage() {
   const logSupplement = (supplementId: string) => {
     setSupplementLog(prev => ({
       ...prev,
-      [supplementId]: { ...prev[supplementId], taken: !prev[supplementId].taken }
+      [supplementId]: { ...prev[supplementId as keyof typeof prev], taken: !prev[supplementId as keyof typeof prev].taken }
     }))
   }
 
