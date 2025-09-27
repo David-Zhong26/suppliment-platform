@@ -44,72 +44,72 @@ export default function LandingPage() {
   ]
 
   const stats = [
-    { number: "10K+", label: "Verified Products" },
-    { number: "50K+", label: "Active Users" },
-    { number: "95%", label: "Safety Accuracy" },
-    { number: "4.8/5", label: "User Rating" }
+    { number: "10,000+", label: "Supplements Analyzed" },
+    { number: "50,000+", label: "Safety Checks" },
+    { number: "5,000+", label: "Community Members" },
+    { number: "4.9/5", label: "User Rating" }
   ]
 
   return (
     <div className="min-h-screen wellness-gradient">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 wellness-fade-in">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Heart className="h-8 w-8 text-[#2E7D32]" />
+            <Heart className="h-8 w-8 text-[#22C55E] wellness-scale-in" />
             <span className="text-2xl font-bold text-gray-900">Wellness Platform</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-[#2E7D32] transition-colors">Features</a>
-            <a href="#community" className="text-gray-600 hover:text-[#2E7D32] transition-colors">Community</a>
-            <a href="#safety" className="text-gray-600 hover:text-[#2E7D32] transition-colors">Safety</a>
+            <a href="#features" className="wellness-nav-link">Features</a>
+            <a href="#community" className="wellness-nav-link">Community</a>
+            <a href="#safety" className="wellness-nav-link">Safety</a>
           </nav>
           <div className="flex items-center space-x-4">
             <Link href="/auth/signin">
-              <Button variant="ghost">Sign In</Button>
+              <Button variant="ghost" className="wellness-nav-link">Sign In</Button>
             </Link>
             <Link href="/auth/signup">
-              <Button className="btn-primary-green">Get Started</Button>
+              <Button className="btn-primary-wellness">Get Started</Button>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 wellness-slide-up">
         <div className="container mx-auto text-center">
-          <Badge variant="secondary" className="mb-4">
+          <Badge className="wellness-badge mb-4 wellness-scale-in">
             🎯 Trusted by 50,000+ health enthusiasts
           </Badge>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Your Personalized
-            <span className="text-[#2E7D32] block">Wellness Journey</span>
+            Your <span className="wellness-gradient-text">Personalized</span>
+            <span className="wellness-gradient-text block">Wellness Journey</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Discover the right supplements for your health goals, avoid dangerous interactions, 
-            and connect with a community that supports your wellness journey.
+            Discover supplements tailored to your unique profile. Get safety insights, 
+            community, and shop with confidence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/signup">
-              <Button size="lg" className="text-lg px-8 btn-primary-green">
-                Start Your Journey
+              <Button size="lg" className="text-lg px-8 btn-primary-wellness">
+                Start Your Assessment
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="text-lg px-8">
-              Watch Demo
+            <Button variant="outline" size="lg" className="text-lg px-8 btn-outline-wellness">
+              Explore Community
             </Button>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white wellness-fade-in">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
-              <div key={index}>
-                <div className="text-3xl md:text-4xl font-bold text-[#2E7D32] mb-2">
+              <div key={index} className="wellness-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
+                <div className="wellness-stat-number mb-2">
                   {stat.number}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
@@ -122,13 +122,13 @@ export default function LandingPage() {
       {/* Features Section */}
       <section id="features" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 wellness-slide-up">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Everything You Need for Your Wellness Journey
+              Everything You Need for <span className="wellness-gradient-text">Optimal Wellness</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Our platform combines personalized recommendations, safety checks, 
-              and community support to help you make informed health decisions.
+              Our comprehensive platform combines AI-powered recommendations, safety checking, 
+              community support, and seamless shopping in one trusted place.
             </p>
           </div>
 
@@ -137,31 +137,34 @@ export default function LandingPage() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className={`p-6 rounded-lg cursor-pointer transition-all ${
-                    activeFeature === index 
-                      ? 'bg-[#2E7D32] text-white shadow-lg' 
-                      : 'bg-white hover:shadow-md'
-                  }`}
+                  className={`wellness-feature-card ${
+                    activeFeature === index ? 'active' : ''
+                  } wellness-scale-in`}
+                  style={{animationDelay: `${index * 0.1}s`}}
                   onClick={() => setActiveFeature(index)}
                 >
                   <div className="flex items-start space-x-4">
-                    <div className={`p-2 rounded-lg ${
-                      activeFeature === index ? 'bg-[#66BB6A]' : 'bg-[#A5D6A7]'
+                    <div className={`wellness-icon-bg ${
+                      activeFeature === index ? 'active' : ''
                     }`}>
                       {feature.icon}
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                       <p className="text-sm opacity-90">{feature.description}</p>
+                      <div className="mt-2 flex gap-2">
+                        <Badge variant="secondary" className="text-xs">Personalized</Badge>
+                        <Badge variant="secondary" className="text-xs">AI-Driven</Badge>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-lg">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="wellness-card wellness-card-hover wellness-scale-in">
+              <div className="text-center p-8">
+                <div className="w-16 h-16 wellness-gradient-bg rounded-full flex items-center justify-center mx-auto mb-4">
                   {features[activeFeature].icon}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -170,7 +173,7 @@ export default function LandingPage() {
                 <p className="text-gray-600 mb-6">
                   {features[activeFeature].description}
                 </p>
-                <Button className="w-full">
+                <Button className="w-full btn-primary-wellness">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -183,43 +186,43 @@ export default function LandingPage() {
       {/* Safety Section */}
       <section id="safety" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-center wellness-slide-up">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                Safety First: Your Health is Our Priority
+                <span className="wellness-gradient-text">Safety First</span>: Your Health is Our Priority
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Our comprehensive safety system checks for drug interactions, 
-                ingredient conflicts, and provides credibility verification for every product.
+                Every recommendation goes through our extensive multi-step safety screening. 
+                Your health and safety are our top priority.
               </p>
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                  <span className="text-gray-700">FDA-certified product verification</span>
+                <div className="flex items-center space-x-3 wellness-scale-in">
+                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <span className="text-gray-700">FDA Safety Verified</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                  <span className="text-gray-700">Drug-supplement interaction checker</span>
+                <div className="flex items-center space-x-3 wellness-scale-in" style={{animationDelay: '0.1s'}}>
+                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <span className="text-gray-700">Safety Checks</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                  <span className="text-gray-700">Third-party testing verification</span>
+                <div className="flex items-center space-x-3 wellness-scale-in" style={{animationDelay: '0.2s'}}>
+                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <span className="text-gray-700">Expert Guides</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                  <span className="text-gray-700">Real-time safety alerts</span>
+                <div className="flex items-center space-x-3 wellness-scale-in" style={{animationDelay: '0.3s'}}>
+                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <span className="text-gray-700">Real-time Safety Alerts</span>
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-xl">
+            <div className="wellness-gradient-bg p-8 rounded-xl wellness-card-hover">
               <div className="text-center">
-                <Shield className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                <Shield className="h-16 w-16 text-[#22C55E] mx-auto mb-4 wellness-scale-in" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Verified Safety Standards
+                  Safety Promise
                 </h3>
                 <p className="text-gray-600">
-                  Every product goes through our rigorous safety verification process 
-                  to ensure your health and peace of mind.
+                  Every recommendation goes through our extensive multi-step safety screening. 
+                  Your health and safety are our top priority.
                 </p>
               </div>
             </div>
@@ -230,57 +233,69 @@ export default function LandingPage() {
       {/* Community Section */}
       <section id="community" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Join a Supportive Health Community
+          <h2 className="text-4xl font-bold text-gray-900 mb-6 wellness-slide-up">
+            Learn from <span className="wellness-gradient-text">Real People Like You</span>
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            Connect with like-minded individuals, share your journey, and learn from 
-            verified health creators and wellness experts.
+            Connect with thousands of wellness enthusiasts, get advice from verified experts, 
+            and share your journey with people who understand your goals.
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card>
+            <Card className="wellness-card wellness-card-hover wellness-scale-in">
               <CardHeader>
-                <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Goal-Based Groups</CardTitle>
+                <Users className="h-12 w-12 text-[#22C55E] mx-auto mb-4" />
+                <CardTitle>Wellness Community</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  Join communities focused on your specific wellness goals like weight loss, 
-                  muscle gain, or clean eating.
+                  Connect with others. Join communities focused on your specific wellness goals 
+                  like weight loss, muscle gain, or clean eating.
                 </CardDescription>
+                <div className="mt-4 flex gap-2 justify-center">
+                  <Badge variant="secondary" className="text-xs">Request Support</Badge>
+                  <Badge variant="secondary" className="text-xs">Community Updates</Badge>
+                </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="wellness-card wellness-card-hover wellness-scale-in" style={{animationDelay: '0.1s'}}>
               <CardHeader>
-                <MessageCircle className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Expert Content</CardTitle>
+                <MessageCircle className="h-12 w-12 text-[#F97316] mx-auto mb-4" />
+                <CardTitle>Education Hub</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  Learn from verified creators who share evidence-based content, 
+                  Learn from experts. Learn from verified creators who share evidence-based content, 
                   product reviews, and wellness tips.
                 </CardDescription>
+                <div className="mt-4 flex gap-2 justify-center">
+                  <Badge variant="secondary" className="text-xs">Expert Guides</Badge>
+                  <Badge variant="secondary" className="text-xs">Myth Busters</Badge>
+                </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="wellness-card wellness-card-hover wellness-scale-in" style={{animationDelay: '0.2s'}}>
               <CardHeader>
-                <Star className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Community Challenges</CardTitle>
+                <Star className="h-12 w-12 text-[#22C55E] mx-auto mb-4" />
+                <CardTitle>Goal Tracking</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  Participate in group challenges, track progress together, 
+                  Track progress. Participate in group challenges, track progress together, 
                   and celebrate achievements as a community.
                 </CardDescription>
+                <div className="mt-4 flex gap-2 justify-center">
+                  <Badge variant="secondary" className="text-xs">Progress Tracking</Badge>
+                  <Badge variant="secondary" className="text-xs">Goal Setting</Badge>
+                </div>
               </CardContent>
             </Card>
           </div>
 
           <Link href="/auth/signup">
-            <Button size="lg" className="text-lg px-8">
+            <Button size="lg" className="text-lg px-8 btn-primary-wellness wellness-scale-in">
               Join the Community
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -289,35 +304,46 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600 text-white">
+      <section className="py-20 wellness-cta-section wellness-slide-up">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Ready to Transform Your Wellness Journey?
+            Start Your <span className="text-white">Wellness Journey</span> Today
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Join thousands of users who have found their perfect supplement matches 
-            and built lasting health habits.
+            Get personalized supplement recommendations, safety insights, and join a community 
+            of people committed to optimal wellness. It is free to start.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link href="/auth/signup">
-              <Button size="lg" variant="secondary" className="text-lg px-8">
+              <Button size="lg" variant="secondary" className="text-lg px-8 bg-white text-[#22C55E] hover:bg-gray-100 wellness-scale-in">
                 Get Started Free
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-blue-600">
-              Learn More
+            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-[#22C55E] wellness-scale-in" style={{animationDelay: '0.1s'}}>
+              Watch Demo
             </Button>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <div className="wellness-scale-in">
+              <h3 className="text-lg font-semibold mb-2">Personalized Road</h3>
+              <p className="text-sm opacity-90">AI-powered recommendations</p>
+            </div>
+            <div className="wellness-scale-in" style={{animationDelay: '0.1s'}}>
+              <h3 className="text-lg font-semibold mb-2">Safe & Trusted</h3>
+              <p className="text-sm opacity-90">Rigorous safety screening</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-12 wellness-fade-in">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Heart className="h-6 w-6 text-blue-400" />
+                <Heart className="h-6 w-6 text-[#22C55E]" />
                 <span className="text-xl font-bold">Wellness Platform</span>
               </div>
               <p className="text-gray-400">
@@ -351,6 +377,10 @@ export default function LandingPage() {
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 Wellness Platform. All rights reserved.</p>
+            <div className="mt-4 flex justify-center gap-6">
+              <a href="#" className="hover:text-[#22C55E] transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-[#22C55E] transition-colors">Terms of Service</a>
+            </div>
           </div>
         </div>
       </footer>

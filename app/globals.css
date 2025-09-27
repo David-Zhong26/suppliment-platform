@@ -4,34 +4,36 @@
 
 @layer base {
   :root {
-    /* Green Wellness Theme */
-    --background: 0 0% 98%; /* #F9FAF9 */
-    --foreground: 0 0% 13%; /* #212121 */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 13%;
+    /* Wellness Platform Color Scheme */
+    --background: 0 0% 98%; /* Light cream background */
+    --foreground: 0 0% 15%; /* Dark gray text */
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 0 0% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 13%;
-    --primary: 122 39% 35%; /* #2E7D32 */
+    --popover-foreground: 0 0% 15%;
+    --primary: 142 76% 36%; /* Vibrant green #22C55E */
     --primary-foreground: 0 0% 100%;
-    --secondary: 122 39% 60%; /* #66BB6A */
-    --secondary-foreground: 0 0% 13%;
+    --secondary: 24 95% 53%; /* Vibrant orange #F97316 */
+    --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-    --accent: 122 39% 80%; /* #A5D6A7 */
-    --accent-foreground: 0 0% 13%;
+    --accent: 142 76% 90%; /* Light green accent */
+    --accent-foreground: 0 0% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 122 39% 35%; /* #2E7D32 */
-    --radius: 0.5rem;
+    --ring: 142 76% 36%;
+    --radius: 0.75rem;
     
-    /* Custom Green Palette */
-    --green-primary: 122 39% 35%; /* #2E7D32 */
-    --green-secondary: 122 39% 60%; /* #66BB6A */
-    --green-accent: 122 39% 80%; /* #A5D6A7 */
-    --green-text: 122 39% 30%; /* #4E944F */
-    --wellness-bg: 0 0% 98%; /* #F9FAF9 */
+    /* Custom Wellness Palette */
+    --wellness-green: 142 76% 36%; /* #22C55E */
+    --wellness-green-light: 142 76% 90%; /* #DCFCE7 */
+    --wellness-orange: 24 95% 53%; /* #F97316 */
+    --wellness-orange-light: 24 95% 90%; /* #FED7AA */
+    --wellness-bg: 0 0% 98%; /* #FAFAF9 */
+    --wellness-text: 0 0% 15%; /* #262626 */
+    --wellness-muted: 0 0% 45%; /* #737373 */
   }
 
   .dark {
@@ -68,36 +70,142 @@
 }
 
 @layer components {
-  /* Green Theme Components */
-  .btn-primary-green {
-    @apply bg-[#2E7D32] text-white hover:bg-[#66BB6A] transition-colors;
+  /* Wellness Platform Components */
+  .btn-primary-wellness {
+    @apply bg-[#22C55E] text-white hover:bg-[#16A34A] transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
   
-  .btn-secondary-green {
-    @apply bg-[#66BB6A] text-white hover:bg-[#2E7D32] transition-colors;
+  .btn-secondary-wellness {
+    @apply bg-[#F97316] text-white hover:bg-[#EA580C] transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
   
-  .progress-green {
-    background: linear-gradient(90deg, #2E7D32 0%, #66BB6A 100%);
+  .btn-outline-wellness {
+    @apply border-2 border-[#22C55E] text-[#22C55E] hover:bg-[#22C55E] hover:text-white transition-all duration-300 ease-in-out;
   }
   
   .wellness-gradient {
-    background: linear-gradient(135deg, #F9FAF9 0%, #ffffff 100%);
+    background: linear-gradient(135deg, hsl(var(--wellness-bg)) 0%, #ffffff 100%);
   }
   
-  .wellness-header {
-    @apply wellness-gradient border-l-4 border-[#2E7D32];
+  .wellness-gradient-text {
+    background: linear-gradient(135deg, #22C55E 0%, #F97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
-  .match-percentage {
-    @apply text-[#2E7D32] font-bold;
+  .wellness-gradient-bg {
+    background: linear-gradient(135deg, #DCFCE7 0%, #FED7AA 100%);
   }
   
-  .green-accent-text {
-    @apply text-[#4E944F];
+  .wellness-card {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1;
   }
   
-  .comparison-highlight {
-    @apply border-2 border-[#A5D6A7] bg-[#F9FAF9];
+  .wellness-card-hover {
+    @apply hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out;
+  }
+  
+  .wellness-feature-card {
+    @apply p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out cursor-pointer border-2 border-transparent hover:border-[#22C55E]/20;
+  }
+  
+  .wellness-feature-card.active {
+    @apply bg-gradient-to-br from-[#22C55E] to-[#16A34A] text-white shadow-lg;
+  }
+  
+  .wellness-icon-bg {
+    @apply p-3 rounded-lg bg-gradient-to-br from-[#DCFCE7] to-[#FED7AA] transition-all duration-300;
+  }
+  
+  .wellness-icon-bg.active {
+    @apply bg-gradient-to-br from-[#22C55E] to-[#F97316];
+  }
+  
+  .wellness-progress {
+    background: linear-gradient(90deg, #22C55E 0%, #F97316 100%);
+    @apply rounded-full transition-all duration-500 ease-out;
+  }
+  
+  .wellness-badge {
+    @apply bg-gradient-to-r from-[#22C55E] to-[#F97316] text-white px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .wellness-safety-score {
+    @apply bg-gradient-to-r from-[#22C55E] to-[#16A34A] text-white font-bold px-2 py-1 rounded text-xs;
+  }
+  
+  .wellness-cta-section {
+    background: linear-gradient(135deg, #22C55E 0%, #F97316 100%);
+    @apply text-white;
+  }
+  
+  .wellness-nav-link {
+    @apply text-gray-600 hover:text-[#22C55E] transition-colors duration-200 ease-in-out relative;
+  }
+  
+  .wellness-nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#22C55E] to-[#F97316] transition-all duration-300;
+  }
+  
+  .wellness-nav-link:hover::after {
+    @apply w-full;
+  }
+  
+  .wellness-stat-number {
+    @apply text-4xl font-bold bg-gradient-to-r from-[#22C55E] to-[#F97316] bg-clip-text text-transparent;
+  }
+  
+  .wellness-match-percentage {
+    @apply text-[#22C55E] font-bold bg-[#DCFCE7] px-2 py-1 rounded-full;
+  }
+  
+  .wellness-rating {
+    @apply text-[#F97316] font-semibold;
+  }
+  
+  .wellness-price {
+    @apply text-[#22C55E] font-bold text-lg;
+  }
+  
+  /* Smooth animations */
+  .wellness-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .wellness-slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+  
+  .wellness-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
