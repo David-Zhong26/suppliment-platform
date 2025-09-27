@@ -43,7 +43,7 @@ import {
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState('home')
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedChallenge, setSelectedChallenge] = useState(null)
+  const [selectedChallenge, setSelectedChallenge] = useState<typeof challenges[0] | null>(null)
 
   // User data (demo)
   const currentUser = {
