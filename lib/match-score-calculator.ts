@@ -232,7 +232,7 @@ export class MatchScoreCalculator {
     let score = 50 // Base score
     
     // Certification bonuses
-    const certificationScores = {
+    const certificationScores: Record<string, number> = {
       'third-party-tested': 15,
       'fda-registered': 20,
       'gmp-certified': 15,
@@ -248,7 +248,7 @@ export class MatchScoreCalculator {
     }
     
     // Evidence strength
-    const evidenceScores = {
+    const evidenceScores: Record<string, number> = {
       'high': 20,
       'moderate': 10,
       'low': 0
@@ -256,7 +256,7 @@ export class MatchScoreCalculator {
     score += evidenceScores[product.evidenceStrength] || 0
     
     // Brand reputation
-    const brandScores = {
+    const brandScores: Record<string, number> = {
       'excellent': 15,
       'good': 10,
       'fair': 5,
@@ -314,7 +314,7 @@ export class MatchScoreCalculator {
    */
   private static isOptimalDosage(ingredient: any): boolean {
     // This would be expanded with a comprehensive dosage database
-    const optimalDosages = {
+    const optimalDosages: Record<string, string[]> = {
       'vitamin d': ['1000', '2000', '4000'], // IU
       'omega-3': ['1000', '1200', '1500'], // mg
       'magnesium': ['200', '400', '600'], // mg
