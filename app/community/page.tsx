@@ -43,6 +43,7 @@ import {
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState('home')
   const [searchTerm, setSearchTerm] = useState('')
+  const [selectedChallenge, setSelectedChallenge] = useState(null)
 
   // User data (demo)
   const currentUser = {
@@ -55,6 +56,108 @@ export default function CommunityPage() {
     badge: 'Top Contributor',
     streak: 7
   }
+
+  // Detailed challenge data
+  const challenges = [
+    {
+      id: 'hydration',
+      name: 'Hydration Challenge',
+      icon: '💧',
+      description: 'Drink 8 glasses of water daily for 30 days. Track your streak and earn points for consistency. Staying hydrated supports energy, skin health, and digestion.',
+      duration: '30 days',
+      difficulty: 'Easy',
+      participants: 1247,
+      points: 50,
+      badge: 'Hydration Hero',
+      discount: '5%',
+      benefits: [
+        'Improved energy levels throughout the day',
+        'Better skin health and complexion',
+        'Enhanced digestion and nutrient absorption',
+        'Reduced headaches and fatigue',
+        'Better cognitive function and focus'
+      ],
+      tips: [
+        'Start your day with a glass of water',
+        'Set hourly reminders on your phone',
+        'Use a marked water bottle to track intake',
+        'Add lemon or cucumber for flavor variety',
+        'Track your progress in the app daily'
+      ],
+      leaderboard: [
+        { rank: 1, name: 'FitLifeJane', avatar: 'FJ', progress: 27, total: 30, streak: 12, points: 45, tier: 'Gold' },
+        { rank: 2, name: 'HealthyMike', avatar: 'HM', progress: 25, total: 30, streak: 9, points: 40, tier: 'Silver' },
+        { rank: 3, name: 'SarahM', avatar: 'SM', progress: 24, total: 30, streak: 7, points: 38, tier: 'Silver' },
+        { rank: 4, name: 'User123', avatar: 'U1', progress: 20, total: 30, streak: 5, points: 35, tier: 'Bronze' },
+        { rank: 5, name: 'AlexR', avatar: 'AR', progress: 18, total: 30, streak: 3, points: 30, tier: 'Bronze' }
+      ],
+      userProgress: { progress: 15, total: 30, streak: 7, rank: 8 }
+    },
+    {
+      id: 'veggie',
+      name: 'Veggie Boost Challenge',
+      icon: '🥦',
+      description: 'Eat 3 servings of vegetables daily for 14 days. Focus on variety and color to maximize nutrient intake.',
+      duration: '14 days',
+      difficulty: 'Medium',
+      participants: 892,
+      points: 30,
+      badge: 'Veggie Master',
+      discount: '3%',
+      benefits: [
+        'Increased fiber intake for better digestion',
+        'Higher vitamin and mineral consumption',
+        'Improved immune system function',
+        'Better weight management',
+        'Reduced inflammation in the body'
+      ],
+      tips: [
+        'Meal prep vegetables at the start of the week',
+        'Add vegetables to smoothies and soups',
+        'Keep cut vegetables ready for snacking',
+        'Try new vegetables each week',
+        'Use herbs and spices to enhance flavor'
+      ],
+      leaderboard: [
+        { rank: 1, name: 'GreenEater', avatar: 'GE', progress: 12, total: 14, streak: 10, points: 28, tier: 'Silver' },
+        { rank: 2, name: 'VeggieVibes', avatar: 'VV', progress: 11, total: 14, streak: 8, points: 25, tier: 'Silver' },
+        { rank: 3, name: 'HealthyChoices', avatar: 'HC', progress: 10, total: 14, streak: 6, points: 22, tier: 'Bronze' }
+      ],
+      userProgress: { progress: 8, total: 14, streak: 5, rank: 5 }
+    },
+    {
+      id: 'sleep',
+      name: 'Sleep Reset Challenge',
+      icon: '💤',
+      description: 'Go to bed before 11 PM for 7 days straight. Establish a consistent sleep schedule for better rest and recovery.',
+      duration: '7 days',
+      difficulty: 'Hard',
+      participants: 634,
+      points: 40,
+      badge: 'Sleep Champion',
+      discount: '4%',
+      benefits: [
+        'Improved sleep quality and duration',
+        'Better mood and emotional regulation',
+        'Enhanced memory and learning',
+        'Stronger immune system',
+        'Reduced stress and anxiety'
+      ],
+      tips: [
+        'Create a relaxing bedtime routine',
+        'Avoid screens 1 hour before bed',
+        'Keep your bedroom cool and dark',
+        'Avoid caffeine after 2 PM',
+        'Use relaxation techniques like meditation'
+      ],
+      leaderboard: [
+        { rank: 1, name: 'SleepWell', avatar: 'SW', progress: 6, total: 7, streak: 6, points: 38, tier: 'Gold' },
+        { rank: 2, name: 'RestEasy', avatar: 'RE', progress: 5, total: 7, streak: 5, points: 35, tier: 'Silver' },
+        { rank: 3, name: 'DreamCatcher', avatar: 'DC', progress: 5, total: 7, streak: 4, points: 32, tier: 'Silver' }
+      ],
+      userProgress: { progress: 3, total: 7, streak: 3, rank: 4 }
+    }
+  ]
 
   // Topic categories
   const topicCategories = [
@@ -256,172 +359,64 @@ export default function CommunityPage() {
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Active Challenges</h2>
                 
-                {/* Hydration Challenge Card */}
-                <Card className="border-2 border-[#16A34A] bg-gradient-to-r from-[#F0FDF4] to-white mb-8">
-                  <CardContent className="p-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                      {/* Challenge Info */}
-                      <div>
+                {/* Challenge Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {challenges.map((challenge) => (
+                    <Card key={challenge.id} className="hover:shadow-lg transition-all duration-300 border-2 hover:border-[#16A34A]">
+                      <CardContent className="p-6">
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span className="text-2xl">💧</span>
+                            <span className="text-2xl">{challenge.icon}</span>
                           </div>
-                          <h3 className="text-2xl font-bold text-gray-900">Hydration Challenge</h3>
+                          <div>
+                            <h3 className="text-lg font-bold text-gray-900">{challenge.name}</h3>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="secondary" className="text-xs">
+                                {challenge.difficulty}
+                              </Badge>
+                              <Badge variant="outline" className="text-xs">
+                                {challenge.duration}
+                              </Badge>
+                            </div>
+                          </div>
                         </div>
                         
-                        <p className="text-gray-600 mb-6 leading-relaxed">
-                          "Drink 8 glasses of water daily for 30 days. Track your streak and earn points for consistency. Staying hydrated supports energy, skin health, and digestion."
+                        <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                          {challenge.description}
                         </p>
                         
-                        <div className="mb-6">
-                          <h4 className="font-semibold text-gray-900 mb-3">Rewards:</h4>
-                          <ul className="space-y-2">
-                            <li className="flex items-center gap-2">
-                              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
-                              <span className="text-gray-700">+50 points for completing</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
-                              <span className="text-gray-700">Earn the <strong>Hydration Hero</strong> badge</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
-                              <span className="text-gray-700">Unlock 5% discount on your next supplement order</span>
-                            </li>
-                          </ul>
+                        <div className="mb-4">
+                          <div className="flex items-center justify-between text-sm mb-2">
+                            <span className="text-gray-600">Participants</span>
+                            <span className="font-medium">{challenge.participants.toLocaleString()}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-gray-600">Rewards</span>
+                            <div className="flex gap-2">
+                              <Badge className="bg-[#16A34A] text-white text-xs">+{challenge.points} pts</Badge>
+                              <Badge variant="outline" className="text-xs">{challenge.discount} off</Badge>
+                            </div>
+                          </div>
                         </div>
                         
-                        <Button className="bg-[#16A34A] hover:bg-[#15803d] text-white text-lg px-8 py-3">
-                          👉 Join Challenge
-                        </Button>
-                      </div>
-                      
-                      {/* Challenge Leaderboard */}
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-4">Challenge Leaderboard</h4>
-                        <div className="bg-white rounded-lg border border-gray-200 p-4">
-                          <div className="overflow-x-auto">
-                            <table className="w-full text-sm">
-                              <thead>
-                                <tr className="border-b border-gray-200">
-                                  <th className="text-left py-2">Rank</th>
-                                  <th className="text-left py-2">User</th>
-                                  <th className="text-left py-2">Progress</th>
-                                  <th className="text-left py-2">Streak</th>
-                                  <th className="text-left py-2">Points</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr className="border-b border-gray-100">
-                                  <td className="py-2">🥇</td>
-                                  <td className="py-2 font-medium">FitLifeJane</td>
-                                  <td className="py-2">27/30 days</td>
-                                  <td className="py-2">🔥 12-day streak</td>
-                                  <td className="py-2">45 pts</td>
-                                </tr>
-                                <tr className="border-b border-gray-100">
-                                  <td className="py-2">🥈</td>
-                                  <td className="py-2 font-medium">HealthyMike</td>
-                                  <td className="py-2">25/30 days</td>
-                                  <td className="py-2">🔥 9-day streak</td>
-                                  <td className="py-2">40 pts</td>
-                                </tr>
-                                <tr className="border-b border-gray-100">
-                                  <td className="py-2">🥉</td>
-                                  <td className="py-2 font-medium">SarahM</td>
-                                  <td className="py-2">24/30 days</td>
-                                  <td className="py-2">🔥 7-day streak</td>
-                                  <td className="py-2">38 pts</td>
-                                </tr>
-                                <tr className="border-b border-gray-100">
-                                  <td className="py-2">4</td>
-                                  <td className="py-2 font-medium">User123</td>
-                                  <td className="py-2">20/30 days</td>
-                                  <td className="py-2">🔥 5-day streak</td>
-                                  <td className="py-2">35 pts</td>
-                                </tr>
-                                <tr>
-                                  <td className="py-2">5</td>
-                                  <td className="py-2 font-medium">AlexR</td>
-                                  <td className="py-2">18/30 days</td>
-                                  <td className="py-2">🔥 3-day streak</td>
-                                  <td className="py-2">30 pts</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          
-                          {/* Your Status */}
-                          <div className="mt-4 p-3 bg-[#F0FDF4] border border-[#16A34A] rounded-lg">
-                            <p className="text-sm text-gray-700">
-                              <strong>Your Status:</strong> You've completed 15/30 days. Keep going! You're ranked #8.
-                            </p>
-                          </div>
+                        <div className="flex gap-2">
+                          <Button 
+                            className="flex-1 bg-[#16A34A] hover:bg-[#15803d] text-white"
+                            onClick={() => setSelectedChallenge(challenge)}
+                          >
+                            Join Challenge
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="icon"
+                            onClick={() => setSelectedChallenge(challenge)}
+                          >
+                            <Info className="h-4 w-4" />
+                          </Button>
                         </div>
-                      </div>
-                    </div>
-                    
-                    {/* Why This Works */}
-                    <div className="mt-8 pt-6 border-t border-gray-200">
-                      <h4 className="font-semibold text-gray-900 mb-3">Why this works:</h4>
-                      <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-[#16A34A] mt-0.5 flex-shrink-0" />
-                          <span>Friendly competition: focuses only on people in <em>this</em> challenge.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-[#16A34A] mt-0.5 flex-shrink-0" />
-                          <span>Motivates consistency: streak fire icons 🔥 show off daily commitment.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-[#16A34A] mt-0.5 flex-shrink-0" />
-                          <span>Scalable: every challenge gets its own mini leaderboard.</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Additional Challenge Ideas (Preview) */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <Card className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                          <span className="text-xl">🥦</span>
-                        </div>
-                        <h4 className="font-bold text-gray-900">Veggie Boost Challenge</h4>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-3">Eat 3 servings of vegetables daily for 14 days</p>
-                      <Badge className="bg-[#16A34A] text-white">+30 pts</Badge>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                          <span className="text-xl">💤</span>
-                        </div>
-                        <h4 className="font-bold text-gray-900">Sleep Reset Challenge</h4>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-3">Go to bed before 11 PM for 7 days straight</p>
-                      <Badge className="bg-[#16A34A] text-white">+40 pts</Badge>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                          <span className="text-xl">🏃</span>
-                        </div>
-                        <h4 className="font-bold text-gray-900">Move More Challenge</h4>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-3">Log 7,000+ steps every day for 10 days</p>
-                      <Badge className="bg-[#16A34A] text-white">+45 pts</Badge>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </div>
             )}
@@ -759,6 +754,182 @@ export default function CommunityPage() {
             </Card>
           </div>
         </div>
+
+        {/* Challenge Detail Modal */}
+        {selectedChallenge && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-8">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-3xl">{selectedChallenge.icon}</span>
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900">{selectedChallenge.name}</h2>
+                      <div className="flex items-center gap-3 mt-2">
+                        <Badge variant="secondary">{selectedChallenge.difficulty}</Badge>
+                        <Badge variant="outline">{selectedChallenge.duration}</Badge>
+                        <span className="text-sm text-gray-600">{selectedChallenge.participants.toLocaleString()} participants</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    onClick={() => setSelectedChallenge(null)}
+                  >
+                    <X className="h-6 w-6" />
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column - Challenge Details */}
+                  <div className="space-y-6">
+                    {/* Description */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">About This Challenge</h3>
+                      <p className="text-gray-600 leading-relaxed">{selectedChallenge.description}</p>
+                    </div>
+
+                    {/* Benefits */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Benefits</h3>
+                      <ul className="space-y-2">
+                        {selectedChallenge.benefits.map((benefit, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <CheckCircle className="h-5 w-5 text-[#16A34A] mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Tips */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Success Tips</h3>
+                      <ul className="space-y-2">
+                        {selectedChallenge.tips.map((tip, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <Target className="h-5 w-5 text-[#F97316] mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Rewards */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Rewards</h3>
+                      <div className="bg-[#F0FDF4] border border-[#16A34A] rounded-lg p-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                          <div>
+                            <div className="text-2xl font-bold text-[#16A34A]">+{selectedChallenge.points}</div>
+                            <div className="text-sm text-gray-600">Points</div>
+                          </div>
+                          <div>
+                            <div className="text-lg font-bold text-[#16A34A]">{selectedChallenge.badge}</div>
+                            <div className="text-sm text-gray-600">Badge</div>
+                          </div>
+                          <div>
+                            <div className="text-2xl font-bold text-[#16A34A]">{selectedChallenge.discount}</div>
+                            <div className="text-sm text-gray-600">Discount</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column - Leaderboard */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Leaderboard</h3>
+                    
+                    {/* Your Progress */}
+                    <div className="bg-[#F0FDF4] border border-[#16A34A] rounded-lg p-4 mb-6">
+                      <h4 className="font-semibold text-gray-900 mb-2">Your Progress</h4>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-gray-600">
+                          {selectedChallenge.userProgress.progress}/{selectedChallenge.userProgress.total} days completed
+                        </span>
+                        <span className="text-sm font-medium text-[#16A34A]">
+                          {Math.round((selectedChallenge.userProgress.progress / selectedChallenge.userProgress.total) * 100)}%
+                        </span>
+                      </div>
+                      <Progress value={(selectedChallenge.userProgress.progress / selectedChallenge.userProgress.total) * 100} className="h-2 mb-3" />
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">Current Rank: #{selectedChallenge.userProgress.rank}</span>
+                        <span className="flex items-center gap-1 text-[#F97316]">
+                          <Flame className="h-4 w-4" />
+                          {selectedChallenge.userProgress.streak} day streak
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Top Participants */}
+                    <div className="space-y-3">
+                      {selectedChallenge.leaderboard.map((participant, index) => {
+                        const progressPercent = (participant.progress / participant.total) * 100
+                        const tierColor = participant.tier === 'Gold' ? 'text-yellow-600' : 
+                                         participant.tier === 'Silver' ? 'text-gray-600' : 'text-orange-600'
+                        const tierBg = participant.tier === 'Gold' ? 'bg-yellow-100' : 
+                                       participant.tier === 'Silver' ? 'bg-gray-100' : 'bg-orange-100'
+                        
+                        return (
+                          <div key={index} className="flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+                            {/* Rank */}
+                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#16A34A] text-white font-bold text-sm">
+                              {participant.rank}
+                            </div>
+                            
+                            {/* Avatar */}
+                            <div className="w-12 h-12 bg-[#16A34A] rounded-full flex items-center justify-center text-white font-bold">
+                              {participant.avatar}
+                            </div>
+                            
+                            {/* Info */}
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="font-medium text-gray-900">{participant.name}</span>
+                                <Badge variant="secondary" className={`text-xs ${tierColor} ${tierBg}`}>
+                                  {participant.tier}
+                                </Badge>
+                              </div>
+                              <div className="flex items-center justify-between text-sm text-gray-600">
+                                <span>{participant.progress}/{participant.total} days</span>
+                                <span className="flex items-center gap-1">
+                                  <Flame className="h-3 w-3 text-[#F97316]" />
+                                  {participant.streak} day streak
+                                </span>
+                              </div>
+                              <Progress value={progressPercent} className="h-1.5 mt-1" />
+                            </div>
+                            
+                            {/* Points */}
+                            <div className="text-right">
+                              <div className="text-lg font-bold text-[#16A34A]">{participant.points}</div>
+                              <div className="text-xs text-gray-500">pts</div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
+                  <Button className="flex-1 bg-[#16A34A] hover:bg-[#15803d] text-white text-lg py-3">
+                    👉 Join Challenge
+                  </Button>
+                  <Button variant="outline" className="px-8">
+                    Share Challenge
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Footer */}
         <div className="mt-12 pt-8 border-t border-gray-200 text-center">
