@@ -177,7 +177,7 @@ export default function LandingPage() {
                 <p className="text-gray-600 mb-6">
                   {features[activeFeature].description}
                 </p>
-                <Button className="w-full btn-primary-wellness">
+                <Button className="w-full btn-primary-wellness hover:bg-[#15803d] focus:bg-[#15803d] active:bg-[#15803d]">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -299,7 +299,7 @@ export default function LandingPage() {
           </div>
 
           <Link href="/auth/signup">
-            <Button size="lg" className="text-lg px-8 btn-primary-wellness wellness-scale-in">
+            <Button size="lg" className="text-lg px-8 btn-primary-wellness hover:bg-[#15803d] focus:bg-[#15803d] active:bg-[#15803d] wellness-scale-in">
               Join the Community
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

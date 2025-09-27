@@ -75,12 +75,40 @@
     @apply bg-[#16A34A] text-white hover:bg-[#15803d] focus:bg-[#15803d] active:bg-[#15803d] transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
   
+  .btn-primary-wellness:hover,
+  .btn-primary-wellness:focus,
+  .btn-primary-wellness:active {
+    @apply text-white !important;
+  }
+  
   .btn-secondary-wellness {
     @apply bg-[#F97316] text-white hover:bg-[#EA580C] transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
   
   .btn-outline-wellness {
     @apply border-2 border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white focus:bg-[#16A34A] focus:text-white active:bg-[#16A34A] active:text-white transition-all duration-300 ease-in-out;
+  }
+  
+  .btn-outline-wellness:hover,
+  .btn-outline-wellness:focus,
+  .btn-outline-wellness:active {
+    @apply text-white !important;
+  }
+  
+  /* Global button text color fixes */
+  button[class*="btn-primary"]:hover,
+  button[class*="btn-primary"]:focus,
+  button[class*="btn-primary"]:active,
+  button[class*="btn-secondary"]:hover,
+  button[class*="btn-secondary"]:focus,
+  button[class*="btn-secondary"]:active {
+    color: white !important;
+  }
+  
+  button[class*="btn-outline"]:hover,
+  button[class*="btn-outline"]:focus,
+  button[class*="btn-outline"]:active {
+    color: white !important;
   }
   
   .wellness-gradient {
