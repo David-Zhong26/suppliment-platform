@@ -341,9 +341,9 @@ export default function ProfilePage() {
                     <div>
                       <Badge variant="secondary">In Progress</Badge>
                       <div className="mt-2">
-                        <Progress value={badge.progress * 100} className="h-2" />
+                        <Progress value={(badge.progress || 0) * 100} className="h-2" />
                         <p className="text-xs text-gray-500 mt-1">
-                          {Math.round(badge.progress * 100)}% complete
+                          {Math.round((badge.progress || 0) * 100)}% complete
                         </p>
                       </div>
                     </div>
