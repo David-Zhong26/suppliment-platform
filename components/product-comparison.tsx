@@ -564,8 +564,9 @@ export default function ProductComparison() {
 
   const compareSelectedProducts = () => {
     if (selectedForComparison.length >= 2) {
-      // Show comparison modal or navigate to comparison page
-      alert(`Comparing ${selectedForComparison.length} products!`)
+      // Navigate to compare page with selected product IDs
+      const ids = selectedForComparison.join(',')
+      window.location.href = `/compare?ids=${ids}`
     } else {
       alert('Please select at least 2 products to compare')
     }
