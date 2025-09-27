@@ -79,81 +79,93 @@ export default function ProfilePage() {
       
       <div className="container mx-auto px-4 py-8">
         {/* Profile Header */}
-        <div className="bg-white rounded-2xl p-8 mb-8 shadow-sm">
-          <div className="flex items-center space-x-6">
-            <div className="w-20 h-20 bg-gradient-to-r from-[#22C55E] to-[#F97316] rounded-full flex items-center justify-center text-white text-3xl font-bold">
+        <div className="bg-white rounded-2xl p-10 mb-10 shadow-sm">
+          <div className="flex items-center space-x-8">
+            <div className="w-24 h-24 bg-gradient-to-r from-[#22C55E] to-[#F97316] rounded-full flex items-center justify-center text-white text-4xl font-bold">
               JD
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">John Doe</h1>
-              <p className="text-gray-600 mb-4">Wellness Enthusiast • Level {userStats.level}</p>
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center space-x-2">
-                  <Flame className="h-5 w-5 text-[#F97316]" />
-                  <span className="font-semibold text-gray-900">{userStats.currentStreak} day streak</span>
+              <h1 className="text-4xl font-bold text-gray-900 mb-3">John Doe</h1>
+              <p className="text-xl text-gray-600 mb-6">Wellness Enthusiast • Level {userStats.level}</p>
+              <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-3">
+                  <Flame className="h-6 w-6 text-[#F97316]" />
+                  <span className="font-semibold text-gray-900 text-lg">{userStats.currentStreak} day streak</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Trophy className="h-5 w-5 text-[#F97316]" />
-                  <span className="text-gray-600">Best: {userStats.longestStreak} days</span>
+                <div className="flex items-center space-x-3">
+                  <Trophy className="h-6 w-6 text-[#F97316]" />
+                  <span className="text-gray-600 text-lg">Best: {userStats.longestStreak} days</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Calendar className="h-5 w-5 text-[#22C55E]" />
-                  <span className="text-gray-600">{userStats.totalDays} total days</span>
+                <div className="flex items-center space-x-3">
+                  <Calendar className="h-6 w-6 text-[#22C55E]" />
+                  <span className="text-gray-600 text-lg">{userStats.totalDays} total days</span>
                 </div>
               </div>
             </div>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Edit className="h-4 w-4" />
-              Edit Profile
+            <Button variant="outline" className="flex items-center space-x-3 px-6 py-3">
+              <Edit className="h-5 w-5" />
+              <span className="text-lg">Edit Profile</span>
             </Button>
           </div>
         </div>
 
         {/* Level Progress */}
-        <Card className="mb-8 bg-gradient-to-r from-[#22C55E] to-[#F97316] text-white">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
+        <Card className="mb-10 bg-gradient-to-r from-[#22C55E] to-[#F97316] text-white">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-xl font-bold mb-1">Level {userStats.level}</h2>
-                <p className="opacity-90">Keep going to reach Level {userStats.level + 1}!</p>
+                <h2 className="text-2xl font-bold mb-2">Level {userStats.level}</h2>
+                <p className="opacity-90 text-lg">Keep going to reach Level {userStats.level + 1}!</p>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold">{userStats.xp} XP</div>
-                <div className="text-sm opacity-90">Next: {userStats.nextLevelXp} XP</div>
+                <div className="text-3xl font-bold">{userStats.xp} XP</div>
+                <div className="text-lg opacity-90">Next: {userStats.nextLevelXp} XP</div>
               </div>
             </div>
             <Progress 
               value={(userStats.xp / userStats.nextLevelXp) * 100} 
-              className="h-3 bg-white/20"
+              className="h-4 bg-white/20"
             />
           </CardContent>
         </Card>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-1 mb-8 bg-white p-1 rounded-lg w-fit">
+        <div className="flex space-x-2 mb-10 bg-white p-2 rounded-xl w-fit shadow-sm">
           <Button
             variant={selectedTab === 'tracker' ? 'default' : 'ghost'}
             onClick={() => setSelectedTab('tracker')}
-            className={selectedTab === 'tracker' ? 'bg-[#22C55E] text-white' : 'text-gray-600'}
+            className={`px-6 py-3 ${
+              selectedTab === 'tracker' 
+                ? 'bg-[#22C55E] text-white shadow-md' 
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
           >
-            <Target className="h-4 w-4 mr-2" />
-            Supplement Tracker
+            <Target className="h-5 w-5 mr-3" />
+            <span className="font-medium">Supplement Tracker</span>
           </Button>
           <Button
             variant={selectedTab === 'achievements' ? 'default' : 'ghost'}
             onClick={() => setSelectedTab('achievements')}
-            className={selectedTab === 'achievements' ? 'bg-[#22C55E] text-white' : 'text-gray-600'}
+            className={`px-6 py-3 ${
+              selectedTab === 'achievements' 
+                ? 'bg-[#22C55E] text-white shadow-md' 
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
           >
-            <Award className="h-4 w-4 mr-2" />
-            Achievements
+            <Award className="h-5 w-5 mr-3" />
+            <span className="font-medium">Achievements</span>
           </Button>
           <Button
             variant={selectedTab === 'stats' ? 'default' : 'ghost'}
             onClick={() => setSelectedTab('stats')}
-            className={selectedTab === 'stats' ? 'bg-[#22C55E] text-white' : 'text-gray-600'}
+            className={`px-6 py-3 ${
+              selectedTab === 'stats' 
+                ? 'bg-[#22C55E] text-white shadow-md' 
+                : 'text-gray-600 hover:bg-gray-50'
+            }`}
           >
-            <TrendingUp className="h-4 w-4 mr-2" />
-            Statistics
+            <TrendingUp className="h-5 w-5 mr-3" />
+            <span className="font-medium">Statistics</span>
           </Button>
         </div>
 
@@ -162,59 +174,60 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Daily Tracker */}
             <div className="lg:col-span-2">
-              <Card className="bg-white rounded-lg mb-6">
-                <CardHeader>
+              <Card className="bg-white rounded-xl mb-8 shadow-sm">
+                <CardHeader className="pb-4">
                   <CardTitle className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <Target className="h-5 w-5 text-[#22C55E]" />
-                      <span>Today's Supplements</span>
+                    <div className="flex items-center space-x-3">
+                      <Target className="h-6 w-6 text-[#22C55E]" />
+                      <span className="text-xl font-bold">Today's Supplements</span>
                     </div>
-                    <Badge variant="secondary" className="bg-[#DCFCE7] text-[#22C55E]">
+                    <Badge variant="secondary" className="bg-[#DCFCE7] text-[#22C55E] px-4 py-2 text-sm font-medium">
                       {supplementGoals.filter(s => s.completed).length}/{supplementGoals.length} Complete
                     </Badge>
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
+                <CardContent className="pt-0">
+                  <div className="space-y-6">
                     {supplementGoals.map((supplement) => (
                       <div
                         key={supplement.id}
-                        className={`p-4 rounded-lg border-2 transition-all ${
+                        className={`p-6 rounded-xl border-2 transition-all ${
                           supplement.completed
                             ? 'border-[#22C55E] bg-[#DCFCE7]'
                             : 'border-gray-200 bg-white hover:border-[#22C55E]/50'
                         }`}
                       >
-                        <div className="flex items-center space-x-4">
-                          <div className="text-3xl">{supplement.icon}</div>
+                        <div className="flex items-center space-x-6">
+                          <div className="text-4xl">{supplement.icon}</div>
                           <div className="flex-1">
-                            <h3 className="font-semibold text-gray-900">{supplement.name}</h3>
-                            <p className="text-sm text-gray-600">Target: {supplement.time}</p>
+                            <h3 className="font-bold text-gray-900 text-lg">{supplement.name}</h3>
+                            <p className="text-gray-600 mt-1">Target: {supplement.time}</p>
                           </div>
-                          <div className="flex items-center space-x-3">
+                          <div className="flex items-center space-x-4">
                             <div className="text-right">
                               <div className="text-sm text-gray-600">Progress</div>
-                              <div className="font-bold text-[#22C55E]">
+                              <div className="font-bold text-[#22C55E] text-lg">
                                 {supplement.taken}/{supplement.target}
                               </div>
                             </div>
                             <Button
                               onClick={() => logSupplement(supplement.id)}
                               variant={supplement.completed ? 'outline' : 'default'}
-                              className={supplement.completed 
-                                ? 'border-[#22C55E] text-[#22C55E] hover:bg-[#22C55E] hover:text-white' 
-                                : 'bg-[#22C55E] hover:bg-[#16A34A] text-white'
-                              }
+                              className={`px-6 py-3 ${
+                                supplement.completed 
+                                  ? 'border-[#22C55E] text-[#22C55E] hover:bg-[#22C55E] hover:text-white' 
+                                  : 'bg-[#22C55E] hover:bg-[#16A34A] text-white'
+                              }`}
                             >
                               {supplement.completed ? (
                                 <>
-                                  <CheckCircle className="h-4 w-4 mr-2" />
-                                  Completed
+                                  <CheckCircle className="h-5 w-5 mr-2" />
+                                  <span className="font-medium">Completed</span>
                                 </>
                               ) : (
                                 <>
-                                  <Plus className="h-4 w-4 mr-2" />
-                                  Log Intake
+                                  <Plus className="h-5 w-5 mr-2" />
+                                  <span className="font-medium">Log Intake</span>
                                 </>
                               )}
                             </Button>
@@ -227,25 +240,25 @@ export default function ProfilePage() {
               </Card>
 
               {/* Weekly Goal */}
-              <Card className="bg-white rounded-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Calendar className="h-5 w-5 text-[#22C55E]" />
-                    <span>Weekly Goal</span>
+              <Card className="bg-white rounded-xl shadow-sm">
+                <CardHeader className="pb-4">
+                  <CardTitle className="flex items-center space-x-3">
+                    <Calendar className="h-6 w-6 text-[#22C55E]" />
+                    <span className="text-xl font-bold">Weekly Goal</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
+                <CardContent className="pt-0">
+                  <div className="space-y-6">
                     <div className="flex justify-between items-center">
-                      <span className="font-medium">This Week's Progress</span>
-                      <span className="text-[#22C55E] font-bold">
+                      <span className="font-semibold text-lg">This Week's Progress</span>
+                      <span className="text-[#22C55E] font-bold text-lg">
                         {userStats.weeklyProgress}/{userStats.weeklyGoal} supplements
                       </span>
                     </div>
-                    <Progress value={weeklyProgress} className="h-4" />
-                    <div className="flex justify-between text-sm text-gray-600">
+                    <Progress value={weeklyProgress} className="h-5" />
+                    <div className="flex justify-between text-gray-600">
                       <span>Goal: {userStats.weeklyGoal} supplements</span>
-                      <span>{Math.round(weeklyProgress)}% complete</span>
+                      <span className="font-medium">{Math.round(weeklyProgress)}% complete</span>
                     </div>
                   </div>
                 </CardContent>
@@ -253,63 +266,63 @@ export default function ProfilePage() {
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Streak Card */}
-              <Card className="bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white">
-                <CardContent className="p-6 text-center">
-                  <Flame className="h-12 w-12 mx-auto mb-4" />
-                  <div className="text-3xl font-bold mb-2">{userStats.currentStreak}</div>
-                  <div className="text-sm opacity-90">Day Streak</div>
-                  <div className="text-xs opacity-75 mt-2">
+              <Card className="bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white rounded-xl shadow-lg">
+                <CardContent className="p-8 text-center">
+                  <Flame className="h-16 w-16 mx-auto mb-6" />
+                  <div className="text-4xl font-bold mb-3">{userStats.currentStreak}</div>
+                  <div className="text-lg opacity-90 mb-3">Day Streak</div>
+                  <div className="text-sm opacity-75">
                     Keep it up! 🔥
                   </div>
                 </CardContent>
               </Card>
 
               {/* Quick Stats */}
-              <Card className="bg-white rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-lg">Quick Stats</CardTitle>
+              <Card className="bg-white rounded-xl shadow-sm">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-bold">Quick Stats</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Total XP</span>
-                      <span className="font-bold text-[#22C55E]">{userStats.xp}</span>
+                <CardContent className="pt-0">
+                  <div className="space-y-5">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-lg">Total XP</span>
+                      <span className="font-bold text-[#22C55E] text-xl">{userStats.xp}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Level</span>
-                      <span className="font-bold text-[#22C55E]">{userStats.level}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-lg">Level</span>
+                      <span className="font-bold text-[#22C55E] text-xl">{userStats.level}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Best Streak</span>
-                      <span className="font-bold text-[#F97316]">{userStats.longestStreak} days</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-lg">Best Streak</span>
+                      <span className="font-bold text-[#F97316] text-xl">{userStats.longestStreak} days</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Total Days</span>
-                      <span className="font-bold text-[#22C55E]">{userStats.totalDays}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 text-lg">Total Days</span>
+                      <span className="font-bold text-[#22C55E] text-xl">{userStats.totalDays}</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Recent Activity */}
-              <Card className="bg-white rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-lg">Recent Activity</CardTitle>
+              <Card className="bg-white rounded-xl shadow-sm">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-bold">Recent Activity</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
+                <CardContent className="pt-0">
+                  <div className="space-y-4">
                     {recentActivity.map((activity, index) => (
-                      <div key={index} className="flex items-center space-x-3">
-                        <div className={`w-2 h-2 rounded-full ${
+                      <div key={index} className="flex items-center space-x-4">
+                        <div className={`w-3 h-3 rounded-full ${
                           activity.streak ? 'bg-[#22C55E]' : 'bg-gray-300'
                         }`} />
                         <div className="flex-1">
-                          <div className="text-sm font-medium">{activity.action}</div>
-                          <div className="text-xs text-gray-500">{activity.date}</div>
+                          <div className="font-medium text-gray-900">{activity.action}</div>
+                          <div className="text-sm text-gray-500">{activity.date}</div>
                         </div>
-                        <div className="text-sm font-bold text-[#22C55E]">+{activity.xp} XP</div>
+                        <div className="font-bold text-[#22C55E] text-lg">+{activity.xp} XP</div>
                       </div>
                     ))}
                   </div>
