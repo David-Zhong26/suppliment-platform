@@ -300,7 +300,7 @@ export default function ProductComparison() {
           name: product.name,
           price: product.price,
           quantity: 1,
-          image: product.image
+          image: 'pill-icon' // Using a placeholder since we removed the image property
         }
       ])
     }
