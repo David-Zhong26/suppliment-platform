@@ -44,7 +44,7 @@ export interface MatchScoreBreakdown {
 }
 
 // Goal mapping for better matching
-const GOAL_BENEFIT_MAPPING = {
+const GOAL_BENEFIT_MAPPING: Record<string, string[]> = {
   'heart health': ['cardiovascular', 'heart', 'circulation', 'cholesterol', 'blood pressure'],
   'energy': ['energy', 'fatigue', 'vitality', 'metabolism', 'mitochondria'],
   'sleep quality': ['sleep', 'melatonin', 'relaxation', 'stress', 'anxiety'],
@@ -58,7 +58,7 @@ const GOAL_BENEFIT_MAPPING = {
 }
 
 // Safety interaction database
-const SAFETY_INTERACTIONS = {
+const SAFETY_INTERACTIONS: Record<string, string[]> = {
   'warfarin': ['omega-3', 'vitamin-k', 'garlic', 'ginkgo'],
   'blood-pressure-med': ['potassium', 'magnesium', 'garlic'],
   'diabetes-med': ['chromium', 'berberine', 'cinnamon'],
