@@ -85,12 +85,10 @@ const products = [
         standards: ['USP standards', 'Pharmaceutical grade', 'Wild-caught sourcing']
       }
     },
-    reviews: {
-      highlights: [
-        'Great for joint pain relief!',
-        'No fishy aftertaste, highly recommend'
-      ]
-    }
+    reviewHighlights: [
+      'Great for joint pain relief!',
+      'No fishy aftertaste, highly recommend'
+    ]
   },
   {
     id: '2',
@@ -147,12 +145,10 @@ const products = [
         standards: ['USP monographs', 'Pharmaceutical grade', 'Vegetarian capsules']
       }
     },
-    reviews: {
-      highlights: [
-        'Perfect for winter months',
-        'Bone density improved significantly'
-      ]
-    }
+    reviewHighlights: [
+      'Perfect for winter months',
+      'Bone density improved significantly'
+    ]
   },
   {
     id: '3',
@@ -203,12 +199,10 @@ const products = [
         standards: ['Pharmaceutical grade', 'Chelated for absorption', 'No artificial additives']
       }
     },
-    reviews: {
-      highlights: [
-        'Best sleep I\'ve had in years',
-        'No digestive issues like other forms'
-      ]
-    }
+    reviewHighlights: [
+      'Best sleep I\'ve had in years',
+      'No digestive issues like other forms'
+    ]
   }
 ]
 
@@ -495,7 +489,7 @@ export default function ComparePage() {
                       <span className="text-gray-600">({product.reviews} reviews)</span>
                     </div>
                     <div className="space-y-1">
-                      {product.reviews.highlights.map((review, index) => (
+                      {product.reviewHighlights.map((review, index) => (
                         <div key={index} className="text-sm text-gray-600 italic">
                           "{review}"
                         </div>
