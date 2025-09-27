@@ -31,6 +31,7 @@ import {
   Video
 } from 'lucide-react'
 import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
+import PersistentNav from '@/components/navigation/persistent-nav'
 
 export default function UserDashboard() {
   const { data: session, status } = useSession()
@@ -119,86 +120,7 @@ export default function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-[#F9FAF9]">
-      {/* Top Navigation Bar */}
-      <header className="bg-white border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <Heart className="h-8 w-8 text-[#22C55E]" />
-              <span className="text-2xl font-bold text-gray-900">Wellness Platform</span>
-            </div>
-
-            {/* Navigation Menu */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <button 
-                onClick={() => router.push('/dashboard/user')}
-                className="flex items-center space-x-2 text-[#22C55E] border-b-2 border-[#22C55E] pb-1"
-              >
-                <Home className="h-4 w-4" />
-                <span className="font-medium">Dashboard</span>
-              </button>
-              <button 
-                onClick={() => router.push('/comparison')}
-                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
-              >
-                <Store className="h-4 w-4" />
-                <span>Marketplace</span>
-              </button>
-              <button 
-                onClick={() => router.push('/community')}
-                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
-              >
-                <Users className="h-4 w-4" />
-                <span>Community</span>
-              </button>
-              <button 
-                onClick={() => router.push('/profile')}
-                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
-              >
-                <User className="h-4 w-4" />
-                <span>Profile</span>
-              </button>
-              <button 
-                onClick={() => router.push('/notifications')}
-                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
-              >
-                <Bell className="h-4 w-4" />
-                <span>Notifications</span>
-              </button>
-              <button 
-                onClick={() => router.push('/settings')}
-                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
-              >
-                <Settings className="h-4 w-4" />
-                <span>Settings</span>
-              </button>
-            </nav>
-
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-4">
-              <Button 
-                onClick={() => router.push('/comparison')}
-                className="bg-[#22C55E] hover:bg-[#16A34A] text-white"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Browse Supplements
-              </Button>
-              
-              {/* User Avatar */}
-              <div className="flex items-center space-x-3">
-                <Badge variant="secondary" className="flex items-center space-x-1">
-                  <Star className="h-4 w-4 text-[#F97316]" />
-                  <span>Level 1</span>
-                </Badge>
-                <div className="w-8 h-8 bg-[#22C55E] rounded-full flex items-center justify-center text-white font-medium">
-                  {session?.user?.name?.charAt(0) || 'U'}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PersistentNav userLevel={1} userName={session?.user?.name || 'User'} />
 
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
