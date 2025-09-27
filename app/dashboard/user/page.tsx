@@ -496,25 +496,45 @@ export default function UserDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Calendar className="h-6 w-6 text-blue-600" />
+                  <Calendar className="h-6 w-6 text-[#22C55E]" />
                   <span>Recent Activity</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {recentActivity.map((activity) => (
-                    <div key={activity.id} className="flex items-center space-x-3">
-                      <div className="p-2 bg-gray-100 rounded-lg">
-                        <activity.icon className="h-4 w-4 text-gray-600" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium">
-                          {activity.action} {activity.item}
-                        </div>
-                        <div className="text-xs text-gray-500">{activity.time}</div>
-                      </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-[#DCFCE7] rounded-lg">
+                      <Pill className="h-4 w-4 text-[#22C55E]" />
                     </div>
-                  ))}
+                    <div className="flex-1">
+                      <div className="text-sm font-medium">
+                        Logged Omega-3 supplement
+                      </div>
+                      <div className="text-xs text-gray-500">2 hours ago</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-[#DCFCE7] rounded-lg">
+                      <Award className="h-4 w-4 text-[#22C55E]" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium">
+                        Completed wellness assessment
+                      </div>
+                      <div className="text-xs text-gray-500">1 day ago</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-[#DCFCE7] rounded-lg">
+                      <Users className="h-4 w-4 text-[#22C55E]" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium">
+                        Joined Nutrition Community
+                      </div>
+                      <div className="text-xs text-gray-500">2 days ago</div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
