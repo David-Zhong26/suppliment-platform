@@ -72,7 +72,7 @@
 @layer components {
   /* Wellness Platform Components */
   .btn-primary-wellness {
-    @apply bg-[#22C55E] text-white hover:bg-[#16A34A] transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+    @apply bg-[#16A34A] text-white hover:bg-[#15803d] focus:bg-[#15803d] active:bg-[#15803d] transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
   }
   
   .btn-secondary-wellness {
@@ -80,7 +80,7 @@
   }
   
   .btn-outline-wellness {
-    @apply border-2 border-[#22C55E] text-[#22C55E] hover:bg-[#22C55E] hover:text-white transition-all duration-300 ease-in-out;
+    @apply border-2 border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white focus:bg-[#16A34A] focus:text-white active:bg-[#16A34A] active:text-white transition-all duration-300 ease-in-out;
   }
   
   .wellness-gradient {
@@ -141,12 +141,12 @@
   }
   
   .wellness-nav-link {
-    @apply text-gray-600 hover:text-[#22C55E] transition-colors duration-200 ease-in-out relative;
+    @apply text-gray-600 hover:text-[#16A34A] focus:text-[#16A34A] active:text-[#16A34A] transition-colors duration-200 ease-in-out relative;
   }
   
   .wellness-nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#22C55E] to-[#F97316] transition-all duration-300;
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#16A34A] to-[#F97316] transition-all duration-300;
   }
   
   .wellness-nav-link:hover::after {

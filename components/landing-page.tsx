@@ -66,10 +66,10 @@ export default function LandingPage() {
           </nav>
           <div className="flex items-center space-x-4">
             <Link href="/auth/signin">
-              <Button variant="ghost" className="wellness-nav-link">Sign In</Button>
+              <Button variant="ghost" className="wellness-nav-link hover:text-[#16A34A] focus:text-[#16A34A] active:text-[#16A34A]">Sign In</Button>
             </Link>
             <Link href="/auth/signup">
-              <Button className="btn-primary-wellness">Get Started</Button>
+              <Button className="btn-primary-wellness hover:bg-[#15803d] focus:bg-[#15803d] active:bg-[#15803d]">Get Started</Button>
             </Link>
           </div>
         </div>
@@ -91,12 +91,12 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/signup">
-              <Button size="lg" className="text-lg px-8 btn-primary-wellness">
+              <Button size="lg" className="text-lg px-8 btn-primary-wellness hover:bg-[#15803d] focus:bg-[#15803d] active:bg-[#15803d]">
                 Start Your Assessment
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="text-lg px-8 btn-outline-wellness">
+            <Button variant="outline" size="lg" className="text-lg px-8 btn-outline-wellness hover:bg-[#16A34A] hover:text-white focus:bg-[#16A34A] focus:text-white active:bg-[#16A34A] active:text-white">
               Explore Community
             </Button>
           </div>
@@ -319,12 +319,12 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link href="/auth/signup">
-              <Button size="lg" variant="secondary" className="text-lg px-8 bg-white text-[#16A34A] hover:bg-gray-100 wellness-scale-in">
+              <Button size="lg" variant="secondary" className="text-lg px-8 bg-white text-[#16A34A] hover:bg-gray-100 hover:text-[#16A34A] focus:bg-gray-100 focus:text-[#16A34A] active:bg-gray-100 active:text-[#16A34A] wellness-scale-in">
                 Get Started Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-[#16A34A] wellness-scale-in" style={{animationDelay: '0.1s'}}>
+            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-[#16A34A] focus:bg-white focus:text-[#16A34A] active:bg-white active:text-[#16A34A] wellness-scale-in" style={{animationDelay: '0.1s'}}>
               Watch Demo
             </Button>
           </div>
