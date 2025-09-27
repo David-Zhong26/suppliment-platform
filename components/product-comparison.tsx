@@ -468,6 +468,7 @@ export default function ProductComparison() {
   const [showProductModal, setShowProductModal] = useState(false)
   const [showCheckout, setShowCheckout] = useState(false)
   const [activeProductTab, setActiveProductTab] = useState('overview')
+  const [selectedForComparison, setSelectedForComparison] = useState<string[]>([])
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const scrollLeft = () => {
@@ -553,6 +554,23 @@ export default function ProductComparison() {
     setShowCart(false)
   }
 
+  const toggleProductSelection = (productId: string) => {
+    setSelectedForComparison(prev => 
+      prev.includes(productId) 
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    )
+  }
+
+  const compareSelectedProducts = () => {
+    if (selectedForComparison.length >= 2) {
+      // Show comparison modal or navigate to comparison page
+      alert(`Comparing ${selectedForComparison.length} products!`)
+    } else {
+      alert('Please select at least 2 products to compare')
+    }
+  }
+
   const getTotalPrice = () => {
     return shoppingCart.reduce((total, item) => total + (item.price * item.quantity), 0)
   }
@@ -603,20 +621,40 @@ export default function ProductComparison() {
             Each product is scored for compatibility with your health goals.
           </p>
           
-          {/* Shopping Cart Button */}
-          <div className="relative inline-block">
-            <Button
-              onClick={() => setShowCart(!showCart)}
-              className="btn-primary-wellness relative"
-            >
-              <ShoppingCart className="h-5 w-5 mr-2" />
-              Shopping Cart
-              {shoppingCart.length > 0 && (
-                <Badge className="absolute -top-2 -right-2 bg-[#F97316] text-white text-xs">
-                  {shoppingCart.length}
-                </Badge>
-              )}
-            </Button>
+          {/* Action Buttons */}
+          <div className="flex gap-4 items-center">
+            {/* Compare Selected Button */}
+            <div className="relative inline-block">
+              <Button
+                onClick={compareSelectedProducts}
+                variant="outline"
+                className="border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white relative"
+              >
+                <Target className="h-5 w-5 mr-2" />
+                Compare Selected
+                {selectedForComparison.length > 0 && (
+                  <Badge className="absolute -top-2 -right-2 bg-[#16A34A] text-white text-xs">
+                    {selectedForComparison.length}
+                  </Badge>
+                )}
+              </Button>
+            </div>
+
+            {/* Shopping Cart Button */}
+            <div className="relative inline-block">
+              <Button
+                onClick={() => setShowCart(!showCart)}
+                className="btn-primary-wellness relative"
+              >
+                <ShoppingCart className="h-5 w-5 mr-2" />
+                Shopping Cart
+                {shoppingCart.length > 0 && (
+                  <Badge className="absolute -top-2 -right-2 bg-[#F97316] text-white text-xs">
+                    {shoppingCart.length}
+                  </Badge>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -758,6 +796,17 @@ export default function ProductComparison() {
                         {product.category}
                       </div>
                     </div>
+                  </div>
+
+                  {/* Compare Selection */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg mb-3">
+                    <span className="text-sm font-medium text-gray-700">Compare</span>
+                    <input
+                      type="checkbox"
+                      checked={selectedForComparison.includes(product.id)}
+                      onChange={() => toggleProductSelection(product.id)}
+                      className="w-4 h-4 text-[#16A34A] bg-gray-100 border-gray-300 rounded focus:ring-[#16A34A] focus:ring-2"
+                    />
                   </div>
 
                   {/* Action Buttons */}

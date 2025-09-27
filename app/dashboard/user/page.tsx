@@ -35,7 +35,8 @@ import {
   Trophy,
   ArrowRight,
   CheckCircle,
-  Flame
+  Flame,
+  Info
 } from 'lucide-react'
 import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
 import PersistentNav from '@/components/navigation/persistent-nav'
@@ -51,6 +52,9 @@ export default function UserDashboard() {
     sleep: { hours: 7.5, goal: 8 }, // hours
     activity: { steps: 8500, goal: 10000 } // steps
   })
+
+  // Celebration state
+  const [showCelebration, setShowCelebration] = useState<string | null>(null)
 
   // Active challenges
   const [activeChallenges] = useState([
@@ -101,6 +105,27 @@ export default function UserDashboard() {
       category: 'Sleep Support'
     }
   ])
+
+  const logActivity = (type: string) => {
+    setShowCelebration(type)
+    setTimeout(() => setShowCelebration(null), 2000)
+    
+    // Update tracking (simulate logging)
+    setDailyTracking(prev => {
+      switch (type) {
+        case 'water':
+          return { ...prev, water: { ...prev.water, current: Math.min(prev.water.current + 1, prev.water.goal) }}
+        case 'supplements':
+          return { ...prev, supplements: { ...prev.supplements, taken: Math.min(prev.supplements.taken + 1, prev.supplements.total) }}
+        case 'sleep':
+          return { ...prev, sleep: { ...prev.sleep, hours: Math.min(prev.sleep.hours + 0.5, prev.sleep.goal) }}
+        case 'activity':
+          return { ...prev, activity: { ...prev.activity, steps: Math.min(prev.activity.steps + 500, prev.activity.goal) }}
+        default:
+          return prev
+      }
+    })
+  }
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -154,7 +179,12 @@ export default function UserDashboard() {
                 value={(dailyTracking.water.current / dailyTracking.water.goal) * 100} 
                 className="h-2 mb-3"
               />
-              <Button size="sm" variant="outline" className="w-full">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => logActivity('water')}
+              >
                 <Plus className="h-4 w-4 mr-1" />
                 Log Glass
               </Button>
@@ -177,7 +207,12 @@ export default function UserDashboard() {
                 value={(dailyTracking.supplements.taken / dailyTracking.supplements.total) * 100} 
                 className="h-2 mb-3"
               />
-              <Button size="sm" variant="outline" className="w-full">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => logActivity('supplements')}
+              >
                 <Plus className="h-4 w-4 mr-1" />
                 Log Supplement
               </Button>
@@ -200,7 +235,12 @@ export default function UserDashboard() {
                 value={(dailyTracking.sleep.hours / dailyTracking.sleep.goal) * 100} 
                 className="h-2 mb-3"
               />
-              <Button size="sm" variant="outline" className="w-full">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => logActivity('sleep')}
+              >
                 <Plus className="h-4 w-4 mr-1" />
                 Log Sleep
               </Button>
@@ -223,7 +263,12 @@ export default function UserDashboard() {
                 value={(dailyTracking.activity.steps / dailyTracking.activity.goal) * 100} 
                 className="h-2 mb-3"
               />
-              <Button size="sm" variant="outline" className="w-full">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => logActivity('activity')}
+              >
                 <Plus className="h-4 w-4 mr-1" />
                 Log Activity
               </Button>
@@ -321,10 +366,20 @@ export default function UserDashboard() {
                       </div>
                       <div className="text-right">
                         <div className="font-bold text-lg text-[#16A34A]">${item.price}</div>
-                        <Button size="sm" className="mt-2 bg-[#16A34A] hover:bg-[#15803d]">
-                          <ShoppingCart className="h-4 w-4 mr-1" />
-                          Add to Cart
-                        </Button>
+                        <div className="flex gap-2 mt-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => router.push('/comparison')}
+                          >
+                            <Info className="h-4 w-4 mr-1" />
+                            More Info
+                          </Button>
+                          <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803d]">
+                            <ShoppingCart className="h-4 w-4 mr-1" />
+                            Add to Cart
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -361,10 +416,10 @@ export default function UserDashboard() {
                   <Button 
                     variant="outline" 
                     className="w-full justify-start"
-                    onClick={() => router.push('/profile')}
+                    onClick={() => router.push('/comparison')}
                   >
-                    <User className="h-4 w-4 mr-3" />
-                    View Profile
+                    <Shield className="h-4 w-4 mr-3" />
+                    Safety Check
                   </Button>
                 </div>
               </CardContent>
@@ -449,6 +504,23 @@ export default function UserDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Celebration Animation */}
+      {showCelebration && (
+        <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
+          <div className="animate-bounce">
+            <div className="text-6xl">🎉</div>
+            <div className="text-center mt-4">
+              <div className="text-2xl font-bold text-[#16A34A]">
+                {showCelebration === 'water' && 'Great job staying hydrated! 💧'}
+                {showCelebration === 'supplements' && 'Supplements logged! 💊'}
+                {showCelebration === 'sleep' && 'Sleep logged! 😴'}
+                {showCelebration === 'activity' && 'Activity logged! 🏃‍♂️'}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
