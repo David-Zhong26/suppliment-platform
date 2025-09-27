@@ -37,7 +37,8 @@ import {
   Apple,
   ChefHat,
   ArrowRight,
-  Info
+  Info,
+  X
 } from 'lucide-react'
 
 export default function CommunityPage() {
