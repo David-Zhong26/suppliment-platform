@@ -251,6 +251,181 @@ export default function CommunityPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-3 space-y-8">
+            {/* Upcoming Challenges - Highlighted at the top */}
+            {activeTab === 'home' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Active Challenges</h2>
+                
+                {/* Hydration Challenge Card */}
+                <Card className="border-2 border-[#16A34A] bg-gradient-to-r from-[#F0FDF4] to-white mb-8">
+                  <CardContent className="p-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      {/* Challenge Info */}
+                      <div>
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span className="text-2xl">💧</span>
+                          </div>
+                          <h3 className="text-2xl font-bold text-gray-900">Hydration Challenge</h3>
+                        </div>
+                        
+                        <p className="text-gray-600 mb-6 leading-relaxed">
+                          "Drink 8 glasses of water daily for 30 days. Track your streak and earn points for consistency. Staying hydrated supports energy, skin health, and digestion."
+                        </p>
+                        
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-900 mb-3">Rewards:</h4>
+                          <ul className="space-y-2">
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
+                              <span className="text-gray-700">+50 points for completing</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
+                              <span className="text-gray-700">Earn the <strong>Hydration Hero</strong> badge</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-[#16A34A]" />
+                              <span className="text-gray-700">Unlock 5% discount on your next supplement order</span>
+                            </li>
+                          </ul>
+                        </div>
+                        
+                        <Button className="bg-[#16A34A] hover:bg-[#15803d] text-white text-lg px-8 py-3">
+                          👉 Join Challenge
+                        </Button>
+                      </div>
+                      
+                      {/* Challenge Leaderboard */}
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-4">Challenge Leaderboard</h4>
+                        <div className="bg-white rounded-lg border border-gray-200 p-4">
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                              <thead>
+                                <tr className="border-b border-gray-200">
+                                  <th className="text-left py-2">Rank</th>
+                                  <th className="text-left py-2">User</th>
+                                  <th className="text-left py-2">Progress</th>
+                                  <th className="text-left py-2">Streak</th>
+                                  <th className="text-left py-2">Points</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr className="border-b border-gray-100">
+                                  <td className="py-2">🥇</td>
+                                  <td className="py-2 font-medium">FitLifeJane</td>
+                                  <td className="py-2">27/30 days</td>
+                                  <td className="py-2">🔥 12-day streak</td>
+                                  <td className="py-2">45 pts</td>
+                                </tr>
+                                <tr className="border-b border-gray-100">
+                                  <td className="py-2">🥈</td>
+                                  <td className="py-2 font-medium">HealthyMike</td>
+                                  <td className="py-2">25/30 days</td>
+                                  <td className="py-2">🔥 9-day streak</td>
+                                  <td className="py-2">40 pts</td>
+                                </tr>
+                                <tr className="border-b border-gray-100">
+                                  <td className="py-2">🥉</td>
+                                  <td className="py-2 font-medium">SarahM</td>
+                                  <td className="py-2">24/30 days</td>
+                                  <td className="py-2">🔥 7-day streak</td>
+                                  <td className="py-2">38 pts</td>
+                                </tr>
+                                <tr className="border-b border-gray-100">
+                                  <td className="py-2">4</td>
+                                  <td className="py-2 font-medium">User123</td>
+                                  <td className="py-2">20/30 days</td>
+                                  <td className="py-2">🔥 5-day streak</td>
+                                  <td className="py-2">35 pts</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2">5</td>
+                                  <td className="py-2 font-medium">AlexR</td>
+                                  <td className="py-2">18/30 days</td>
+                                  <td className="py-2">🔥 3-day streak</td>
+                                  <td className="py-2">30 pts</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          
+                          {/* Your Status */}
+                          <div className="mt-4 p-3 bg-[#F0FDF4] border border-[#16A34A] rounded-lg">
+                            <p className="text-sm text-gray-700">
+                              <strong>Your Status:</strong> You've completed 15/30 days. Keep going! You're ranked #8.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Why This Works */}
+                    <div className="mt-8 pt-6 border-t border-gray-200">
+                      <h4 className="font-semibold text-gray-900 mb-3">Why this works:</h4>
+                      <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-[#16A34A] mt-0.5 flex-shrink-0" />
+                          <span>Friendly competition: focuses only on people in <em>this</em> challenge.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-[#16A34A] mt-0.5 flex-shrink-0" />
+                          <span>Motivates consistency: streak fire icons 🔥 show off daily commitment.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-[#16A34A] mt-0.5 flex-shrink-0" />
+                          <span>Scalable: every challenge gets its own mini leaderboard.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Additional Challenge Ideas (Preview) */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <Card className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-xl">🥦</span>
+                        </div>
+                        <h4 className="font-bold text-gray-900">Veggie Boost Challenge</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Eat 3 servings of vegetables daily for 14 days</p>
+                      <Badge className="bg-[#16A34A] text-white">+30 pts</Badge>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                          <span className="text-xl">💤</span>
+                        </div>
+                        <h4 className="font-bold text-gray-900">Sleep Reset Challenge</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Go to bed before 11 PM for 7 days straight</p>
+                      <Badge className="bg-[#16A34A] text-white">+40 pts</Badge>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                          <span className="text-xl">🏃</span>
+                        </div>
+                        <h4 className="font-bold text-gray-900">Move More Challenge</h4>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">Log 7,000+ steps every day for 10 days</p>
+                      <Badge className="bg-[#16A34A] text-white">+45 pts</Badge>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            )}
+
             {/* Topic Categories */}
             {activeTab === 'topics' && (
               <div>
@@ -500,9 +675,9 @@ export default function CommunityPage() {
             )}
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar - Updated Layout Order */}
           <div className="space-y-6">
-            {/* User Stats */}
+            {/* 1. Progress */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -536,31 +711,7 @@ export default function CommunityPage() {
               </CardContent>
             </Card>
 
-            {/* Upcoming Challenges */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-[#F97316]" />
-                  Upcoming Challenges
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="p-4 bg-[#F0FDF4] border border-[#16A34A] rounded-lg">
-                    <h4 className="font-medium text-gray-900 mb-1">Hydration Challenge</h4>
-                    <p className="text-sm text-gray-600 mb-3">Drink 8 glasses/day for 30 days</p>
-                    <div className="flex items-center justify-between">
-                      <Badge className="bg-[#16A34A] text-white">+50 pts</Badge>
-                      <Button size="sm" variant="outline" className="text-[#16A34A] border-[#16A34A] hover:bg-[#16A34A] hover:text-white">
-                        Join
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Polls */}
+            {/* 2. Poll */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -585,7 +736,7 @@ export default function CommunityPage() {
               </CardContent>
             </Card>
 
-            {/* Expert Spotlight */}
+            {/* 3. Expert Spotlight */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -603,40 +754,6 @@ export default function CommunityPage() {
                   <Button size="sm" className="w-full bg-[#16A34A] hover:bg-[#15803d] text-white">
                     Ask a Question
                   </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* User Profiles */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-[#16A34A]" />
-                  Active Members
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {userProfiles.map((profile, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-[#16A34A] rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        {profile.avatar}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{profile.name}</h4>
-                        <p className="text-sm text-gray-600 mb-1">
-                          {profile.healthGoals.join(', ')}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {profile.badge}
-                          </Badge>
-                          <span className="text-xs text-gray-500">{profile.points} pts</span>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-1">{profile.recentActivity}</p>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </CardContent>
             </Card>
