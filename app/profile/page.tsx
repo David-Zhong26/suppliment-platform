@@ -23,16 +23,60 @@ import {
   Heart,
   Shield,
   BookOpen,
-  TrendingUp
+  TrendingUp,
+  ShoppingCart,
+  Package,
+  CreditCard,
+  MapPin,
+  Phone,
+  Mail,
+  Bell,
+  Palette,
+  Lock,
+  HelpCircle,
+  Download
 } from 'lucide-react'
 
 export default function ProfilePage() {
-  const [selectedTab, setSelectedTab] = useState('tracker')
+  const [selectedTab, setSelectedTab] = useState('overview')
   const [supplementLog, setSupplementLog] = useState({
     omega3: { taken: true, time: '08:00' },
     vitaminD: { taken: false, time: '12:00' },
     magnesium: { taken: false, time: '18:00' }
   })
+
+  // Health profile data
+  const healthProfile = {
+    goals: ['Heart Health', 'Energy', 'Sleep Quality'],
+    nutrientGaps: [
+      { nutrient: 'Vitamin D', deficiency: 'Low', recommendation: '1000 IU daily' },
+      { nutrient: 'Omega-3', deficiency: 'Moderate', recommendation: '1000mg EPA/DHA' },
+      { nutrient: 'Magnesium', deficiency: 'Low', recommendation: '400mg daily' }
+    ],
+    allergies: ['None'],
+    medications: ['None'],
+    conditions: ['None']
+  }
+
+  // Orders and purchases
+  const recentOrders = [
+    {
+      id: 'ORD-001',
+      date: '2024-01-15',
+      items: ['Premium Omega-3 Complex', 'Vitamin D3+K2'],
+      total: 54.98,
+      status: 'Delivered',
+      tracking: 'TRK-123456'
+    },
+    {
+      id: 'ORD-002',
+      date: '2024-01-10',
+      items: ['Magnesium Glycinate'],
+      total: 19.99,
+      status: 'Shipped',
+      tracking: 'TRK-789012'
+    }
+  ]
 
   const userStats = {
     currentStreak: 12,
@@ -130,46 +174,393 @@ export default function ProfilePage() {
         </Card>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-2 mb-10 bg-white p-2 rounded-xl w-fit shadow-sm">
-          <Button
-            variant={selectedTab === 'tracker' ? 'default' : 'ghost'}
-            onClick={() => setSelectedTab('tracker')}
-            className={`px-6 py-3 ${
-              selectedTab === 'tracker' 
-                ? 'bg-[#22C55E] text-white shadow-md' 
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            <Target className="h-5 w-5 mr-3" />
-            <span className="font-medium">Supplement Tracker</span>
-          </Button>
-          <Button
-            variant={selectedTab === 'achievements' ? 'default' : 'ghost'}
-            onClick={() => setSelectedTab('achievements')}
-            className={`px-6 py-3 ${
-              selectedTab === 'achievements' 
-                ? 'bg-[#22C55E] text-white shadow-md' 
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            <Award className="h-5 w-5 mr-3" />
-            <span className="font-medium">Achievements</span>
-          </Button>
-          <Button
-            variant={selectedTab === 'stats' ? 'default' : 'ghost'}
-            onClick={() => setSelectedTab('stats')}
-            className={`px-6 py-3 ${
-              selectedTab === 'stats' 
-                ? 'bg-[#22C55E] text-white shadow-md' 
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            <TrendingUp className="h-5 w-5 mr-3" />
-            <span className="font-medium">Statistics</span>
-          </Button>
+        <div className="flex space-x-1 mb-10 bg-gray-100 p-1 rounded-lg w-fit">
+          {[
+            { id: 'overview', label: 'Overview', icon: User },
+            { id: 'health', label: 'Health Profile', icon: Heart },
+            { id: 'achievements', label: 'Achievements', icon: Award },
+            { id: 'orders', label: 'Orders', icon: ShoppingCart },
+            { id: 'settings', label: 'Settings', icon: Settings }
+          ].map((tab) => {
+            const Icon = tab.icon
+            return (
+              <Button
+                key={tab.id}
+                variant={selectedTab === tab.id ? 'default' : 'ghost'}
+                onClick={() => setSelectedTab(tab.id)}
+                className={`px-4 py-2 ${
+                  selectedTab === tab.id
+                    ? 'bg-white text-[#16A34A] shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <Icon className="h-4 w-4 mr-2" />
+                <span className="font-medium">{tab.label}</span>
+              </Button>
+            )
+          })}
         </div>
 
         {/* Tab Content */}
+        {selectedTab === 'overview' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Supplement Tracker */}
+            <div className="lg:col-span-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Target className="h-6 w-6 text-[#16A34A]" />
+                    Today's Supplement Log
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {Object.entries(supplementLog).map(([supplement, data]) => (
+                      <div key={supplement} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            data.taken ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'
+                          }`}>
+                            {data.taken ? <CheckCircle className="h-5 w-5" /> : <Clock className="h-5 w-5" />}
+                          </div>
+                          <div>
+                            <h3 className="font-semibold capitalize">{supplement.replace(/([A-Z])/g, ' $1').trim()}</h3>
+                            <p className="text-sm text-gray-600">Scheduled: {data.time}</p>
+                          </div>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant={data.taken ? "outline" : "default"}
+                          onClick={() => setSupplementLog(prev => ({
+                            ...prev,
+                            [supplement]: { ...prev[supplement as keyof typeof prev], taken: !data.taken }
+                          }))}
+                          className={data.taken ? "" : "bg-[#16A34A] hover:bg-[#15803d] text-white"}
+                        >
+                          {data.taken ? 'Mark as Not Taken' : 'Mark as Taken'}
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Stats</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Current Streak</span>
+                      <span className="flex items-center gap-1 font-semibold text-[#F97316]">
+                        <Flame className="h-4 w-4" />
+                        {userStats.currentStreak} days
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Weekly Progress</span>
+                      <span className="font-semibold">{userStats.weeklyProgress}/{userStats.weeklyGoal}</span>
+                    </div>
+                    <Progress value={(userStats.weeklyProgress / userStats.weeklyGoal) * 100} className="h-2" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Achievements</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {userStats.badges.slice(0, 3).map((badge, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <div className="text-2xl">{badge.icon}</div>
+                        <div className="flex-1">
+                          <h4 className="font-medium">{badge.name}</h4>
+                          <p className="text-sm text-gray-600">
+                            {badge.earned ? `Earned ${badge.date}` : `${Math.round((badge.progress || 0) * 100)}% complete`}
+                          </p>
+                        </div>
+                        {badge.earned && <CheckCircle className="h-5 w-5 text-green-600" />}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )}
+
+        {selectedTab === 'health' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Health Goals */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-6 w-6 text-[#16A34A]" />
+                  Health Goals
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {healthProfile.goals.map((goal, index) => (
+                    <div key={index} className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                      <CheckCircle className="h-5 w-5 text-green-600" />
+                      <span className="font-medium">{goal}</span>
+                    </div>
+                  ))}
+                  <Button variant="outline" className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add New Goal
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Nutrient Gap Report */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-6 w-6 text-orange-600" />
+                  Nutrient Gap Report
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {healthProfile.nutrientGaps.map((gap, index) => (
+                    <div key={index} className="p-4 border rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-semibold">{gap.nutrient}</h4>
+                        <Badge variant={gap.deficiency === 'Low' ? 'secondary' : 'destructive'}>
+                          {gap.deficiency} Deficiency
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-gray-600">{gap.recommendation}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Health Information */}
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Heart className="h-6 w-6 text-red-600" />
+                  Health Information
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <h4 className="font-semibold mb-2">Allergies</h4>
+                    <div className="space-y-1">
+                      {healthProfile.allergies.map((allergy, index) => (
+                        <Badge key={index} variant="outline">{allergy}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2">Medications</h4>
+                    <div className="space-y-1">
+                      {healthProfile.medications.map((medication, index) => (
+                        <Badge key={index} variant="outline">{medication}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2">Conditions</h4>
+                    <div className="space-y-1">
+                      {healthProfile.conditions.map((condition, index) => (
+                        <Badge key={index} variant="outline">{condition}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {selectedTab === 'orders' && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Orders & Purchases</h2>
+              <Button className="bg-[#16A34A] hover:bg-[#15803d] text-white">
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                New Order
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              {recentOrders.map((order) => (
+                <Card key={order.id}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h3 className="font-semibold text-lg">Order #{order.id}</h3>
+                        <p className="text-sm text-gray-600">Placed on {order.date}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-lg">${order.total}</div>
+                        <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'}>
+                          {order.status}
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    <div className="mb-4">
+                      <h4 className="font-medium mb-2">Items:</h4>
+                      <ul className="space-y-1">
+                        {order.items.map((item, index) => (
+                          <li key={index} className="text-sm text-gray-600">• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <span>Tracking: {order.tracking}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm">
+                          View Details
+                        </Button>
+                        {order.status === 'Delivered' && (
+                          <Button variant="outline" size="sm">
+                            Reorder
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedTab === 'settings' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Personal Information */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="h-6 w-6 text-[#16A34A]" />
+                  Personal Information
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 border rounded-lg">
+                    <Mail className="h-5 w-5 text-gray-400" />
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-600">Email</p>
+                      <p className="font-medium">user@example.com</p>
+                    </div>
+                    <Button variant="ghost" size="sm">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 border rounded-lg">
+                    <Phone className="h-5 w-5 text-gray-400" />
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-600">Phone</p>
+                      <p className="font-medium">+1 (555) 123-4567</p>
+                    </div>
+                    <Button variant="ghost" size="sm">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 border rounded-lg">
+                    <MapPin className="h-5 w-5 text-gray-400" />
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-600">Address</p>
+                      <p className="font-medium">123 Wellness St, Health City</p>
+                    </div>
+                    <Button variant="ghost" size="sm">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Preferences */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="h-6 w-6 text-[#F97316]" />
+                  Preferences
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Bell className="h-5 w-5 text-gray-400" />
+                      <div>
+                        <p className="font-medium">Email Notifications</p>
+                        <p className="text-sm text-gray-600">Receive updates about your orders and health</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm">On</Button>
+                  </div>
+                  <div className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Palette className="h-5 w-5 text-gray-400" />
+                      <div>
+                        <p className="font-medium">Theme</p>
+                        <p className="text-sm text-gray-600">Light mode</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm">Change</Button>
+                  </div>
+                  <div className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Lock className="h-5 w-5 text-gray-400" />
+                      <div>
+                        <p className="font-medium">Privacy</p>
+                        <p className="text-sm text-gray-600">Manage your data and privacy settings</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm">Manage</Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Account Actions */}
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-6 w-6 text-red-600" />
+                  Account Actions
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-4">
+                  <Button variant="outline">
+                    <HelpCircle className="h-4 w-4 mr-2" />
+                    Help & Support
+                  </Button>
+                  <Button variant="outline">
+                    <Download className="h-4 w-4 mr-2" />
+                    Export Data
+                  </Button>
+                  <Button variant="outline" className="text-red-600 border-red-200 hover:bg-red-50">
+                    Delete Account
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {selectedTab === 'tracker' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Daily Tracker */}

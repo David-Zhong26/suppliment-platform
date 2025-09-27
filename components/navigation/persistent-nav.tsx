@@ -17,7 +17,8 @@ import {
   LogOut,
   HelpCircle,
   Shield,
-  Palette
+  Palette,
+  Trophy
 } from 'lucide-react'
 
 interface PersistentNavProps {
@@ -53,6 +54,7 @@ export default function PersistentNav({
 
   const navItems = [
     { id: '/dashboard/user', label: 'Dashboard', icon: Home },
+    { id: '/challenges', label: 'Challenges', icon: Trophy },
     { id: '/comparison', label: 'Marketplace', icon: Store },
     { id: '/community', label: 'Community', icon: Users },
     { id: '/profile', label: 'Profile', icon: User },
