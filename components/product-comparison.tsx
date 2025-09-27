@@ -54,6 +54,29 @@ interface Product {
     evidence: number
   }
   certifications: string[]
+  scientificInfo: {
+    keyIngredients: {
+      name: string
+      dosage: string
+      description: string
+      dailyValue: string
+    }[]
+    evidence: {
+      summary: string
+      credibility: string
+      studyCount: number
+    }
+    safety: {
+      interactions: string[]
+      warnings: string[]
+      riskLevel: 'low' | 'medium' | 'high'
+    }
+    qualityAssurance: {
+      testing: string[]
+      facility: string[]
+      standards: string[]
+    }
+  }
 }
 
 interface ShoppingCartItem {
@@ -86,7 +109,38 @@ const products: Product[] = [
       safety: 10,
       evidence: 10
     },
-    certifications: ['Third-party tested', 'GMP certified', 'Non-GMO']
+    certifications: ['Third-party tested', 'GMP certified', 'Non-GMO'],
+    scientificInfo: {
+      keyIngredients: [
+        {
+          name: 'EPA (Eicosapentaenoic Acid)',
+          dosage: '400mg',
+          description: 'Supports cardiovascular health and reduces inflammation',
+          dailyValue: 'Recommended: 250-500mg EPA'
+        },
+        {
+          name: 'DHA (Docosahexaenoic Acid)',
+          dosage: '600mg',
+          description: 'Essential for brain function and cognitive health',
+          dailyValue: 'Recommended: 250-500mg DHA'
+        }
+      ],
+      evidence: {
+        summary: 'Multiple clinical trials demonstrate cardiovascular benefits and cognitive support. EPA/DHA combination shown to reduce inflammation markers.',
+        credibility: 'Backed by 12 RCTs',
+        studyCount: 12
+      },
+      safety: {
+        interactions: ['May interact with blood thinners', 'Consult doctor if taking anticoagulants'],
+        warnings: ['Fish allergy warning', 'May cause mild digestive upset'],
+        riskLevel: 'low'
+      },
+      qualityAssurance: {
+        testing: ['Third-party purity testing', 'Heavy metal screening', 'Potency verification'],
+        facility: ['FDA registered facility', 'GMP certified', 'ISO 9001 compliant'],
+        standards: ['USP standards', 'Pharmaceutical grade', 'Wild-caught sourcing']
+      }
+    }
   },
   {
     id: '2',
@@ -109,7 +163,38 @@ const products: Product[] = [
       safety: 15,
       evidence: 5
     },
-    certifications: ['Lab verified', 'Vegetarian', 'Non-GMO']
+    certifications: ['Lab verified', 'Vegetarian', 'Non-GMO'],
+    scientificInfo: {
+      keyIngredients: [
+        {
+          name: 'Vitamin D3 (Cholecalciferol)',
+          dosage: '2000 IU',
+          description: 'Essential for bone health and immune function',
+          dailyValue: 'Recommended: 1000-4000 IU daily'
+        },
+        {
+          name: 'Vitamin K2 (MK-7)',
+          dosage: '100mcg',
+          description: 'Directs calcium to bones and away from arteries',
+          dailyValue: 'Recommended: 90-120mcg daily'
+        }
+      ],
+      evidence: {
+        summary: 'Clinical studies show D3+K2 combination improves bone density and reduces arterial calcification. Supported by NIH guidelines.',
+        credibility: 'NIH guidelines supported',
+        studyCount: 8
+      },
+      safety: {
+        interactions: ['May interact with calcium channel blockers', 'Monitor if taking warfarin'],
+        warnings: ['Avoid high-dose calcium without K2', 'Monitor vitamin D levels with doctor'],
+        riskLevel: 'low'
+      },
+      qualityAssurance: {
+        testing: ['Lab verified potency', 'Heavy metal screening', 'Vitamin K2 stability testing'],
+        facility: ['cGMP facility', 'FDA inspected', 'Third-party audited'],
+        standards: ['USP monographs', 'Pharmaceutical grade', 'Vegetarian capsules']
+      }
+    }
   },
   {
     id: '3',
@@ -132,7 +217,32 @@ const products: Product[] = [
       safety: 10,
       evidence: 10
     },
-    certifications: ['Chelated', 'No fillers', 'Sleep tested']
+    certifications: ['Chelated', 'No fillers', 'Sleep tested'],
+    scientificInfo: {
+      keyIngredients: [
+        {
+          name: 'Magnesium Glycinate',
+          dosage: '200mg',
+          description: 'Highly bioavailable form that supports sleep and muscle relaxation',
+          dailyValue: 'Recommended: 200-400mg elemental magnesium'
+        }
+      ],
+      evidence: {
+        summary: 'Randomized controlled trials show magnesium glycinate improves sleep quality and reduces stress markers. Chelated form has superior absorption.',
+        credibility: 'Backed by 6 RCTs',
+        studyCount: 6
+      },
+      safety: {
+        interactions: ['May enhance effects of muscle relaxants', 'Monitor with kidney disease'],
+        warnings: ['High doses may cause diarrhea', 'Consult doctor with kidney problems'],
+        riskLevel: 'low'
+      },
+      qualityAssurance: {
+        testing: ['Chelated form verification', 'Elemental magnesium testing', 'Heavy metal screening'],
+        facility: ['cGMP facility', 'Third-party certified', 'ISO 22000'],
+        standards: ['Pharmaceutical grade', 'Chelated for absorption', 'No artificial additives']
+      }
+    }
   },
   {
     id: '4',
@@ -155,7 +265,38 @@ const products: Product[] = [
       safety: 25,
       evidence: 10
     },
-    certifications: ['Clinically studied', 'Refrigerated', 'CFU guaranteed']
+    certifications: ['Clinically studied', 'Refrigerated', 'CFU guaranteed'],
+    scientificInfo: {
+      keyIngredients: [
+        {
+          name: 'Lactobacillus acidophilus',
+          dosage: '10B CFU',
+          description: 'Supports digestive health and immune function',
+          dailyValue: 'Clinical dose: 1-10 billion CFU'
+        },
+        {
+          name: 'Bifidobacterium bifidum',
+          dosage: '15B CFU',
+          description: 'Promotes gut barrier function and nutrient absorption',
+          dailyValue: 'Clinical dose: 1-15 billion CFU'
+        }
+      ],
+      evidence: {
+        summary: 'Clinical trials demonstrate improved digestive health and immune support. Strain-specific benefits backed by microbiome research.',
+        credibility: 'Clinically studied strains',
+        studyCount: 15
+      },
+      safety: {
+        interactions: ['Generally safe with most medications', 'Monitor with immunosuppressants'],
+        warnings: ['Start with lower dose if sensitive', 'Refrigerate for potency'],
+        riskLevel: 'low'
+      },
+      qualityAssurance: {
+        testing: ['CFU count verification', 'Strain identification', 'Purity testing'],
+        facility: ['Specialized probiotic facility', 'Refrigerated storage', 'Third-party validated'],
+        standards: ['Clinical grade strains', 'CFU guaranteed', 'Refrigerated shipping']
+      }
+    }
   },
   {
     id: '5',
@@ -178,7 +319,38 @@ const products: Product[] = [
       safety: 15,
       evidence: 10
     },
-    certifications: ['Bioavailable', 'One-a-day', 'Nutrient tested']
+    certifications: ['Bioavailable', 'One-a-day', 'Nutrient tested'],
+    scientificInfo: {
+      keyIngredients: [
+        {
+          name: 'B-Complex Vitamins',
+          dosage: '100% DV',
+          description: 'Essential for energy metabolism and nervous system function',
+          dailyValue: '100% daily value for most B vitamins'
+        },
+        {
+          name: 'Vitamin C (Ascorbic Acid)',
+          dosage: '90mg',
+          description: 'Antioxidant support and immune function',
+          dailyValue: 'Recommended: 65-90mg daily'
+        }
+      ],
+      evidence: {
+        summary: 'Comprehensive vitamin supplementation shown to fill nutritional gaps and support overall health. Bioavailable forms ensure optimal absorption.',
+        credibility: 'NIH recommended daily values',
+        studyCount: 25
+      },
+      safety: {
+        interactions: ['Generally safe', 'Monitor vitamin D with separate supplements'],
+        warnings: ['May cause nausea if taken on empty stomach', 'Consult doctor with kidney disease'],
+        riskLevel: 'low'
+      },
+      qualityAssurance: {
+        testing: ['Nutrient potency testing', 'Bioavailability verification', 'Heavy metal screening'],
+        facility: ['cGMP facility', 'FDA registered', 'Third-party audited'],
+        standards: ['USP standards', 'Bioavailable forms', 'One-a-day convenience']
+      }
+    }
   },
   {
     id: '6',
@@ -201,7 +373,38 @@ const products: Product[] = [
       safety: 20,
       evidence: 20
     },
-    certifications: ['95% curcuminoids', 'Enhanced absorption', 'Non-GMO']
+    certifications: ['95% curcuminoids', 'Enhanced absorption', 'Non-GMO'],
+    scientificInfo: {
+      keyIngredients: [
+        {
+          name: 'Curcumin (95% curcuminoids)',
+          dosage: '500mg',
+          description: 'Potent anti-inflammatory and antioxidant compound',
+          dailyValue: 'Clinical dose: 400-1000mg curcumin'
+        },
+        {
+          name: 'Piperine (Black Pepper Extract)',
+          dosage: '5mg',
+          description: 'Enhances curcumin absorption by up to 2000%',
+          dailyValue: 'Enhancement: 5-20mg for absorption'
+        }
+      ],
+      evidence: {
+        summary: 'Extensive research shows curcumin reduces inflammation markers and supports joint health. Piperine significantly enhances bioavailability.',
+        credibility: 'Backed by 20+ studies',
+        studyCount: 20
+      },
+      safety: {
+        interactions: ['May interact with blood thinners', 'Monitor with diabetes medications'],
+        warnings: ['May cause mild stomach upset', 'Avoid with gallstones'],
+        riskLevel: 'medium'
+      },
+      qualityAssurance: {
+        testing: ['Curcuminoid content verification', 'Piperine potency testing', 'Heavy metal screening'],
+        facility: ['cGMP facility', 'Third-party certified', 'ISO 9001'],
+        standards: ['95% curcuminoid guarantee', 'Enhanced absorption formula', 'Non-GMO verified']
+      }
+    }
   }
 ]
 
@@ -264,6 +467,7 @@ export default function ProductComparison() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [showProductModal, setShowProductModal] = useState(false)
   const [showCheckout, setShowCheckout] = useState(false)
+  const [activeProductTab, setActiveProductTab] = useState('overview')
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const scrollLeft = () => {
@@ -768,9 +972,30 @@ export default function ProductComparison() {
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Left Column - Product Info */}
-                <div className="space-y-6">
+              {/* Tab Navigation */}
+              <div className="flex space-x-1 mb-6 bg-gray-100 p-1 rounded-lg w-fit">
+                {[
+                  { id: 'overview', label: 'Overview' },
+                  { id: 'more-info', label: 'More Info' }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveProductTab(tab.id)}
+                    className={`px-4 py-2 rounded-md transition-colors ${
+                      activeProductTab === tab.id
+                        ? 'bg-white text-[#16A34A] shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {activeProductTab === 'overview' && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column - Product Info */}
+                  <div className="space-y-6">
                   {/* Match Score */}
                   <div className="bg-[#F0FDF4] border border-[#16A34A] rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
@@ -891,6 +1116,148 @@ export default function ProductComparison() {
                   </div>
                 </div>
               </div>
+              )}
+
+              {activeProductTab === 'more-info' && (
+                <div className="space-y-8">
+                  {/* Why This Matches You */}
+                  <div className="bg-[#F0FDF4] border border-[#16A34A] rounded-lg p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Why This Matches You</h3>
+                    <p className="text-gray-700 leading-relaxed">{selectedProduct.whyMatch}</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Key Ingredients & Dosage */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Key Ingredients & Dosage</h3>
+                      <div className="space-y-4">
+                        {selectedProduct.scientificInfo.keyIngredients.map((ingredient, index) => (
+                          <div key={index} className="border border-gray-200 rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-semibold text-gray-900">{ingredient.name}</h4>
+                              <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                                {ingredient.dosage}
+                              </Badge>
+                            </div>
+                            <p className="text-gray-600 text-sm mb-2">{ingredient.description}</p>
+                            <p className="text-xs text-gray-500">{ingredient.dailyValue}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Scientific Evidence */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Scientific Evidence</h3>
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          <TestTube className="h-5 w-5 text-[#16A34A]" />
+                          <Badge className="bg-green-100 text-green-700">
+                            {selectedProduct.scientificInfo.evidence.credibility}
+                          </Badge>
+                        </div>
+                        <p className="text-gray-700 mb-3">{selectedProduct.scientificInfo.evidence.summary}</p>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <Info className="h-3 w-3 mr-1" />
+                          View Studies ({selectedProduct.scientificInfo.evidence.studyCount})
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Safety & Interactions */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Safety & Interactions</h3>
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Shield className="h-5 w-5 text-orange-600" />
+                          <Badge 
+                            variant={selectedProduct.scientificInfo.safety.riskLevel === 'low' ? 'default' : 
+                                    selectedProduct.scientificInfo.safety.riskLevel === 'medium' ? 'secondary' : 'destructive'}
+                            className={selectedProduct.scientificInfo.safety.riskLevel === 'low' ? 'bg-green-100 text-green-700' : 
+                                       selectedProduct.scientificInfo.safety.riskLevel === 'medium' ? 'bg-yellow-100 text-yellow-700' : 
+                                       'bg-red-100 text-red-700'}
+                          >
+                            {selectedProduct.scientificInfo.safety.riskLevel === 'low' ? 'Low Risk' : 
+                             selectedProduct.scientificInfo.safety.riskLevel === 'medium' ? 'Medium Risk' : 'High Risk'}
+                          </Badge>
+                        </div>
+                        
+                        {selectedProduct.scientificInfo.safety.interactions.length > 0 && (
+                          <div>
+                            <h5 className="font-medium text-gray-900 mb-2">Potential Interactions:</h5>
+                            <ul className="space-y-1">
+                              {selectedProduct.scientificInfo.safety.interactions.map((interaction, index) => (
+                                <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
+                                  <span className="text-orange-500 mt-1">•</span>
+                                  {interaction}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {selectedProduct.scientificInfo.safety.warnings.length > 0 && (
+                          <div>
+                            <h5 className="font-medium text-gray-900 mb-2">Warnings:</h5>
+                            <ul className="space-y-1">
+                              {selectedProduct.scientificInfo.safety.warnings.map((warning, index) => (
+                                <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
+                                  <span className="text-red-500 mt-1">⚠</span>
+                                  {warning}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Credibility & Quality Assurance */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Credibility & Quality Assurance</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-medium text-gray-900 mb-2">Testing & Verification:</h5>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedProduct.scientificInfo.qualityAssurance.testing.map((test, index) => (
+                              <Badge key={index} variant="secondary" className="text-xs">
+                                <CheckCircle className="h-3 w-3 mr-1" />
+                                {test}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <h5 className="font-medium text-gray-900 mb-2">Facility Standards:</h5>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedProduct.scientificInfo.qualityAssurance.facility.map((facility, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                <Award className="h-3 w-3 mr-1" />
+                                {facility}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <h5 className="font-medium text-gray-900 mb-2">Quality Standards:</h5>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedProduct.scientificInfo.qualityAssurance.standards.map((standard, index) => (
+                              <Badge key={index} variant="secondary" className="text-xs bg-purple-100 text-purple-700">
+                                <Star className="h-3 w-3 mr-1" />
+                                {standard}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

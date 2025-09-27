@@ -34,16 +34,31 @@ import {
   Palette,
   Lock,
   HelpCircle,
-  Download
+  Download,
+  Globe,
+  Languages
 } from 'lucide-react'
 
 export default function ProfilePage() {
   const [selectedTab, setSelectedTab] = useState('overview')
+  const [selectedLanguage, setSelectedLanguage] = useState('en')
   const [supplementLog, setSupplementLog] = useState({
     omega3: { taken: true, time: '08:00' },
     vitaminD: { taken: false, time: '12:00' },
     magnesium: { taken: false, time: '18:00' }
   })
+
+  // Language options
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸', nativeName: 'English' },
+    { code: 'zh', name: 'Chinese', flag: '🇨🇳', nativeName: '中文' },
+    { code: 'id', name: 'Indonesian', flag: '🇮🇩', nativeName: 'Bahasa Indonesia' },
+    { code: 'es', name: 'Spanish', flag: '🇪🇸', nativeName: 'Español' },
+    { code: 'fr', name: 'French', flag: '🇫🇷', nativeName: 'Français' },
+    { code: 'de', name: 'German', flag: '🇩🇪', nativeName: 'Deutsch' },
+    { code: 'ja', name: 'Japanese', flag: '🇯🇵', nativeName: '日本語' },
+    { code: 'ko', name: 'Korean', flag: '🇰🇷', nativeName: '한국어' }
+  ]
 
   // Health profile data
   const healthProfile = {
@@ -529,6 +544,54 @@ export default function ProfilePage() {
                       </div>
                     </div>
                     <Button variant="outline" size="sm">Manage</Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Language Settings */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="h-6 w-6 text-[#16A34A]" />
+                  Language & Region
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Select Language
+                    </label>
+                    <div className="space-y-2">
+                      {languages.map((language) => (
+                        <div
+                          key={language.code}
+                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                            selectedLanguage === language.code
+                              ? 'border-[#16A34A] bg-[#F0FDF4]'
+                              : 'border-gray-200 hover:bg-gray-50'
+                          }`}
+                          onClick={() => setSelectedLanguage(language.code)}
+                        >
+                          <span className="text-2xl">{language.flag}</span>
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900">{language.name}</p>
+                            <p className="text-sm text-gray-600">{language.nativeName}</p>
+                          </div>
+                          {selectedLanguage === language.code && (
+                            <CheckCircle className="h-5 w-5 text-[#16A34A]" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Languages className="h-4 w-4" />
+                      <span>Current: {languages.find(l => l.code === selectedLanguage)?.name}</span>
+                    </div>
                   </div>
                 </div>
               </CardContent>
