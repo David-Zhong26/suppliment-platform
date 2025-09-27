@@ -56,7 +56,7 @@ export default function LandingPage() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 wellness-fade-in">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Heart className="h-8 w-8 text-[#22C55E] wellness-scale-in" />
+            <Heart className="h-8 w-8 text-[#16A34A] wellness-scale-in" />
             <span className="text-2xl font-bold text-gray-900">Wellness Platform</span>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
@@ -81,10 +81,10 @@ export default function LandingPage() {
           <Badge className="wellness-badge mb-4 wellness-scale-in">
             🎯 Trusted by 50,000+ health enthusiasts
           </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Your <span className="text-[#22C55E]">Personalized</span>
-            <span className="wellness-gradient-text block">Wellness Journey</span>
-          </h1>
+        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+          Your <span className="text-[#16A34A]">Personalized</span>
+          <span className="wellness-gradient-text block">Wellness Journey</span>
+        </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             Discover supplements tailored to your unique profile. Get safety insights, 
             community, and shop with confidence.
@@ -109,7 +109,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index} className="wellness-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
-                <div className="text-4xl font-bold text-[#22C55E] mb-2">
+                <div className="text-4xl font-bold text-[#16A34A] mb-2">
                   {stat.number}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
@@ -193,7 +193,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center wellness-slide-up">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                <span className="text-[#22C55E]">Safety First</span>: Your Health is Our Priority
+                <span className="text-[#16A34A]">Safety First</span>: Your Health is Our Priority
               </h2>
               <p className="text-lg text-gray-600 mb-8">
                 Every recommendation goes through our extensive multi-step safety screening. 
@@ -201,26 +201,26 @@ export default function LandingPage() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 wellness-scale-in">
-                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <CheckCircle className="h-6 w-6 text-[#16A34A]" />
                   <span className="text-gray-700">FDA Safety Verified</span>
                 </div>
                 <div className="flex items-center space-x-3 wellness-scale-in" style={{animationDelay: '0.1s'}}>
-                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <CheckCircle className="h-6 w-6 text-[#16A34A]" />
                   <span className="text-gray-700">Safety Checks</span>
                 </div>
                 <div className="flex items-center space-x-3 wellness-scale-in" style={{animationDelay: '0.2s'}}>
-                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <CheckCircle className="h-6 w-6 text-[#16A34A]" />
                   <span className="text-gray-700">Expert Guides</span>
                 </div>
                 <div className="flex items-center space-x-3 wellness-scale-in" style={{animationDelay: '0.3s'}}>
-                  <CheckCircle className="h-6 w-6 text-[#22C55E]" />
+                  <CheckCircle className="h-6 w-6 text-[#16A34A]" />
                   <span className="text-gray-700">Real-time Safety Alerts</span>
                 </div>
               </div>
             </div>
             <div className="bg-[#DCFCE7] p-8 rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out">
               <div className="text-center">
-                <Shield className="h-16 w-16 text-[#22C55E] mx-auto mb-4 wellness-scale-in" />
+                <Shield className="h-16 w-16 text-[#16A34A] mx-auto mb-4 wellness-scale-in" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   Safety Promise
                 </h3>
@@ -238,7 +238,7 @@ export default function LandingPage() {
       <section id="community" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-6 wellness-slide-up">
-            Learn from <span className="text-[#22C55E]">Real People Like You</span>
+            Learn from <span className="text-[#16A34A]">Real People Like You</span>
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
             Connect with thousands of wellness enthusiasts, get advice from verified experts, 
@@ -248,7 +248,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 wellness-scale-in">
               <CardHeader>
-                <Users className="h-12 w-12 text-[#22C55E] mx-auto mb-4" />
+                <Users className="h-12 w-12 text-[#16A34A] mx-auto mb-4" />
                 <CardTitle>Wellness Community</CardTitle>
               </CardHeader>
               <CardContent>
@@ -282,7 +282,7 @@ export default function LandingPage() {
 
             <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 wellness-scale-in" style={{animationDelay: '0.2s'}}>
               <CardHeader>
-                <Star className="h-12 w-12 text-[#22C55E] mx-auto mb-4" />
+                <Star className="h-12 w-12 text-[#16A34A] mx-auto mb-4" />
                 <CardTitle>Goal Tracking</CardTitle>
               </CardHeader>
               <CardContent>
@@ -311,7 +311,7 @@ export default function LandingPage() {
       <section className="py-20 wellness-cta-section wellness-slide-up">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Start Your <span className="text-[#F97316]">Wellness Journey</span> Today
+            Start Your <span className="text-[#16A34A]">Wellness Journey</span> Today
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Get personalized supplement recommendations, safety insights, and join a community 
@@ -319,12 +319,12 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link href="/auth/signup">
-              <Button size="lg" variant="secondary" className="text-lg px-8 bg-white text-[#22C55E] hover:bg-gray-100 wellness-scale-in">
+              <Button size="lg" variant="secondary" className="text-lg px-8 bg-white text-[#16A34A] hover:bg-gray-100 wellness-scale-in">
                 Get Started Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-[#22C55E] wellness-scale-in" style={{animationDelay: '0.1s'}}>
+            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-[#16A34A] wellness-scale-in" style={{animationDelay: '0.1s'}}>
               Watch Demo
             </Button>
           </div>
@@ -347,7 +347,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Heart className="h-6 w-6 text-[#22C55E]" />
+                <Heart className="h-6 w-6 text-[#16A34A]" />
                 <span className="text-xl font-bold">Wellness Platform</span>
               </div>
               <p className="text-gray-400">
@@ -382,8 +382,8 @@ export default function LandingPage() {
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 Wellness Platform. All rights reserved.</p>
             <div className="mt-4 flex justify-center gap-6">
-              <a href="#" className="hover:text-[#22C55E] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#22C55E] transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-[#16A34A] transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-[#16A34A] transition-colors">Terms of Service</a>
             </div>
           </div>
         </div>
