@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -206,7 +206,7 @@ const products = [
   }
 ]
 
-export default function ComparePage() {
+function ComparePageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [selectedProductIds, setSelectedProductIds] = useState<string[]>([])
@@ -540,5 +540,20 @@ export default function ComparePage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#F9FAF9] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#16A34A] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading comparison...</p>
+        </div>
+      </div>
+    }>
+      <ComparePageContent />
+    </Suspense>
   )
 }
