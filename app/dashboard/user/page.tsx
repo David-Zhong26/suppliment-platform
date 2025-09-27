@@ -19,7 +19,16 @@ import {
   Award,
   Zap,
   BookOpen,
-  ShoppingCart
+  ShoppingCart,
+  Home,
+  Store,
+  User,
+  Bell,
+  Settings,
+  Plus,
+  Clock,
+  MapPin,
+  Video
 } from 'lucide-react'
 import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
 
@@ -40,60 +49,69 @@ export default function UserDashboard() {
     return <div>Loading...</div>
   }
 
-  const recommendations = [
+  const upcomingActivities = [
     {
       id: 1,
-      name: 'Premium Whey Protein',
-      matchScore: 95,
-      reason: 'Perfect for your muscle gain goals',
-      price: 49.99,
-      image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=200',
-      tags: ['High Protein', 'Muscle Building']
+      type: 'consultation',
+      title: 'Wellness Consultation with Dr. Sarah',
+      provider: 'Dr. Sarah Johnson',
+      date: '2024-01-15',
+      time: '2:00 PM - 3:00 PM',
+      location: 'Virtual Meeting',
+      status: 'confirmed',
+      avatar: 'S'
     },
     {
       id: 2,
-      name: 'Daily Multivitamin',
-      matchScore: 88,
-      reason: 'Fills nutrient gaps in your diet',
-      price: 29.99,
-      image: 'https://images.unsplash.com/photo-1550572017-edd951aa8713?w=200',
-      tags: ['Daily Health', 'Energy']
+      type: 'community',
+      title: 'Nutrition Workshop with Alex',
+      provider: 'Alex Chen, Nutritionist',
+      date: '2024-01-16',
+      time: '10:00 AM - 11:00 AM',
+      location: 'Community Center',
+      status: 'confirmed',
+      avatar: 'A'
     },
     {
       id: 3,
-      name: 'Omega-3 Fish Oil',
-      matchScore: 92,
-      reason: 'Supports heart and brain health',
-      price: 39.99,
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200',
-      tags: ['Heart Health', 'Anti-Inflammatory']
+      type: 'assessment',
+      title: 'Follow-up Assessment with Dr. Mike',
+      provider: 'Dr. Mike Davis',
+      date: '2024-01-18',
+      time: '4:00 PM - 5:00 PM',
+      location: 'Health Clinic',
+      status: 'pending',
+      avatar: 'M'
     }
   ]
 
-  const recentActivity = [
+  const recommendations = [
     {
       id: 1,
-      type: 'supplement',
-      action: 'Logged',
-      item: 'Whey Protein',
-      time: '2 hours ago',
-      icon: Pill
+      name: 'Premium Omega-3 Complex',
+      matchScore: 95,
+      reason: 'Perfect for your heart health goals',
+      price: 29.99,
+      image: '🐟',
+      tags: ['Heart Health', 'Brain Function']
     },
     {
       id: 2,
-      type: 'goal',
-      action: 'Achieved',
-      item: '7-day supplement streak',
-      time: '1 day ago',
-      icon: Award
+      name: 'Vitamin D3+K2',
+      matchScore: 88,
+      reason: 'Fills your vitamin D needs',
+      price: 24.99,
+      image: '☀️',
+      tags: ['Bone Health', 'Immunity']
     },
     {
       id: 3,
-      type: 'community',
-      action: 'Posted in',
-      item: 'Muscle Building Masters',
-      time: '2 days ago',
-      icon: Users
+      name: 'Magnesium Glycinate',
+      matchScore: 92,
+      reason: 'Supports better sleep and relaxation',
+      price: 19.99,
+      image: '🍌',
+      tags: ['Sleep Quality', 'Stress Relief']
     }
   ]
 
@@ -101,21 +119,81 @@ export default function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-[#F9FAF9]">
-      {/* Header */}
-      <header className="bg-white border-b">
+      {/* Top Navigation Bar */}
+      <header className="bg-white border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
+            {/* Logo */}
             <div className="flex items-center space-x-2">
-              <Heart className="h-8 w-8 text-[#2E7D32]" />
-              <span className="text-2xl font-bold">Wellness Platform</span>
+              <Heart className="h-8 w-8 text-[#22C55E]" />
+              <span className="text-2xl font-bold text-gray-900">Wellness Platform</span>
             </div>
+
+            {/* Navigation Menu */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <button 
+                onClick={() => router.push('/dashboard/user')}
+                className="flex items-center space-x-2 text-[#22C55E] border-b-2 border-[#22C55E] pb-1"
+              >
+                <Home className="h-4 w-4" />
+                <span className="font-medium">Dashboard</span>
+              </button>
+              <button 
+                onClick={() => router.push('/comparison')}
+                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
+              >
+                <Store className="h-4 w-4" />
+                <span>Marketplace</span>
+              </button>
+              <button 
+                onClick={() => router.push('/community')}
+                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
+              >
+                <Users className="h-4 w-4" />
+                <span>Community</span>
+              </button>
+              <button 
+                onClick={() => router.push('/profile')}
+                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
+              >
+                <User className="h-4 w-4" />
+                <span>Profile</span>
+              </button>
+              <button 
+                onClick={() => router.push('/notifications')}
+                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
+              >
+                <Bell className="h-4 w-4" />
+                <span>Notifications</span>
+              </button>
+              <button 
+                onClick={() => router.push('/settings')}
+                className="flex items-center space-x-2 text-gray-600 hover:text-[#22C55E] transition-colors"
+              >
+                <Settings className="h-4 w-4" />
+                <span>Settings</span>
+              </button>
+            </nav>
+
+            {/* Right Side Actions */}
             <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="flex items-center space-x-1">
-                <Star className="h-4 w-4" />
-                <span>Level 1</span>
-              </Badge>
-              <div className="text-sm text-gray-600">
-                Welcome back, {session?.user?.name}!
+              <Button 
+                onClick={() => router.push('/comparison')}
+                className="bg-[#22C55E] hover:bg-[#16A34A] text-white"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Browse Supplements
+              </Button>
+              
+              {/* User Avatar */}
+              <div className="flex items-center space-x-3">
+                <Badge variant="secondary" className="flex items-center space-x-1">
+                  <Star className="h-4 w-4 text-[#F97316]" />
+                  <span>Level 1</span>
+                </Badge>
+                <div className="w-8 h-8 bg-[#22C55E] rounded-full flex items-center justify-center text-white font-medium">
+                  {session?.user?.name?.charAt(0) || 'U'}
+                </div>
               </div>
             </div>
           </div>
@@ -124,13 +202,22 @@ export default function UserDashboard() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#212121] mb-2">
-            Good morning, {session?.user?.name?.split(' ')[0]}! 👋
-          </h1>
-          <p className="text-[#4E944F]">
-            Ready to continue your wellness journey? Here's what's happening today.
-          </p>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              Welcome back, {session?.user?.name?.split(' ')[0]}!
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Manage your wellness journey and supplement routine
+            </p>
+          </div>
+          <Button 
+            onClick={() => router.push('/comparison')}
+            className="bg-gray-900 hover:bg-gray-800 text-white"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Browse Supplements
+          </Button>
         </div>
 
         {/* Questionnaire Section */}
@@ -170,63 +257,122 @@ export default function UserDashboard() {
           </div>
         </div>
 
-        {/* Stats Cards */}
+        {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-white rounded-lg">
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-[#A5D6A7] rounded-lg">
-                  <Pill className="h-6 w-6 text-[#2E7D32]" />
+                <div className="p-2 bg-[#DCFCE7] rounded-lg">
+                  <Calendar className="h-6 w-6 text-[#22C55E]" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">{supplementStreak}</div>
-                  <div className="text-sm text-gray-600">Day Streak</div>
+                  <div className="text-2xl font-bold text-gray-900">3</div>
+                  <div className="text-sm text-gray-600">Upcoming Sessions</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white rounded-lg">
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-[#A5D6A7] rounded-lg">
-                  <Target className="h-6 w-6 text-[#2E7D32]" />
+                <div className="p-2 bg-[#DCFCE7] rounded-lg">
+                  <Pill className="h-6 w-6 text-[#22C55E]" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">{todayLogs}/3</div>
-                  <div className="text-sm text-gray-600">Today's Logs</div>
+                  <div className="text-2xl font-bold text-gray-900">5</div>
+                  <div className="text-sm text-gray-600">Active Supplements</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white rounded-lg">
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-[#A5D6A7] rounded-lg">
-                  <Users className="h-6 w-6 text-[#2E7D32]" />
+                <div className="p-2 bg-[#DCFCE7] rounded-lg">
+                  <Users className="h-6 w-6 text-[#22C55E]" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">2</div>
-                  <div className="text-sm text-gray-600">Active Groups</div>
+                  <div className="text-2xl font-bold text-gray-900">3</div>
+                  <div className="text-sm text-gray-600">Health Experts</div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white rounded-lg">
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-orange-100 rounded-lg">
-                  <TrendingUp className="h-6 w-6 text-orange-600" />
+                <div className="p-2 bg-[#FED7AA] rounded-lg">
+                  <Target className="h-6 w-6 text-[#F97316]" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">85%</div>
-                  <div className="text-sm text-gray-600">Goal Progress</div>
+                  <div className="text-2xl font-bold text-gray-900">4</div>
+                  <div className="text-sm text-gray-600">Available TAs</div>
                 </div>
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Upcoming Sessions Section */}
+        <div className="mb-8">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Upcoming Sessions</h2>
+            <p className="text-gray-600">Your scheduled wellness consultations and community sessions</p>
+          </div>
+          
+          <div className="space-y-4">
+            {upcomingActivities.map((session) => (
+              <Card key={session.id} className="bg-white rounded-lg">
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-[#22C55E] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      {session.avatar}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 mb-1">{session.title}</h3>
+                      <p className="text-gray-600 text-sm mb-2">{session.provider}</p>
+                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <div className="flex items-center space-x-1">
+                          <Calendar className="h-4 w-4" />
+                          <span>{session.date}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Clock className="h-4 w-4" />
+                          <span>{session.time}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          {session.location.includes('Virtual') ? (
+                            <Video className="h-4 w-4" />
+                          ) : (
+                            <MapPin className="h-4 w-4" />
+                          )}
+                          <span>{session.location}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Badge 
+                        variant={session.status === 'confirmed' ? 'default' : 'secondary'}
+                        className={session.status === 'confirmed' ? 'bg-gray-900' : 'bg-gray-100 text-gray-600'}
+                      >
+                        {session.status}
+                      </Badge>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className={session.status === 'confirmed' ? 'border-gray-900 text-gray-900' : ''}
+                      >
+                        {session.status === 'confirmed' ? 'Join Session' : 'View Details'}
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
