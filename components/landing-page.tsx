@@ -82,7 +82,7 @@ export default function LandingPage() {
             🎯 Trusted by 50,000+ health enthusiasts
           </Badge>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Your <span className="wellness-gradient-text">Personalized</span>
+            Your <span className="text-[#22C55E]">Personalized</span>
             <span className="wellness-gradient-text block">Wellness Journey</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -109,7 +109,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index} className="wellness-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
-                <div className="wellness-stat-number mb-2">
+                <div className="text-4xl font-bold text-[#22C55E] mb-2">
                   {stat.number}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
@@ -124,7 +124,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 wellness-slide-up">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Everything You Need for <span className="wellness-gradient-text">Optimal Wellness</span>
+              Everything You Need for <span className="text-[#F97316]">Optimal Wellness</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Our comprehensive platform combines AI-powered recommendations, safety checking, 
@@ -137,15 +137,19 @@ export default function LandingPage() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className={`wellness-feature-card ${
-                    activeFeature === index ? 'active' : ''
+                  className={`p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out cursor-pointer border-2 border-transparent hover:border-[#22C55E]/20 ${
+                    activeFeature === index 
+                      ? 'border-[#22C55E] bg-[#22C55E] text-white shadow-lg' 
+                      : ''
                   } wellness-scale-in`}
                   style={{animationDelay: `${index * 0.1}s`}}
                   onClick={() => setActiveFeature(index)}
                 >
                   <div className="flex items-start space-x-4">
-                    <div className={`wellness-icon-bg ${
-                      activeFeature === index ? 'active' : ''
+                    <div className={`p-3 rounded-lg transition-all duration-300 ${
+                      activeFeature === index 
+                        ? 'bg-[#22C55E]' 
+                        : 'bg-[#DCFCE7]'
                     }`}>
                       {feature.icon}
                     </div>
@@ -162,9 +166,9 @@ export default function LandingPage() {
               ))}
             </div>
 
-            <div className="wellness-card wellness-card-hover wellness-scale-in">
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 wellness-scale-in">
               <div className="text-center p-8">
-                <div className="w-16 h-16 wellness-gradient-bg rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-[#DCFCE7] rounded-full flex items-center justify-center mx-auto mb-4">
                   {features[activeFeature].icon}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -189,7 +193,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center wellness-slide-up">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                <span className="wellness-gradient-text">Safety First</span>: Your Health is Our Priority
+                <span className="text-[#22C55E]">Safety First</span>: Your Health is Our Priority
               </h2>
               <p className="text-lg text-gray-600 mb-8">
                 Every recommendation goes through our extensive multi-step safety screening. 
@@ -214,7 +218,7 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="wellness-gradient-bg p-8 rounded-xl wellness-card-hover">
+            <div className="bg-[#DCFCE7] p-8 rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out">
               <div className="text-center">
                 <Shield className="h-16 w-16 text-[#22C55E] mx-auto mb-4 wellness-scale-in" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -234,7 +238,7 @@ export default function LandingPage() {
       <section id="community" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-6 wellness-slide-up">
-            Learn from <span className="wellness-gradient-text">Real People Like You</span>
+            Learn from <span className="text-[#22C55E]">Real People Like You</span>
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
             Connect with thousands of wellness enthusiasts, get advice from verified experts, 
@@ -242,7 +246,7 @@ export default function LandingPage() {
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="wellness-card wellness-card-hover wellness-scale-in">
+            <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 wellness-scale-in">
               <CardHeader>
                 <Users className="h-12 w-12 text-[#22C55E] mx-auto mb-4" />
                 <CardTitle>Wellness Community</CardTitle>
@@ -259,7 +263,7 @@ export default function LandingPage() {
               </CardContent>
             </Card>
 
-            <Card className="wellness-card wellness-card-hover wellness-scale-in" style={{animationDelay: '0.1s'}}>
+            <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 wellness-scale-in" style={{animationDelay: '0.1s'}}>
               <CardHeader>
                 <MessageCircle className="h-12 w-12 text-[#F97316] mx-auto mb-4" />
                 <CardTitle>Education Hub</CardTitle>
@@ -276,7 +280,7 @@ export default function LandingPage() {
               </CardContent>
             </Card>
 
-            <Card className="wellness-card wellness-card-hover wellness-scale-in" style={{animationDelay: '0.2s'}}>
+            <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 wellness-scale-in" style={{animationDelay: '0.2s'}}>
               <CardHeader>
                 <Star className="h-12 w-12 text-[#22C55E] mx-auto mb-4" />
                 <CardTitle>Goal Tracking</CardTitle>
@@ -307,7 +311,7 @@ export default function LandingPage() {
       <section className="py-20 wellness-cta-section wellness-slide-up">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Start Your <span className="text-white">Wellness Journey</span> Today
+            Start Your <span className="text-[#F97316]">Wellness Journey</span> Today
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Get personalized supplement recommendations, safety insights, and join a community 
