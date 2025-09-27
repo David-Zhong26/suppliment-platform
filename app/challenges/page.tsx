@@ -21,7 +21,8 @@ import {
   X,
   MessageCircle,
   Share2,
-  ChevronLeft
+  ChevronLeft,
+  Info
 } from 'lucide-react'
 import PersistentNav from '@/components/navigation/persistent-nav'
 
