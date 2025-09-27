@@ -21,6 +21,7 @@ import {
   BookOpen,
   ShoppingCart
 } from 'lucide-react'
+import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
 
 export default function UserDashboard() {
   const { data: session, status } = useSession()
@@ -132,6 +133,11 @@ export default function UserDashboard() {
           </p>
         </div>
 
+        {/* Questionnaire Section */}
+        <div className="mb-8">
+          <QuestionnaireLauncher />
+        </div>
+
         {/* Comparison Feature Highlight */}
         <div className="wellness-header p-6 mb-8 rounded-2xl border-2 border-[#A5D6A7]">
           <div className="flex items-center justify-between">
@@ -145,19 +151,19 @@ export default function UserDashboard() {
               <div className="flex items-center gap-4">
                 <Button 
                   size="lg" 
-                  className="btn-primary-green text-lg px-8"
+                  className="btn-primary-wellness text-lg px-8"
                   onClick={() => router.push('/comparison')}
                 >
                   Compare Supplements
                   <TrendingUp className="ml-2 h-5 w-5" />
                 </Button>
-                <div className="text-sm text-[#2E7D32]">
+                <div className="text-sm text-[#22C55E]">
                   <span className="font-semibold">95%+ accuracy</span> in matching your profile
                 </div>
               </div>
             </div>
             <div className="hidden md:block">
-              <div className="w-32 h-32 bg-[#2E7D32] rounded-full flex items-center justify-center">
+              <div className="w-32 h-32 bg-gradient-to-r from-[#22C55E] to-[#F97316] rounded-full flex items-center justify-center">
                 <span className="text-4xl">🎯</span>
               </div>
             </div>
