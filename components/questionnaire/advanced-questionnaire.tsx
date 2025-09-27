@@ -237,7 +237,7 @@ export default function AdvancedQuestionnaire({ onComplete, onClose }: Questionn
         setSelectedOptions(prevAnswer)
         setAmountValue(0)
       } else {
-        setSelectedOptions([prevAnswer] || [])
+        setSelectedOptions(prevAnswer ? [prevAnswer] : [])
         setAmountValue(0)
       }
     }
