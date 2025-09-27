@@ -31,6 +31,56 @@ import {
   TestTube,
   Target
 } from 'lucide-react'
+import { MatchScoreCalculator, type UserProfile, type ProductData } from '@/lib/match-score-calculator'
+
+// Demo user profile for match score calculation
+const DEMO_USER_PROFILE: UserProfile = {
+  goals: ['heart health', 'energy', 'sleep quality'],
+  dietPreferences: ['vegetarian'],
+  currentSupplements: ['multivitamin'],
+  medications: [],
+  allergies: ['fish'],
+  age: 35,
+  gender: 'female',
+  healthConditions: [],
+  nutrientGaps: ['omega-3', 'magnesium', 'vitamin-d']
+}
+
+// Function to convert Product to ProductData for match score calculation
+function convertToProductData(product: Product): ProductData {
+  return {
+    id: product.id,
+    name: product.name,
+    category: product.category,
+    ingredients: product.scientificInfo.keyIngredients.map(ing => ({
+      name: ing.name,
+      dosage: ing.dosage,
+      dailyValue: ing.dailyValue,
+      form: 'capsule' // Default form
+    })),
+    benefits: product.benefits,
+    certifications: product.certifications,
+    contraindications: product.scientificInfo.safety.warnings,
+    allergenWarnings: product.scientificInfo.safety.interactions,
+    evidenceStrength: product.scientificInfo.evidence.credibility.toLowerCase() as 'high' | 'moderate' | 'low',
+    brandReputation: 'excellent',
+    priceRange: product.price < 20 ? 'budget' : product.price < 40 ? 'mid' : 'premium'
+  }
+}
+
+// Calculate match scores for all products
+function calculateMatchScores(products: Product[]): Product[] {
+  return products.map(product => {
+    const productData = convertToProductData(product)
+    const matchScore = MatchScoreCalculator.calculateMatchScore(DEMO_USER_PROFILE, productData)
+    
+    return {
+      ...product,
+      matchPercentage: matchScore.totalScore,
+      matchScoreBreakdown: matchScore
+    }
+  })
+}
 
 interface Product {
   id: string
@@ -76,6 +126,16 @@ interface Product {
       facility: string[]
       standards: string[]
     }
+  }
+  matchScoreBreakdown?: {
+    goalFit: number
+    ingredientAlignment: number
+    safetyProfile: number
+    credibility: number
+    personalization: number
+    totalScore: number
+    warnings: string[]
+    recommendations: string[]
   }
 }
 
@@ -408,13 +468,21 @@ const products: Product[] = [
   }
 ]
 
+// Calculate match scores for all products
+const productsWithMatchScores = calculateMatchScores(products)
+
 // Match Breakdown Tooltip Component
 interface MatchBreakdownProps {
   breakdown: {
-    ingredients: number
-    goalsFit: number
-    safety: number
-    evidence: number
+    ingredients?: number
+    goalsFit?: number
+    safety?: number
+    evidence?: number
+    goalFit?: number
+    ingredientAlignment?: number
+    safetyProfile?: number
+    credibility?: number
+    personalization?: number
   }
   isVisible: boolean
   onClose: () => void
@@ -433,20 +501,24 @@ function MatchBreakdown({ breakdown, isVisible, onClose }: MatchBreakdownProps) 
       </div>
       <div className="space-y-3">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Ingredients Quality</span>
-          <span className="text-sm font-medium">{breakdown.ingredients}%</span>
+          <span className="text-sm text-gray-600">Goal Fit (40%)</span>
+          <span className="text-sm font-medium">{breakdown.goalFit || breakdown.goalsFit}%</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Goals Alignment</span>
-          <span className="text-sm font-medium">{breakdown.goalsFit}%</span>
+          <span className="text-sm text-gray-600">Ingredient Alignment (25%)</span>
+          <span className="text-sm font-medium">{breakdown.ingredientAlignment || breakdown.ingredients}%</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Safety Profile</span>
-          <span className="text-sm font-medium">{breakdown.safety}%</span>
+          <span className="text-sm text-gray-600">Safety Profile (20%)</span>
+          <span className="text-sm font-medium">{breakdown.safetyProfile || breakdown.safety}%</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Evidence Strength</span>
-          <span className="text-sm font-medium">{breakdown.evidence}%</span>
+          <span className="text-sm text-gray-600">Credibility (10%)</span>
+          <span className="text-sm font-medium">{breakdown.credibility || breakdown.evidence}%</span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-gray-600">Personalization (5%)</span>
+          <span className="text-sm font-medium">{breakdown.personalization || 100}%</span>
         </div>
       </div>
       <div className="mt-3 pt-3 border-t border-gray-100">
@@ -684,7 +756,7 @@ export default function ProductComparison() {
             className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 px-16"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {products.map((product, index) => (
+            {productsWithMatchScores.map((product, index) => (
               <Card
                 key={product.id}
                 className="flex-shrink-0 w-80 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 wellness-scale-in"
@@ -706,7 +778,7 @@ export default function ProductComparison() {
                       </Button>
                       {showMatchBreakdown === product.id && (
                         <MatchBreakdown
-                          breakdown={product.matchBreakdown}
+                          breakdown={product.matchScoreBreakdown || product.matchBreakdown}
                           isVisible={true}
                           onClose={() => setShowMatchBreakdown(null)}
                         />

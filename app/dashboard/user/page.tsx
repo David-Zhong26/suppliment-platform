@@ -40,6 +40,7 @@ import {
 } from 'lucide-react'
 import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
 import PersistentNav from '@/components/navigation/persistent-nav'
+import CalendarHeatmap from '@/components/calendar-heatmap'
 
 export default function UserDashboard() {
   const { data: session, status } = useSession()
@@ -55,6 +56,25 @@ export default function UserDashboard() {
 
   // Celebration state
   const [showCelebration, setShowCelebration] = useState<string | null>(null)
+
+  // Calendar tracking data
+  const [calendarData, setCalendarData] = useState<Record<string, {
+    water: boolean
+    supplements: boolean
+    sleep: boolean
+    activity: boolean
+  }>>({
+    '2025-01-15': { water: true, supplements: true, sleep: false, activity: true },
+    '2025-01-16': { water: true, supplements: true, sleep: true, activity: false },
+    '2025-01-17': { water: false, supplements: true, sleep: true, activity: true },
+    '2025-01-18': { water: true, supplements: false, sleep: true, activity: true },
+    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true },
+    '2025-01-20': { water: true, supplements: true, sleep: false, activity: false },
+    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true },
+    '2025-01-22': { water: false, supplements: false, sleep: true, activity: true },
+    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true },
+    '2025-01-24': { water: true, supplements: true, sleep: false, activity: true }
+  })
 
   // Active challenges
   const [activeChallenges] = useState([
@@ -274,6 +294,16 @@ export default function UserDashboard() {
               </Button>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Calendar Heatmap */}
+        <div className="mb-8">
+          <CalendarHeatmap 
+            data={calendarData} 
+            onDayClick={(date, data) => {
+              console.log('Day clicked:', date, data)
+            }}
+          />
         </div>
 
         {/* Active Challenge Preview */}
