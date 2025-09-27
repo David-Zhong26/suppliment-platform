@@ -472,35 +472,80 @@ export default function UserDashboard() {
               </CardContent>
             </Card>
 
-            {/* Community Updates */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-purple-600" />
-                  <span>Community Updates</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="p-3 bg-blue-50 rounded-lg">
-                    <div className="font-medium text-sm">New challenge: Hydration Hero</div>
-                    <div className="text-xs text-gray-600">Join 1,200+ participants</div>
-                  </div>
-                  <div className="p-3 bg-green-50 rounded-lg">
-                    <div className="font-medium text-sm">Expert Q&A: Dr. Sarah Johnson</div>
-                    <div className="text-xs text-gray-600">Live at 2:00 PM today</div>
-                  </div>
-                </div>
-                <Button 
-                  variant="outline" 
-                  className="w-full mt-4"
-                  onClick={() => router.push('/community')}
-                >
-                  <Users className="h-4 w-4 mr-2" />
-                  View All Updates
-                </Button>
-              </CardContent>
-            </Card>
+                {/* League Standing */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Trophy className="h-5 w-5 text-yellow-500" />
+                      <span>Your League Standing</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-[#16A34A] rounded-full flex items-center justify-center text-white font-medium">
+                            JD
+                          </div>
+                          <div>
+                            <div className="font-medium text-gray-900">Gold League</div>
+                            <div className="text-sm text-gray-600">Rank #4</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-bold text-[#16A34A]">987 XP</div>
+                          <div className="text-xs text-gray-500">31 day streak</div>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Progress to Platinum</span>
+                          <span>1,013 XP needed</span>
+                        </div>
+                        <Progress value={49} className="h-2" />
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      className="w-full mt-4"
+                      onClick={() => router.push('/leaderboard')}
+                    >
+                      <Trophy className="h-4 w-4 mr-2" />
+                      View Full Leaderboard
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Community Updates */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Users className="h-5 w-5 text-purple-600" />
+                      <span>Community Updates</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="p-3 bg-blue-50 rounded-lg">
+                        <div className="font-medium text-sm">New challenge: Hydration Hero</div>
+                        <div className="text-xs text-gray-600">Join 1,200+ participants</div>
+                      </div>
+                      <div className="p-3 bg-green-50 rounded-lg">
+                        <div className="font-medium text-sm">Expert Q&A: Dr. Sarah Johnson</div>
+                        <div className="text-xs text-gray-600">Live at 2:00 PM today</div>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      className="w-full mt-4"
+                      onClick={() => router.push('/community')}
+                    >
+                      <Users className="h-4 w-4 mr-2" />
+                      View All Updates
+                    </Button>
+                  </CardContent>
+                </Card>
           </div>
         </div>
       </div>
