@@ -37,6 +37,7 @@ interface AdvancedQuestion {
   }[]
   unit?: string
   maxAmount?: number
+  points?: number
 }
 
 interface QuestionnaireProps {
