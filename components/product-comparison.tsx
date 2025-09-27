@@ -512,9 +512,8 @@ export default function ProductComparison() {
       ])
     }
 
-    // Show cart briefly
+    // Show cart when items are added
     setShowCart(true)
-    setTimeout(() => setShowCart(false), 2000)
   }
 
   const removeFromCart = (productId: string) => {
@@ -880,7 +879,11 @@ export default function ProductComparison() {
                         Proceed to Checkout
                       </Button>
                       
-                      <Button variant="outline" className="w-full">
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => setShowCart(false)}
+                      >
                         Continue Shopping
                       </Button>
                     </div>
