@@ -12,7 +12,6 @@ import {
   User, 
   Bell, 
   Settings,
-  Plus,
   ChevronDown,
   LogOut,
   HelpCircle,
@@ -78,7 +77,7 @@ export default function PersistentNav({
           </div>
 
           {/* Navigation Menu */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-12">
             {navItems.map((item) => {
               const Icon = item.icon
               return (
@@ -107,15 +106,7 @@ export default function PersistentNav({
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
-            <Button 
-              onClick={() => router.push('/comparison')}
-              className="bg-[#22C55E] hover:bg-[#16A34A] text-white"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Browse Supplements
-            </Button>
-            
+          <div className="flex items-center space-x-6">
             {/* User Profile with Dropdown */}
             <div className="relative" ref={userMenuRef}>
               <div 
