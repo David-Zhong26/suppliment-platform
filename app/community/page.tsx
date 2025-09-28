@@ -315,6 +315,101 @@ export default function CommunityPage() {
                     ))}
                   </div>
                 </div>
+
+                {/* Featured Articles */}
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-900">Expert Articles</h2>
+                    <Button variant="outline" size="sm">
+                      View All
+                      <ArrowRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Article 1 */}
+                    <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                            DR
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge className="bg-blue-100 text-blue-700 text-xs">
+                                Expert Article
+                              </Badge>
+                              <Badge variant="outline" className="text-xs">
+                                Nutrition
+                              </Badge>
+                            </div>
+                            <h3 className="font-semibold text-gray-900 mb-2">
+                              The Science Behind Omega-3 Supplementation: What You Need to Know
+                            </h3>
+                            <p className="text-sm text-gray-600 mb-4">
+                              Dr. Sarah Chen explores the latest research on omega-3 fatty acids, optimal dosages, and how to choose the right supplement for your health goals.
+                            </p>
+                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                              <span className="flex items-center gap-1">
+                                <User className="h-4 w-4" />
+                                Dr. Sarah Chen, RD
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                5 min read
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Star className="h-4 w-4" />
+                                4.9 rating
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Article 2 */}
+                    <Card className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                            MJ
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge className="bg-green-100 text-green-700 text-xs">
+                                Expert Article
+                              </Badge>
+                              <Badge variant="outline" className="text-xs">
+                                Sleep & Recovery
+                              </Badge>
+                            </div>
+                            <h3 className="font-semibold text-gray-900 mb-2">
+                              Magnesium for Better Sleep: A Comprehensive Guide
+                            </h3>
+                            <p className="text-sm text-gray-600 mb-4">
+                              Dr. Michael Johnson shares evidence-based insights on how magnesium supplementation can improve sleep quality and overall recovery.
+                            </p>
+                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                              <span className="flex items-center gap-1">
+                                <User className="h-4 w-4" />
+                                Dr. Michael Johnson, PhD
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                7 min read
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Star className="h-4 w-4" />
+                                4.8 rating
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
               </>
             )}
 

@@ -25,7 +25,6 @@ import {
   Store,
   User,
   Bell,
-  Settings,
   Plus,
   Clock,
   MapPin,
