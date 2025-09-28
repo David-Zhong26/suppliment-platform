@@ -80,7 +80,7 @@ export default function UserDashboard() {
     return 'sad' // Few or no goals met
   }
 
-  // Calendar tracking data - showing 5-day streak for demo with varied completion
+  // Calendar tracking data - showing 5-day streak for demo with varied completion (September 2025)
   const [calendarData, setCalendarData] = useState<Record<string, {
     water: boolean
     supplements: boolean
@@ -88,25 +88,31 @@ export default function UserDashboard() {
     activity: boolean
   }>>({
     // 5-day streak ending today - mostly green with some variety
-    '2025-01-20': { water: true, supplements: true, sleep: true, activity: false }, // Day 1 - 75% complete
-    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 - 100% complete
-    '2025-01-22': { water: true, supplements: false, sleep: true, activity: true }, // Day 3 - 75% complete
-    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 - 100% complete
-    '2025-01-24': { water: true, supplements: true, sleep: false, activity: true }, // Day 5 - 75% complete
+    '2025-09-24': { water: true, supplements: true, sleep: true, activity: false }, // Day 1 - 75% complete
+    '2025-09-25': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 - 100% complete
+    '2025-09-26': { water: true, supplements: false, sleep: true, activity: true }, // Day 3 - 75% complete
+    '2025-09-27': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 - 100% complete
+    '2025-09-28': { water: true, supplements: true, sleep: false, activity: true }, // Day 5 - 75% complete (today)
     
     // Previous days - showing mixed progress with more green circles
-    '2025-01-15': { water: false, supplements: false, sleep: false, activity: false }, // Bad day - 0% complete
-    '2025-01-16': { water: true, supplements: false, sleep: false, activity: false }, // Started water - 25% complete
-    '2025-01-17': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements - 50% complete
-    '2025-01-18': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep - 75% complete
-    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak - 100% complete
+    '2025-09-19': { water: false, supplements: false, sleep: false, activity: false }, // Bad day - 0% complete
+    '2025-09-20': { water: true, supplements: false, sleep: false, activity: false }, // Started water - 25% complete
+    '2025-09-21': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements - 50% complete
+    '2025-09-22': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep - 75% complete
+    '2025-09-23': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak - 100% complete
     
     // Additional days for more variety
-    '2025-01-10': { water: true, supplements: false, sleep: true, activity: true }, // 75% complete
-    '2025-01-11': { water: false, supplements: true, sleep: true, activity: false }, // 50% complete
-    '2025-01-12': { water: true, supplements: true, sleep: false, activity: true }, // 75% complete
-    '2025-01-13': { water: true, supplements: true, sleep: true, activity: true }, // 100% complete
-    '2025-01-14': { water: true, supplements: false, sleep: false, activity: true }, // 50% complete
+    '2025-09-14': { water: true, supplements: false, sleep: true, activity: true }, // 75% complete
+    '2025-09-15': { water: false, supplements: true, sleep: true, activity: false }, // 50% complete
+    '2025-09-16': { water: true, supplements: true, sleep: false, activity: true }, // 75% complete
+    '2025-09-17': { water: true, supplements: true, sleep: true, activity: true }, // 100% complete
+    '2025-09-18': { water: true, supplements: false, sleep: false, activity: true }, // 50% complete
+    
+    // More recent days for better visibility
+    '2025-09-10': { water: false, supplements: true, sleep: true, activity: false }, // 50% complete
+    '2025-09-11': { water: true, supplements: false, sleep: false, activity: true }, // 50% complete
+    '2025-09-12': { water: true, supplements: true, sleep: true, activity: false }, // 75% complete
+    '2025-09-13': { water: true, supplements: true, sleep: true, activity: true }, // 100% complete
   })
 
   // Active challenges
