@@ -42,6 +42,7 @@ import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-laun
 import PersistentNav from '@/components/navigation/persistent-nav'
 import CalendarHeatmap from '@/components/calendar-heatmap'
 import CharacterAvatar from '@/components/character-avatar-simple'
+import EditTasksModal from '@/components/edit-tasks-modal'
 
 export default function UserDashboard() {
   const { data: session, status } = useSession()
@@ -61,6 +62,7 @@ export default function UserDashboard() {
   // Character and points system
   const [userXp] = useState(3247)
   const [userPoints] = useState(1250)
+  const [showEditTasksModal, setShowEditTasksModal] = useState(false)
 
   // Determine character mood based on goal achievement
   const getCharacterMood = (): 'happy' | 'sad' | 'cool' => {
@@ -214,10 +216,7 @@ export default function UserDashboard() {
           <Button 
             variant="outline" 
             className="border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white"
-            onClick={() => {
-              // TODO: Open daily tasks editor modal
-              console.log('Edit daily tasks clicked')
-            }}
+            onClick={() => setShowEditTasksModal(true)}
           >
             <Settings className="h-4 w-4 mr-2" />
             Edit Tasks
@@ -692,6 +691,71 @@ export default function UserDashboard() {
           </div>
         </div>
       )}
+
+      {/* Edit Tasks Modal */}
+      <EditTasksModal
+        isOpen={showEditTasksModal}
+        onClose={() => setShowEditTasksModal(false)}
+        onSave={(tasks) => {
+          // Handle saving tasks - for now just close modal
+          console.log('Tasks saved:', tasks)
+          setShowEditTasksModal(false)
+        }}
+        initialTasks={[
+          {
+            id: '1',
+            name: 'Water Intake',
+            type: 'counter',
+            goal: 8,
+            unit: 'glasses',
+            icon: 'Droplets',
+            color: 'blue',
+            reminder: true,
+            reminderTime: '09:00',
+            frequency: 'daily',
+            startDate: '2025-01-01',
+          },
+          {
+            id: '2',
+            name: 'Supplements',
+            type: 'boolean',
+            goal: 3,
+            unit: 'pills',
+            icon: 'Pill',
+            color: 'green',
+            reminder: true,
+            reminderTime: '08:00',
+            frequency: 'daily',
+            startDate: '2025-01-01',
+          },
+          {
+            id: '3',
+            name: 'Sleep',
+            type: 'timer',
+            goal: 8,
+            unit: 'hours',
+            icon: 'Moon',
+            color: 'purple',
+            reminder: false,
+            reminderTime: '22:00',
+            frequency: 'daily',
+            startDate: '2025-01-01',
+          },
+          {
+            id: '4',
+            name: 'Activity',
+            type: 'counter',
+            goal: 10000,
+            unit: 'steps',
+            icon: 'Activity',
+            color: 'orange',
+            reminder: false,
+            reminderTime: '18:00',
+            frequency: 'daily',
+            startDate: '2025-01-01',
+          },
+        ]}
+      />
     </div>
   )
 }
