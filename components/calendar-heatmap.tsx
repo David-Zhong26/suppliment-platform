@@ -94,7 +94,8 @@ export default function CalendarHeatmap({ data, onDayClick, compact = false }: C
       const dateStr = date.toISOString().split('T')[0]
       const dayData = data[dateStr]
       
-      if (dayData && getCompletionPercentage(dayData) === 100) {
+      // Count as streak if 75% or higher completion (good progress day)
+      if (dayData && getCompletionPercentage(dayData) >= 75) {
         streak++
       } else {
         break
