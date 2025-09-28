@@ -139,7 +139,7 @@ export default function LandingPage() {
                   key={index}
                   className={`p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out cursor-pointer border-2 border-transparent hover:border-[#22C55E]/20 ${
                     activeFeature === index 
-                      ? 'border-[#22C55E] bg-[#22C55E] text-white shadow-lg' 
+                      ? 'border-[#22C55E] bg-[#22C55E] shadow-lg' 
                       : ''
                   } wellness-scale-in`}
                   style={{animationDelay: `${index * 0.1}s`}}
@@ -148,17 +148,37 @@ export default function LandingPage() {
                   <div className="flex items-start space-x-4">
                     <div className={`p-3 rounded-lg transition-all duration-300 ${
                       activeFeature === index 
-                        ? 'bg-[#22C55E]' 
+                        ? 'bg-white/20' 
                         : 'bg-[#DCFCE7]'
                     }`}>
-                      {feature.icon}
+                      <div className={activeFeature === index ? 'text-white' : 'text-[#22C55E]'}>
+                        {feature.icon}
+                      </div>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                      <p className="text-sm opacity-90">{feature.description}</p>
+                      <h3 className={`text-lg font-semibold mb-2 ${activeFeature === index ? 'text-white' : 'text-gray-900'}`}>
+                        {feature.title}
+                      </h3>
+                      <p className={`text-sm ${activeFeature === index ? 'text-white/90' : 'text-gray-600'}`}>
+                        {feature.description}
+                      </p>
                       <div className="mt-2 flex gap-2">
-                        <Badge variant="secondary" className="text-xs">Personalized</Badge>
-                        <Badge variant="secondary" className="text-xs">AI-Driven</Badge>
+                        <Badge 
+                          variant="secondary" 
+                          className={`text-xs ${activeFeature === index 
+                            ? 'bg-white/20 text-white border-white/30' 
+                            : 'bg-gray-100 text-gray-700'}`}
+                        >
+                          Personalized
+                        </Badge>
+                        <Badge 
+                          variant="secondary" 
+                          className={`text-xs ${activeFeature === index 
+                            ? 'bg-white/20 text-white border-white/30' 
+                            : 'bg-gray-100 text-gray-700'}`}
+                        >
+                          AI-Driven
+                        </Badge>
                       </div>
                     </div>
                   </div>
