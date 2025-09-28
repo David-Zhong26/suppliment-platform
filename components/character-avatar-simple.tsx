@@ -40,8 +40,8 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
               {/* Plant Character Image */}
               <div className="relative w-24 h-24 flex items-center justify-center">
                 <img 
-                  src="/images/character-plant-happy.png" 
-                  alt="Happy Plant Character"
+                  src={`/images/character-plant-${goalStatus}.png`}
+                  alt={`${goalStatus.charAt(0).toUpperCase() + goalStatus.slice(1)} Plant Character`}
                   className="w-full h-full object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
