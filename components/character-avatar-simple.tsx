@@ -37,60 +37,48 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
           <div className="flex items-center justify-between">
             {/* Plant Character Avatar */}
             <div className="relative w-32 h-32 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
-              {/* Background Sparkles */}
-              {goalStatus === 'happy' && (
-                <>
-                  <div className="absolute top-2 left-2 w-3 h-3 text-yellow-400">⭐</div>
-                  <div className="absolute top-4 left-6 w-2 h-2 text-yellow-400">⭐</div>
-                  <div className="absolute top-6 right-4 w-2 h-2 text-gray-400">⭐</div>
-                  <div className="absolute top-8 right-6 w-2 h-2 text-gray-400">⭐</div>
-                  <div className="absolute bottom-4 right-2 w-2 h-2 text-yellow-400">⭐</div>
-                </>
-              )}
-              
-              {/* Plant Character */}
-              <div className="relative z-10 flex flex-col items-center">
-                {/* Leaves/Hair */}
-                <div className="relative mb-1">
-                  <div className="w-8 h-6 bg-gradient-to-b from-green-400 to-green-500 rounded-full absolute -left-1 top-0 transform -rotate-12"></div>
-                  <div className="w-8 h-6 bg-gradient-to-b from-green-400 to-green-500 rounded-full absolute -right-1 top-0 transform rotate-12"></div>
+              {/* Character Image */}
+              <div className="relative w-24 h-24 flex items-center justify-center">
+                {goalStatus === 'happy' && (
+                  <img 
+                    src="/images/character-happy.png" 
+                    alt="Happy Plant Character"
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                    }}
+                  />
+                )}
+                {goalStatus === 'sad' && (
+                  <img 
+                    src="/images/character-sad.png" 
+                    alt="Sad Plant Character"
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                    }}
+                  />
+                )}
+                {goalStatus === 'cool' && (
+                  <img 
+                    src="/images/character-cool.png" 
+                    alt="Cool Plant Character"
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                    }}
+                  />
+                )}
+                
+                {/* Fallback character when image fails to load */}
+                <div className="hidden w-full h-full flex flex-col items-center justify-center text-6xl">
+                  {goalStatus === 'happy' && '😊'}
+                  {goalStatus === 'sad' && '😢'}
+                  {goalStatus === 'cool' && '😎'}
                 </div>
-                
-                {/* Head */}
-                <div className="w-10 h-10 bg-gradient-to-b from-green-200 to-green-300 rounded-full mb-1 border-2 border-green-400 relative">
-                  {/* Eyes */}
-                  <div className="absolute top-2 left-1.5 w-2 h-2 bg-black rounded-full">
-                    <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white rounded-full"></div>
-                  </div>
-                  <div className="absolute top-2 right-1.5 w-2 h-2 bg-black rounded-full">
-                    <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white rounded-full"></div>
-                  </div>
-                  
-                  {/* Mouth */}
-                  {goalStatus === 'happy' && (
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-4 h-2 bg-black rounded-full"></div>
-                  )}
-                  {goalStatus === 'sad' && (
-                    <>
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3 h-1.5 bg-black rounded-t-full"></div>
-                      <div className="absolute top-3 left-0.5 w-1 h-1 bg-blue-400 rounded-full"></div>
-                      <div className="absolute top-3 right-0.5 w-1 h-1 bg-blue-400 rounded-full"></div>
-                    </>
-                  )}
-                  {goalStatus === 'cool' && (
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-3 h-1 bg-black rounded-full"></div>
-                  )}
-                </div>
-                
-                {/* Body */}
-                <div className="w-8 h-8 bg-gradient-to-b from-green-200 to-green-300 rounded-full mb-1 border border-green-400"></div>
-                
-                {/* Arms */}
-                <div className="absolute top-8 left-2 w-2 h-3 bg-gradient-to-b from-green-200 to-green-300 rounded-full transform -rotate-12"></div>
-                <div className="absolute top-8 right-2 w-2 h-3 bg-gradient-to-b from-green-200 to-green-300 rounded-full transform rotate-12"></div>
-                
-                {/* Trunk/Legs */}
-                <div className="w-6 h-6 bg-gradient-to-b from-amber-600 to-amber-700 rounded-full border border-amber-800"></div>
               </div>
             </div>
 
