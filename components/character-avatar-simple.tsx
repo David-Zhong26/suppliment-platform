@@ -37,56 +37,36 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
           <div className="flex items-center justify-between">
             {/* Plant Character Avatar */}
             <div className="relative w-32 h-32 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
-              {/* Character Image */}
+              {/* Plant Character Image */}
               <div className="relative w-24 h-24 flex items-center justify-center">
-                {goalStatus === 'happy' && (
-                  <img 
-                    src="/images/character-happy.png" 
-                    alt="Happy Plant Character"
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                      const fallback = e.currentTarget.nextElementSibling as HTMLElement
-                      if (fallback) {
-                        fallback.style.display = 'flex'
-                      }
-                    }}
-                  />
-                )}
-                {goalStatus === 'sad' && (
-                  <img 
-                    src="/images/character-sad.png" 
-                    alt="Sad Plant Character"
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                      const fallback = e.currentTarget.nextElementSibling as HTMLElement
-                      if (fallback) {
-                        fallback.style.display = 'flex'
-                      }
-                    }}
-                  />
-                )}
-                {goalStatus === 'cool' && (
-                  <img 
-                    src="/images/character-cool.png" 
-                    alt="Cool Plant Character"
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                      const fallback = e.currentTarget.nextElementSibling as HTMLElement
-                      if (fallback) {
-                        fallback.style.display = 'flex'
-                      }
-                    }}
-                  />
-                )}
+                <img 
+                  src="/images/character-plant-happy.png" 
+                  alt="Happy Plant Character"
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    const fallback = e.currentTarget.nextElementSibling as HTMLElement
+                    if (fallback) {
+                      fallback.style.display = 'flex'
+                    }
+                  }}
+                />
                 
-                {/* Fallback character when image fails to load */}
-                <div className="hidden w-full h-full flex flex-col items-center justify-center text-6xl">
-                  {goalStatus === 'happy' && '😊'}
-                  {goalStatus === 'sad' && '😢'}
-                  {goalStatus === 'cool' && '😎'}
+                {/* Fallback plant character when image fails to load */}
+                <div className="hidden w-full h-full flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center relative">
+                    {/* Plant leaves */}
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                      <div className="w-4 h-6 bg-green-600 rounded-full transform rotate-12"></div>
+                      <div className="w-4 h-6 bg-green-600 rounded-full transform -rotate-12 -ml-2"></div>
+                    </div>
+                    {/* Face */}
+                    <div className="w-8 h-8 bg-green-300 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-black rounded-full"></div>
+                      <div className="w-2 h-2 bg-black rounded-full ml-1"></div>
+                      <div className="w-4 h-2 bg-black rounded-full absolute bottom-1"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
