@@ -18,6 +18,7 @@ import {
   Calendar,
   Award,
   Zap,
+  Settings,
   BookOpen,
   ShoppingCart,
   Home,
@@ -78,35 +79,26 @@ export default function UserDashboard() {
     return 'sad' // Few or no goals met
   }
 
-  // Calendar tracking data - more realistic patterns
+  // Calendar tracking data - showing 5-day streak for demo
   const [calendarData, setCalendarData] = useState<Record<string, {
     water: boolean
     supplements: boolean
     sleep: boolean
     activity: boolean
   }>>({
-    // Last week - building momentum
-    '2025-01-15': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
-    '2025-01-16': { water: true, supplements: true, sleep: false, activity: true }, // Missed sleep
-    '2025-01-17': { water: true, supplements: true, sleep: true, activity: false }, // Rest day
-    '2025-01-18': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
-    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
-    '2025-01-20': { water: false, supplements: true, sleep: true, activity: true }, // Forgot water
-    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    // 5-day streak ending today
+    '2025-01-20': { water: true, supplements: true, sleep: true, activity: true }, // Day 1 of streak
+    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 of streak
+    '2025-01-22': { water: true, supplements: true, sleep: true, activity: true }, // Day 3 of streak
+    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 of streak
+    '2025-01-24': { water: true, supplements: true, sleep: true, activity: true }, // Day 5 of streak (today)
     
-    // This week - consistent progress
-    '2025-01-22': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
-    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
-    '2025-01-24': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day (today)
-    
-    // Previous weeks - showing improvement over time
-    '2025-01-08': { water: false, supplements: false, sleep: false, activity: false }, // Bad start
-    '2025-01-09': { water: true, supplements: false, sleep: false, activity: false }, // Started water
-    '2025-01-10': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements
-    '2025-01-11': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep
-    '2025-01-12': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
-    '2025-01-13': { water: false, supplements: true, sleep: true, activity: true }, // Minor slip
-    '2025-01-14': { water: true, supplements: true, sleep: true, activity: true }, // Back on track
+    // Previous days - showing mixed progress
+    '2025-01-15': { water: false, supplements: false, sleep: false, activity: false }, // Bad day
+    '2025-01-16': { water: true, supplements: false, sleep: false, activity: false }, // Started water
+    '2025-01-17': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements
+    '2025-01-18': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep
+    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak
   })
 
   // Active challenges
@@ -212,6 +204,25 @@ export default function UserDashboard() {
             <Store className="h-4 w-4 mr-2" />
             Browse Marketplace
                 </Button>
+        </div>
+
+        {/* Daily Tracking Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Daily Goals</h2>
+            <p className="text-gray-600">Track your daily wellness activities</p>
+          </div>
+          <Button 
+            variant="outline" 
+            className="border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white"
+            onClick={() => {
+              // TODO: Open daily tasks editor modal
+              console.log('Edit daily tasks clicked')
+            }}
+          >
+            <Settings className="h-4 w-4 mr-2" />
+            Edit Tasks
+          </Button>
         </div>
 
         {/* Daily Tracking Cards */}
@@ -390,7 +401,7 @@ export default function UserDashboard() {
               }}
             />
           </div>
-        </div>
+                  </div>
 
         {/* Active Challenge Preview */}
         <Card className="bg-gradient-to-r from-[#16A34A] to-[#15803d] text-white mb-8">

@@ -57,7 +57,6 @@ export default function PersistentNav({
     { id: '/challenges', label: 'Challenges', icon: Trophy },
     { id: '/comparison', label: 'Marketplace', icon: Store },
     { id: '/community', label: 'Community', icon: Users },
-    { id: '/leaderboard', label: 'Leaderboard', icon: Trophy },
     { id: '/notifications', label: 'Notifications', icon: Bell },
   ]
 
