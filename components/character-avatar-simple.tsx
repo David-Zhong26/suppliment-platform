@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { 
   Shirt, 
-  Shoe, 
+  Footprints, 
   Palette, 
   Mountain, 
   Star,
@@ -85,7 +85,7 @@ export default function CharacterAvatar({ userXp, userPoints, onPurchase, onEqui
               <Badge className="text-xs bg-gray-100 text-gray-700">⚪</Badge>
             </div>
             <div className="flex items-center gap-2 p-2 bg-white rounded-lg border">
-              <Shoe className="h-4 w-4" />
+              <Footprints className="h-4 w-4" />
               <span className="text-sm font-medium">Basic Sneakers</span>
               <Badge className="text-xs bg-gray-100 text-gray-700">⚪</Badge>
             </div>
