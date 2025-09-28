@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import PersistentNav from '@/components/navigation/persistent-nav'
+import CharacterAvatar from '@/components/character-avatar'
 import { 
   User, 
   Calendar, 
@@ -42,6 +43,10 @@ import {
 export default function ProfilePage() {
   const [selectedTab, setSelectedTab] = useState('overview')
   const [selectedLanguage, setSelectedLanguage] = useState('en')
+  
+  // Character and points system
+  const [userXp] = useState(3247)
+  const [userPoints] = useState(1250)
   const [supplementLog, setSupplementLog] = useState({
     omega3: { taken: true, time: '08:00' },
     vitaminD: { taken: false, time: '12:00' },
@@ -218,7 +223,22 @@ export default function ProfilePage() {
 
         {/* Tab Content */}
         {selectedTab === 'overview' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="space-y-8">
+            {/* Character Avatar */}
+            <CharacterAvatar 
+              userXp={userXp} 
+              userPoints={userPoints}
+              onPurchase={(itemId) => {
+                console.log('Purchase item:', itemId)
+                // TODO: Implement purchase logic
+              }}
+              onEquip={(itemId) => {
+                console.log('Equip item:', itemId)
+                // TODO: Implement equip logic
+              }}
+            />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Supplement Tracker */}
             <div className="lg:col-span-2">
               <Card>

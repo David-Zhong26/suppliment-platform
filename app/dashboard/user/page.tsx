@@ -46,34 +46,46 @@ export default function UserDashboard() {
   const { data: session, status } = useSession()
   const router = useRouter()
   
-  // Daily tracking state
+  // Daily tracking state - allowing users to exceed goals
   const [dailyTracking, setDailyTracking] = useState({
-    water: { current: 6, goal: 8 }, // glasses
-    supplements: { taken: 3, total: 5 }, // supplements taken
-    sleep: { hours: 7.5, goal: 8 }, // hours
-    activity: { steps: 8500, goal: 10000 } // steps
+    water: { current: 10, goal: 8 }, // glasses - user exceeded goal!
+    supplements: { taken: 6, total: 5 }, // supplements taken - user exceeded goal!
+    sleep: { hours: 8.5, goal: 8 }, // hours - user exceeded goal!
+    activity: { steps: 12500, goal: 10000 } // steps - user exceeded goal!
   })
 
   // Celebration state
   const [showCelebration, setShowCelebration] = useState<string | null>(null)
 
-  // Calendar tracking data
+  // Calendar tracking data - more realistic patterns
   const [calendarData, setCalendarData] = useState<Record<string, {
     water: boolean
     supplements: boolean
     sleep: boolean
     activity: boolean
   }>>({
-    '2025-01-15': { water: true, supplements: true, sleep: false, activity: true },
-    '2025-01-16': { water: true, supplements: true, sleep: true, activity: false },
-    '2025-01-17': { water: false, supplements: true, sleep: true, activity: true },
-    '2025-01-18': { water: true, supplements: false, sleep: true, activity: true },
-    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true },
-    '2025-01-20': { water: true, supplements: true, sleep: false, activity: false },
-    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true },
-    '2025-01-22': { water: false, supplements: false, sleep: true, activity: true },
-    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true },
-    '2025-01-24': { water: true, supplements: true, sleep: false, activity: true }
+    // Last week - building momentum
+    '2025-01-15': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    '2025-01-16': { water: true, supplements: true, sleep: false, activity: true }, // Missed sleep
+    '2025-01-17': { water: true, supplements: true, sleep: true, activity: false }, // Rest day
+    '2025-01-18': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    '2025-01-20': { water: false, supplements: true, sleep: true, activity: true }, // Forgot water
+    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    
+    // This week - consistent progress
+    '2025-01-22': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    '2025-01-24': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day (today)
+    
+    // Previous weeks - showing improvement over time
+    '2025-01-08': { water: false, supplements: false, sleep: false, activity: false }, // Bad start
+    '2025-01-09': { water: true, supplements: false, sleep: false, activity: false }, // Started water
+    '2025-01-10': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements
+    '2025-01-11': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep
+    '2025-01-12': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day
+    '2025-01-13': { water: false, supplements: true, sleep: true, activity: true }, // Minor slip
+    '2025-01-14': { water: true, supplements: true, sleep: true, activity: true }, // Back on track
   })
 
   // Active challenges
@@ -134,13 +146,13 @@ export default function UserDashboard() {
     setDailyTracking(prev => {
       switch (type) {
         case 'water':
-          return { ...prev, water: { ...prev.water, current: Math.min(prev.water.current + 1, prev.water.goal) }}
+          return { ...prev, water: { ...prev.water, current: prev.water.current + 1 }} // No limit!
         case 'supplements':
-          return { ...prev, supplements: { ...prev.supplements, taken: Math.min(prev.supplements.taken + 1, prev.supplements.total) }}
+          return { ...prev, supplements: { ...prev.supplements, taken: prev.supplements.taken + 1 }} // No limit!
         case 'sleep':
-          return { ...prev, sleep: { ...prev.sleep, hours: Math.min(prev.sleep.hours + 0.5, prev.sleep.goal) }}
+          return { ...prev, sleep: { ...prev.sleep, hours: prev.sleep.hours + 0.5 }} // No limit!
         case 'activity':
-          return { ...prev, activity: { ...prev.activity, steps: Math.min(prev.activity.steps + 500, prev.activity.goal) }}
+          return { ...prev, activity: { ...prev.activity, steps: prev.activity.steps + 500 }} // No limit!
         default:
           return prev
       }
@@ -190,8 +202,16 @@ export default function UserDashboard() {
                 <div className="p-3 bg-blue-100 rounded-full">
                   <Droplets className="h-6 w-6 text-blue-600" />
                 </div>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    dailyTracking.water.current >= dailyTracking.water.goal 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-blue-100 text-blue-700'
+                  }`}
+                >
                   {dailyTracking.water.current}/{dailyTracking.water.goal}
+                  {dailyTracking.water.current > dailyTracking.water.goal && ' 🎉'}
                 </Badge>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Water Intake</h3>
@@ -218,8 +238,16 @@ export default function UserDashboard() {
                 <div className="p-3 bg-green-100 rounded-full">
                   <Pill className="h-6 w-6 text-green-600" />
                 </div>
-                <Badge variant="secondary" className="bg-green-100 text-green-700">
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    dailyTracking.supplements.taken >= dailyTracking.supplements.total 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-orange-100 text-orange-700'
+                  }`}
+                >
                   {dailyTracking.supplements.taken}/{dailyTracking.supplements.total}
+                  {dailyTracking.supplements.taken > dailyTracking.supplements.total && ' 🎉'}
                 </Badge>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Supplements</h3>
@@ -246,8 +274,16 @@ export default function UserDashboard() {
                 <div className="p-3 bg-purple-100 rounded-full">
                   <Moon className="h-6 w-6 text-purple-600" />
                 </div>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700">
-                  {dailyTracking.sleep.hours}h
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    dailyTracking.sleep.hours >= dailyTracking.sleep.goal 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-purple-100 text-purple-700'
+                  }`}
+                >
+                  {dailyTracking.sleep.hours.toFixed(1)}h/{dailyTracking.sleep.goal}h
+                  {dailyTracking.sleep.hours > dailyTracking.sleep.goal && ' 🎉'}
                 </Badge>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Sleep Quality</h3>
@@ -274,8 +310,16 @@ export default function UserDashboard() {
                 <div className="p-3 bg-orange-100 rounded-full">
                   <Activity className="h-6 w-6 text-orange-600" />
                 </div>
-                <Badge variant="secondary" className="bg-orange-100 text-orange-700">
-                  {dailyTracking.activity.steps.toLocaleString()}
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    dailyTracking.activity.steps >= dailyTracking.activity.goal 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-orange-100 text-orange-700'
+                  }`}
+                >
+                  {dailyTracking.activity.steps.toLocaleString()}/{dailyTracking.activity.goal.toLocaleString()}
+                  {dailyTracking.activity.steps > dailyTracking.activity.goal && ' 🎉'}
                 </Badge>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Activity</h3>

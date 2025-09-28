@@ -32,6 +32,7 @@ import {
   Target
 } from 'lucide-react'
 import { MatchScoreCalculator, type UserProfile, type ProductData } from '@/lib/match-score-calculator'
+import MatchScoreSlider, { CompactMatchSlider } from '@/components/match-score-slider'
 
 // Demo user profile for match score calculation
 const DEMO_USER_PROFILE: UserProfile = {
@@ -766,16 +767,18 @@ export default function ProductComparison() {
                   {/* Match Percentage Badge */}
                   <div className="flex justify-between items-start mb-6">
                     <div className="relative">
-                      <Button
-                        variant="ghost"
-                        className={`text-lg font-bold px-4 py-2 rounded-full ${getMatchColor(product.matchPercentage)} hover:opacity-80 transition-all`}
+                      <div 
+                        className="cursor-pointer hover:opacity-80 transition-all"
                         onClick={() => setShowMatchBreakdown(
                           showMatchBreakdown === product.id ? null : product.id
                         )}
                       >
-                        {product.matchPercentage}% Match
-                        <Info className="h-4 w-4 ml-2" />
-                      </Button>
+                        <MatchScoreSlider 
+                          percentage={product.matchPercentage} 
+                          size="md"
+                          showValue={true}
+                        />
+                      </div>
                       {showMatchBreakdown === product.id && (
                         <MatchBreakdown
                           breakdown={product.matchScoreBreakdown || product.matchBreakdown}
