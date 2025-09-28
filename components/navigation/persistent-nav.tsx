@@ -76,8 +76,8 @@ export default function PersistentNav({
             <span className="text-2xl font-bold text-gray-900">Wellness Platform</span>
           </div>
 
-          {/* Navigation Menu */}
-          <nav className="hidden md:flex items-center space-x-12">
+          {/* Navigation Menu - moved to center-right */}
+          <nav className="hidden md:flex items-center space-x-8 ml-auto mr-8">
             {navItems.map((item) => {
               const Icon = item.icon
               return (
@@ -106,22 +106,22 @@ export default function PersistentNav({
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
             {/* User Profile with Dropdown */}
             <div className="relative" ref={userMenuRef}>
               <div 
-                className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                className="flex items-center space-x-4 cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors"
                 onClick={() => setShowUserMenu(!showUserMenu)}
               >
-                <Badge variant="secondary" className="flex items-center space-x-1">
+                <Badge variant="secondary" className="flex items-center space-x-1.5 px-3 py-1.5">
                   <span className="text-[#F97316]">⭐</span>
-                  <span>Level {userLevel}</span>
+                  <span className="font-medium">Level {userLevel}</span>
                 </Badge>
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-[#22C55E] rounded-full flex items-center justify-center text-white font-medium">
+                <div className="flex items-center space-x-3">
+                  <div className="w-9 h-9 bg-[#22C55E] rounded-full flex items-center justify-center text-white font-semibold">
                     {userName.charAt(0).toUpperCase()}
                   </div>
-                  <span className="font-medium text-gray-700 hidden sm:block">{userName}</span>
+                  <span className="font-semibold text-gray-800 hidden sm:block text-base">{userName}</span>
                   <ChevronDown className="h-4 w-4 text-gray-500" />
                 </div>
               </div>
