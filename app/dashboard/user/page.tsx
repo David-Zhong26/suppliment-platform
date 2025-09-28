@@ -80,26 +80,33 @@ export default function UserDashboard() {
     return 'sad' // Few or no goals met
   }
 
-  // Calendar tracking data - showing 5-day streak for demo
+  // Calendar tracking data - showing 5-day streak for demo with varied completion
   const [calendarData, setCalendarData] = useState<Record<string, {
     water: boolean
     supplements: boolean
     sleep: boolean
     activity: boolean
   }>>({
-    // 5-day streak ending today
-    '2025-01-20': { water: true, supplements: true, sleep: true, activity: true }, // Day 1 of streak
-    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 of streak
-    '2025-01-22': { water: true, supplements: true, sleep: true, activity: true }, // Day 3 of streak
-    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 of streak
-    '2025-01-24': { water: true, supplements: true, sleep: true, activity: true }, // Day 5 of streak (today)
+    // 5-day streak ending today - mostly green with some variety
+    '2025-01-20': { water: true, supplements: true, sleep: true, activity: false }, // Day 1 - 75% complete
+    '2025-01-21': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 - 100% complete
+    '2025-01-22': { water: true, supplements: false, sleep: true, activity: true }, // Day 3 - 75% complete
+    '2025-01-23': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 - 100% complete
+    '2025-01-24': { water: true, supplements: true, sleep: false, activity: true }, // Day 5 - 75% complete
     
-    // Previous days - showing mixed progress
-    '2025-01-15': { water: false, supplements: false, sleep: false, activity: false }, // Bad day
-    '2025-01-16': { water: true, supplements: false, sleep: false, activity: false }, // Started water
-    '2025-01-17': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements
-    '2025-01-18': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep
-    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak
+    // Previous days - showing mixed progress with more green circles
+    '2025-01-15': { water: false, supplements: false, sleep: false, activity: false }, // Bad day - 0% complete
+    '2025-01-16': { water: true, supplements: false, sleep: false, activity: false }, // Started water - 25% complete
+    '2025-01-17': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements - 50% complete
+    '2025-01-18': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep - 75% complete
+    '2025-01-19': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak - 100% complete
+    
+    // Additional days for more variety
+    '2025-01-10': { water: true, supplements: false, sleep: true, activity: true }, // 75% complete
+    '2025-01-11': { water: false, supplements: true, sleep: true, activity: false }, // 50% complete
+    '2025-01-12': { water: true, supplements: true, sleep: false, activity: true }, // 75% complete
+    '2025-01-13': { water: true, supplements: true, sleep: true, activity: true }, // 100% complete
+    '2025-01-14': { water: true, supplements: false, sleep: false, activity: true }, // 50% complete
   })
 
   // Active challenges
@@ -205,7 +212,7 @@ export default function UserDashboard() {
             <Store className="h-4 w-4 mr-2" />
             Browse Marketplace
                 </Button>
-        </div>
+                </div>
 
         {/* Daily Tracking Header */}
         <div className="flex items-center justify-between mb-6">
