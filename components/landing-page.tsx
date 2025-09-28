@@ -344,7 +344,7 @@ export default function LandingPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-[#16A34A] focus:bg-white focus:text-[#16A34A] active:bg-white active:text-[#16A34A] wellness-scale-in" style={{animationDelay: '0.1s'}}>
+            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-[#16A34A] hover:bg-white hover:text-[#16A34A] focus:bg-white focus:text-[#16A34A] active:bg-white active:text-[#16A34A] wellness-scale-in" style={{animationDelay: '0.1s'}}>
               Watch Demo
             </Button>
           </div>
