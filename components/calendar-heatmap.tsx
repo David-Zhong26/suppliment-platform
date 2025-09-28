@@ -26,9 +26,10 @@ interface DayData {
 interface CalendarHeatmapProps {
   data: Record<string, DayData>
   onDayClick?: (date: string, data: DayData) => void
+  compact?: boolean
 }
 
-export default function CalendarHeatmap({ data, onDayClick }: CalendarHeatmapProps) {
+export default function CalendarHeatmap({ data, onDayClick, compact = false }: CalendarHeatmapProps) {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
@@ -149,11 +150,11 @@ export default function CalendarHeatmap({ data, onDayClick }: CalendarHeatmapPro
         </CardHeader>
         <CardContent>
           {/* Streak Counter */}
-          <div className="flex items-center gap-2 mb-6 p-4 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg">
-            <Flame className="h-6 w-6 text-orange-500" />
+          <div className={`flex items-center gap-2 ${compact ? 'mb-4 p-3' : 'mb-6 p-4'} bg-gradient-to-r from-orange-100 to-red-100 rounded-lg`}>
+            <Flame className={`text-orange-500 ${compact ? 'h-5 w-5' : 'h-6 w-6'}`} />
             <div>
-              <div className="font-bold text-orange-700">Current Streak</div>
-              <div className="text-2xl font-bold text-orange-600">{streak} days</div>
+              <div className={`font-bold text-orange-700 ${compact ? 'text-sm' : 'text-base'}`}>Current Streak</div>
+              <div className={`font-bold text-orange-600 ${compact ? 'text-xl' : 'text-2xl'}`}>{streak} days</div>
             </div>
           </div>
 
@@ -169,7 +170,7 @@ export default function CalendarHeatmap({ data, onDayClick }: CalendarHeatmapPro
               </Button>
             </div>
 
-            <div className="grid grid-cols-7 gap-1">
+            <div className={`grid grid-cols-7 ${compact ? 'gap-1' : 'gap-2'}`}>
               {getWeekDays(currentWeekStart).map((day, index) => {
                 const dateStr = formatDate(day)
                 const dayData = data[dateStr]
@@ -177,11 +178,11 @@ export default function CalendarHeatmap({ data, onDayClick }: CalendarHeatmapPro
                 
                 return (
                   <div key={index} className="text-center">
-                    <div className="text-xs text-gray-500 mb-1">
+                    <div className={`text-gray-500 mb-1 ${compact ? 'text-xs' : 'text-sm'}`}>
                       {day.toLocaleDateString('en-US', { weekday: 'short' })}
                     </div>
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-medium cursor-pointer transition-colors ${
+                      className={`${compact ? 'w-6 h-6' : 'w-8 h-8'} rounded-lg flex items-center justify-center text-xs font-medium cursor-pointer transition-colors ${
                         dayData ? getCellColor(dayData) : 'bg-gray-100 hover:bg-gray-200'
                       } ${isToday ? 'ring-2 ring-[#16A34A]' : ''}`}
                       onClick={() => {

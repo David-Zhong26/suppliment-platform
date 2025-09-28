@@ -41,6 +41,7 @@ import {
 import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
 import PersistentNav from '@/components/navigation/persistent-nav'
 import CalendarHeatmap from '@/components/calendar-heatmap'
+import CharacterAvatar from '@/components/character-avatar-simple'
 
 export default function UserDashboard() {
   const { data: session, status } = useSession()
@@ -56,6 +57,10 @@ export default function UserDashboard() {
 
   // Celebration state
   const [showCelebration, setShowCelebration] = useState<string | null>(null)
+
+  // Character and points system
+  const [userXp] = useState(3247)
+  const [userPoints] = useState(1250)
 
   // Calendar tracking data - more realistic patterns
   const [calendarData, setCalendarData] = useState<Record<string, {
@@ -178,19 +183,19 @@ export default function UserDashboard() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Good morning, {session?.user?.name?.split(' ')[0]}! 👋
-            </h1>
+            Good morning, {session?.user?.name?.split(' ')[0]}! 👋
+          </h1>
             <p className="text-gray-600 text-lg">
               Track your daily progress and stay on top of your wellness goals
-            </p>
-          </div>
-          <Button 
-            onClick={() => router.push('/comparison')}
+          </p>
+        </div>
+                <Button 
+                  onClick={() => router.push('/comparison')}
             className="bg-[#16A34A] hover:bg-[#15803d] text-white"
-          >
+                >
             <Store className="h-4 w-4 mr-2" />
             Browse Marketplace
-          </Button>
+                </Button>
         </div>
 
         {/* Daily Tracking Cards */}
@@ -340,15 +345,35 @@ export default function UserDashboard() {
           </Card>
         </div>
 
-        {/* Calendar Heatmap */}
-        <div className="mb-8">
-          <CalendarHeatmap 
-            data={calendarData} 
-            onDayClick={(date, data) => {
-              console.log('Day clicked:', date, data)
-            }}
-          />
-        </div>
+        {/* Calendar and Character Status */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* Calendar Heatmap - Left Side */}
+          <div className="lg:col-span-1">
+            <CalendarHeatmap 
+              data={calendarData} 
+              compact={true}
+              onDayClick={(date, data) => {
+                console.log('Day clicked:', date, data)
+              }}
+            />
+          </div>
+
+          {/* Character Status - Right Side */}
+          <div className="lg:col-span-1">
+            <CharacterAvatar 
+              userXp={userXp} 
+              userPoints={userPoints}
+              onPurchase={(itemId) => {
+                console.log('Purchase item:', itemId)
+                // TODO: Implement purchase logic
+              }}
+              onEquip={(itemId) => {
+                console.log('Equip item:', itemId)
+                // TODO: Implement equip logic
+              }}
+            />
+          </div>
+                  </div>
 
         {/* Active Challenge Preview */}
         <Card className="bg-gradient-to-r from-[#16A34A] to-[#15803d] text-white mb-8">
@@ -365,7 +390,7 @@ export default function UserDashboard() {
               >
                 View All Challenges
               </Button>
-            </div>
+                    </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {activeChallenges.map((challenge) => (
@@ -377,7 +402,7 @@ export default function UserDashboard() {
                       <div className="flex items-center gap-2 text-sm text-green-100">
                         <Flame className="h-4 w-4" />
                         {challenge.streak} day streak
-                      </div>
+                    </div>
                     </div>
                   </div>
                   <Progress 
@@ -390,9 +415,9 @@ export default function UserDashboard() {
                   </div>
                 </div>
               ))}
-            </div>
-          </CardContent>
-        </Card>
+                </div>
+              </CardContent>
+            </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Personal Recommendations */}
@@ -401,13 +426,13 @@ export default function UserDashboard() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="flex items-center space-x-2">
+                <CardTitle className="flex items-center space-x-2">
                       <Target className="h-6 w-6 text-[#16A34A]" />
                       <span>Personal Recommendations</span>
-                    </CardTitle>
-                    <CardDescription>
+                </CardTitle>
+                <CardDescription>
                       Top supplement matches based on your profile
-                    </CardDescription>
+                </CardDescription>
                   </div>
                   <Button 
                     variant="outline" 
@@ -436,7 +461,7 @@ export default function UserDashboard() {
                         <p className="text-sm text-gray-600 mb-2">{item.reason}</p>
                         <Badge variant="outline" className="text-xs">
                           {item.category}
-                        </Badge>
+                            </Badge>
                       </div>
                       <div className="text-right">
                         <div className="font-bold text-lg text-[#16A34A]">${item.price}</div>
@@ -450,9 +475,9 @@ export default function UserDashboard() {
                             More Info
                           </Button>
                           <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803d]">
-                            <ShoppingCart className="h-4 w-4 mr-1" />
+                          <ShoppingCart className="h-4 w-4 mr-1" />
                             Add to Cart
-                          </Button>
+                        </Button>
                         </div>
                       </div>
                     </div>
@@ -494,7 +519,7 @@ export default function UserDashboard() {
                   >
                     <Shield className="h-4 w-4 mr-3" />
                     Safety Check
-                  </Button>
+                </Button>
                 </div>
               </CardContent>
             </Card>
@@ -523,9 +548,9 @@ export default function UserDashboard() {
                   <div className="flex items-center space-x-3">
                     <div className="p-2 bg-blue-100 rounded-lg">
                       <Droplets className="h-4 w-4 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-medium">
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium">
                         Logged 2 glasses of water
                       </div>
                       <div className="text-xs text-gray-500">3 hours ago</div>
@@ -534,7 +559,7 @@ export default function UserDashboard() {
                   <div className="flex items-center space-x-3">
                     <div className="p-2 bg-purple-100 rounded-lg">
                       <Award className="h-4 w-4 text-purple-600" />
-                    </div>
+                        </div>
                     <div className="flex-1">
                       <div className="text-sm font-medium">
                         Completed wellness assessment
@@ -547,15 +572,15 @@ export default function UserDashboard() {
             </Card>
 
                 {/* League Standing */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
                       <Trophy className="h-5 w-5 text-yellow-500" />
                       <span>Your League Standing</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-[#16A34A] rounded-full flex items-center justify-center text-white font-medium">
@@ -576,10 +601,10 @@ export default function UserDashboard() {
                         <div className="flex justify-between text-sm">
                           <span>Progress to Platinum</span>
                           <span>1,013 XP needed</span>
-                        </div>
+                  </div>
                         <Progress value={49} className="h-2" />
-                      </div>
-                    </div>
+                  </div>
+                </div>
                     <Button 
                       variant="outline" 
                       className="w-full mt-4"
@@ -587,19 +612,19 @@ export default function UserDashboard() {
                     >
                       <Trophy className="h-4 w-4 mr-2" />
                       View Full Leaderboard
-                    </Button>
-                  </CardContent>
-                </Card>
+                </Button>
+              </CardContent>
+            </Card>
 
                 {/* Community Updates */}
-                <Card>
-                  <CardHeader>
+            <Card>
+              <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
                       <Users className="h-5 w-5 text-purple-600" />
                       <span>Community Updates</span>
                     </CardTitle>
-                  </CardHeader>
-                  <CardContent>
+              </CardHeader>
+              <CardContent>
                     <div className="space-y-3">
                       <div className="p-3 bg-blue-50 rounded-lg">
                         <div className="font-medium text-sm">New challenge: Hydration Hero</div>
@@ -615,11 +640,11 @@ export default function UserDashboard() {
                       className="w-full mt-4"
                       onClick={() => router.push('/community')}
                     >
-                      <Users className="h-4 w-4 mr-2" />
+                    <Users className="h-4 w-4 mr-2" />
                       View All Updates
-                    </Button>
-                  </CardContent>
-                </Card>
+                  </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
