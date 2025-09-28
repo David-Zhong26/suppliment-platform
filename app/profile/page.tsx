@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import PersistentNav from '@/components/navigation/persistent-nav'
-import CharacterAvatar from '@/components/character-avatar'
 import { 
   User, 
   Calendar, 
@@ -224,19 +223,11 @@ export default function ProfilePage() {
         {/* Tab Content */}
         {selectedTab === 'overview' && (
           <div className="space-y-8">
-            {/* Character Avatar */}
-            <CharacterAvatar 
-              userXp={userXp} 
-              userPoints={userPoints}
-              onPurchase={(itemId) => {
-                console.log('Purchase item:', itemId)
-                // TODO: Implement purchase logic
-              }}
-              onEquip={(itemId) => {
-                console.log('Equip item:', itemId)
-                // TODO: Implement equip logic
-              }}
-            />
+            {/* Character Avatar - Temporarily disabled for build fix */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-4">Character Customization</h3>
+              <p className="text-gray-600">Character system coming soon! 🎮</p>
+            </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Supplement Tracker */}
