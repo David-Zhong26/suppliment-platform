@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { 
   Shirt, 
-  Shoe, 
+  Footprints, 
   Palette, 
   Mountain, 
   Star,
@@ -54,9 +54,9 @@ export default function CharacterAvatar({ userXp, userPoints, onPurchase, onEqui
     { id: 'pants-mystic', name: 'Mystic Pants', category: 'pants', price: 750, rarity: 'epic', unlocked: false, equipped: false, icon: <Star className="h-6 w-6" /> },
 
     // Shoes
-    { id: 'shoes-basic', name: 'Basic Sneakers', category: 'shoes', price: 0, rarity: 'common', unlocked: true, equipped: true, icon: <Shoe className="h-6 w-6" /> },
-    { id: 'shoes-running', name: 'Running Shoes', category: 'shoes', price: 200, rarity: 'common', unlocked: true, equipped: false, icon: <Shoe className="h-6 w-6" /> },
-    { id: 'shoes-hiking', name: 'Hiking Boots', category: 'shoes', price: 400, rarity: 'rare', unlocked: false, equipped: false, icon: <Shoe className="h-6 w-6" /> },
+    { id: 'shoes-basic', name: 'Basic Sneakers', category: 'shoes', price: 0, rarity: 'common', unlocked: true, equipped: true, icon: <Footprints className="h-6 w-6" /> },
+    { id: 'shoes-running', name: 'Running Shoes', category: 'shoes', price: 200, rarity: 'common', unlocked: true, equipped: false, icon: <Footprints className="h-6 w-6" /> },
+    { id: 'shoes-hiking', name: 'Hiking Boots', category: 'shoes', price: 400, rarity: 'rare', unlocked: false, equipped: false, icon: <Footprints className="h-6 w-6" /> },
     { id: 'shoes-legend', name: 'Legendary Boots', category: 'shoes', price: 1200, rarity: 'legendary', unlocked: false, equipped: false, icon: <Crown className="h-6 w-6" /> },
 
     // Backgrounds
