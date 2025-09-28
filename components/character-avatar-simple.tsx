@@ -46,7 +46,10 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                      const fallback = e.currentTarget.nextElementSibling as HTMLElement
+                      if (fallback) {
+                        fallback.style.display = 'flex'
+                      }
                     }}
                   />
                 )}
@@ -57,7 +60,10 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                      const fallback = e.currentTarget.nextElementSibling as HTMLElement
+                      if (fallback) {
+                        fallback.style.display = 'flex'
+                      }
                     }}
                   />
                 )}
@@ -68,7 +74,10 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
                     className="w-full h-full object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                      const fallback = e.currentTarget.nextElementSibling as HTMLElement
+                      if (fallback) {
+                        fallback.style.display = 'flex'
+                      }
                     }}
                   />
                 )}
