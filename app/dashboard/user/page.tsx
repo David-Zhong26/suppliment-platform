@@ -62,6 +62,22 @@ export default function UserDashboard() {
   const [userXp] = useState(3247)
   const [userPoints] = useState(1250)
 
+  // Determine character mood based on goal achievement
+  const getCharacterMood = (): 'happy' | 'sad' | 'cool' => {
+    const goalsMet = [
+      dailyTracking.water.current >= dailyTracking.water.goal,
+      dailyTracking.supplements.taken >= dailyTracking.supplements.total,
+      dailyTracking.sleep.hours >= dailyTracking.sleep.goal,
+      dailyTracking.activity.steps >= dailyTracking.activity.goal
+    ]
+    
+    const goalsMetCount = goalsMet.filter(Boolean).length
+    
+    if (goalsMetCount >= 3) return 'happy' // Most goals met
+    if (goalsMetCount >= 1) return 'cool'  // Some goals met
+    return 'sad' // Few or no goals met
+  }
+
   // Calendar tracking data - more realistic patterns
   const [calendarData, setCalendarData] = useState<Record<string, {
     water: boolean
@@ -363,6 +379,7 @@ export default function UserDashboard() {
             <CharacterAvatar 
               userXp={userXp} 
               userPoints={userPoints}
+              goalStatus={getCharacterMood()}
               onPurchase={(itemId) => {
                 console.log('Purchase item:', itemId)
                 // TODO: Implement purchase logic
@@ -373,7 +390,7 @@ export default function UserDashboard() {
               }}
             />
           </div>
-                  </div>
+        </div>
 
         {/* Active Challenge Preview */}
         <Card className="bg-gradient-to-r from-[#16A34A] to-[#15803d] text-white mb-8">
