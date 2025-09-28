@@ -113,7 +113,7 @@ export default function PersistentNav({
                 className="flex items-center space-x-4 cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors"
                 onClick={() => setShowUserMenu(!showUserMenu)}
               >
-                <Badge variant="secondary" className="flex items-center space-x-1.5 px-3 py-1.5">
+                <Badge variant="secondary" className="flex items-center space-x-1.5 px-3 py-1.5 whitespace-nowrap">
                   <span className="text-[#F97316]">⭐</span>
                   <span className="font-medium">Level {userLevel}</span>
                 </Badge>
