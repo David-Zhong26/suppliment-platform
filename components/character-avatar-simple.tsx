@@ -112,19 +112,19 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
 
           {/* Character Status */}
           <div className="mt-4 space-y-2">
-            <div className="flex items-center gap-2 p-3 bg-white rounded-lg border">
-              <div className="text-lg">
+            <div className="flex items-center gap-3 p-4 bg-white rounded-lg border-2 shadow-sm">
+              <div className="text-2xl">
                 {goalStatus === 'happy' && '😊'}
                 {goalStatus === 'sad' && '😢'}
                 {goalStatus === 'cool' && '😎'}
               </div>
-              <div>
-                <span className="text-sm font-medium">
+              <div className="flex-1">
+                <span className="text-base font-bold text-gray-900">
                   {goalStatus === 'happy' && 'Goals Achieved!'}
                   {goalStatus === 'sad' && 'Keep Trying!'}
                   {goalStatus === 'cool' && 'Looking Good!'}
                 </span>
-                <p className="text-xs text-gray-500">
+                <p className="text-sm text-gray-700 mt-1">
                   {goalStatus === 'happy' && 'You\'re doing great!'}
                   {goalStatus === 'sad' && 'Don\'t give up!'}
                   {goalStatus === 'cool' && 'You\'re on fire!'}
