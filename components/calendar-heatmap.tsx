@@ -73,13 +73,15 @@ export default function CalendarHeatmap({ data, onDayClick, compact = false }: C
   const getCellColor = (dayData: DayData) => {
     const percentage = getCompletionPercentage(dayData)
     
-    if (percentage === 0) return 'bg-gray-100 hover:bg-gray-200'
-    if (percentage === 25) return 'bg-green-100 hover:bg-green-200'
-    if (percentage === 50) return 'bg-green-200 hover:bg-green-300'
-    if (percentage === 75) return 'bg-green-300 hover:bg-green-400'
-    if (percentage === 100) return 'bg-green-500 hover:bg-green-600'
+    if (percentage === 0) return 'bg-gray-200 hover:bg-gray-300'
+    if (percentage >= 1 && percentage <= 20) return 'bg-green-100 hover:bg-green-200'
+    if (percentage >= 21 && percentage <= 40) return 'bg-green-200 hover:bg-green-300'
+    if (percentage >= 41 && percentage <= 60) return 'bg-green-300 hover:bg-green-400'
+    if (percentage >= 61 && percentage <= 80) return 'bg-green-400 hover:bg-green-500'
+    if (percentage >= 81 && percentage <= 99) return 'bg-green-500 hover:bg-green-600'
+    if (percentage === 100) return 'bg-green-600 hover:bg-green-700'
     
-    return 'bg-gray-100 hover:bg-gray-200'
+    return 'bg-gray-200 hover:bg-gray-300'
   }
 
   const getStreakCount = () => {
@@ -181,18 +183,22 @@ export default function CalendarHeatmap({ data, onDayClick, compact = false }: C
                     <div className={`text-gray-500 mb-1 ${compact ? 'text-xs' : 'text-sm'}`}>
                       {day.toLocaleDateString('en-US', { weekday: 'short' })}
                     </div>
-                    <div
-                      className={`${compact ? 'w-6 h-6' : 'w-8 h-8'} rounded-lg flex items-center justify-center text-xs font-medium cursor-pointer transition-colors ${
-                        dayData ? getCellColor(dayData) : 'bg-gray-100 hover:bg-gray-200'
-                      } ${isToday ? 'ring-2 ring-[#16A34A]' : ''}`}
-                      onClick={() => {
-                        if (dayData) {
-                          setSelectedDate(dateStr)
-                          onDayClick?.(dateStr, dayData)
-                        }
-                      }}
-                    >
-                      {day.getDate()}
+                    <div className="relative">
+                      <div
+                        className={`${compact ? 'w-4 h-4' : 'w-6 h-6'} rounded-full cursor-pointer transition-all duration-200 hover:scale-110 ${
+                          dayData ? getCellColor(dayData) : 'bg-gray-200 hover:bg-gray-300'
+                        } ${isToday ? 'ring-2 ring-[#16A34A] shadow-md' : ''}`}
+                        onClick={() => {
+                          if (dayData) {
+                            setSelectedDate(dateStr)
+                            onDayClick?.(dateStr, dayData)
+                          }
+                        }}
+                        title={`${day.getDate()} - ${dayData ? `${getCompletionPercentage(dayData)}% completed` : 'No data'}`}
+                      />
+                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-[10px] text-gray-400 font-medium">
+                        {day.getDate()}
+                      </div>
                     </div>
                   </div>
                 )
@@ -264,19 +270,22 @@ export default function CalendarHeatmap({ data, onDayClick, compact = false }: C
               const isToday = day.toDateString() === new Date().toDateString()
               
               return (
-                <div
-                  key={index}
-                  className={`p-2 h-8 rounded-lg flex items-center justify-center text-xs font-medium cursor-pointer transition-colors ${
-                    dayData ? getCellColor(dayData) : 'bg-gray-100 hover:bg-gray-200'
-                  } ${isToday ? 'ring-2 ring-[#16A34A]' : ''}`}
-                  onClick={() => {
-                    if (dayData) {
-                      setSelectedDate(dateStr)
-                      onDayClick?.(dateStr, dayData)
-                    }
-                  }}
-                >
-                  {day.getDate()}
+                <div key={index} className="relative">
+                  <div
+                    className={`w-6 h-6 rounded-full cursor-pointer transition-all duration-200 hover:scale-110 ${
+                      dayData ? getCellColor(dayData) : 'bg-gray-200 hover:bg-gray-300'
+                    } ${isToday ? 'ring-2 ring-[#16A34A] shadow-md' : ''}`}
+                    onClick={() => {
+                      if (dayData) {
+                        setSelectedDate(dateStr)
+                        onDayClick?.(dateStr, dayData)
+                      }
+                    }}
+                    title={`${day.getDate()} - ${dayData ? `${getCompletionPercentage(dayData)}% completed` : 'No data'}`}
+                  />
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-[10px] text-gray-400 font-medium">
+                    {day.getDate()}
+                  </div>
                 </div>
               )
             })}
