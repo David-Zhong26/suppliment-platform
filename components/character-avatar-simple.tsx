@@ -27,7 +27,7 @@ interface CharacterAvatarProps {
 export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
   // Load the Rive animation with better error handling
   const { RiveComponent, rive } = useRive({
-    src: '/animations/leaf.riv',
+    src: '/animations/leaf.riv?v=2', // Cache busting for updated file
     autoplay: true,
     onLoad: () => {
       console.log('Rive animation loaded successfully!')
@@ -92,10 +92,7 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
                     style={{ 
                       width: '96px', 
                       height: '96px',
-                      backgroundColor: 'transparent',
-                      // Use CSS to remove black background
-                      filter: 'contrast(1.5) brightness(1.3)',
-                      mixBlendMode: 'multiply'
+                      backgroundColor: 'transparent'
                     }}
                   />
                 </div>
