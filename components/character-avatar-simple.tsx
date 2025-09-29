@@ -57,8 +57,12 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
               {/* Rive Animation */}
               <div className="relative w-24 h-24 flex items-center justify-center">
                 <RiveComponent 
-                  className="w-full h-full"
-                  style={{ width: '96px', height: '96px' }}
+                  className="w-full h-full [&>canvas]:bg-transparent"
+                  style={{ 
+                    width: '96px', 
+                    height: '96px',
+                    backgroundColor: 'transparent'
+                  }}
                 />
                 
                 {/* Fallback if Rive doesn't load */}

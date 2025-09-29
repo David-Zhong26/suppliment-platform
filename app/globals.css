@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Rive canvas transparency */
+@layer base {
+  canvas {
+    background: transparent !important;
+  }
+}
+
 @layer base {
   :root {
     /* Wellness Platform Color Scheme */
