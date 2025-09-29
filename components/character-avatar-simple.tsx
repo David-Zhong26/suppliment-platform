@@ -27,7 +27,7 @@ interface CharacterAvatarProps {
 export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
   // Load the Rive animation with better error handling
   const { RiveComponent, rive } = useRive({
-    src: '/animations/leaf-v2.riv', // Use the new updated file
+    src: '/animations/leaf-v3.riv', // Use the latest updated file
     autoplay: true,
     onLoad: () => {
       console.log('✅ Rive animation loaded successfully!')
