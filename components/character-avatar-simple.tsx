@@ -13,8 +13,6 @@ import {
   Crown,
   ShoppingBag
 } from 'lucide-react'
-import { useRive } from '@rive-app/react-canvas'
-import { useEffect } from 'react'
 
 interface CharacterAvatarProps {
   userXp: number
@@ -25,49 +23,7 @@ interface CharacterAvatarProps {
 }
 
 export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
-  // Load the Rive animation with better error handling
-  const { RiveComponent, rive } = useRive({
-    src: '/animations/leaf-v3.riv', // Use the latest updated file
-    autoplay: true,
-    onLoad: () => {
-      console.log('✅ Rive animation loaded successfully!')
-      if (rive) {
-        console.log('📋 Available animations:', rive.animationNames)
-        console.log('🎛️ Available state machines:', rive.stateMachineNames)
-        console.log('📏 Rive instance:', rive)
-        // Force canvas transparency after load
-        const canvas = document.querySelector('canvas')
-        if (canvas) {
-          console.log('🎨 Canvas found, setting transparency')
-          canvas.style.background = 'transparent'
-          canvas.style.backgroundColor = 'transparent'
-        } else {
-          console.log('❌ No canvas found!')
-        }
-      }
-    },
-    onLoadError: (err) => {
-      console.error('Rive animation failed to load:', err)
-    },
-  })
 
-  // Force canvas transparency after component mounts
-  useEffect(() => {
-    const forceTransparency = () => {
-      const canvases = document.querySelectorAll('canvas')
-      canvases.forEach(canvas => {
-        canvas.style.background = 'transparent'
-        canvas.style.backgroundColor = 'transparent'
-        canvas.style.backgroundImage = 'none'
-      })
-    }
-    
-    // Run immediately and after a short delay
-    forceTransparency()
-    const timeout = setTimeout(forceTransparency, 100)
-    
-    return () => clearTimeout(timeout)
-  }, [])
 
   return (
     <div className="space-y-6">
@@ -81,44 +37,39 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
-            {/* Animated Leaf Character */}
+            {/* Plant Character Avatar */}
             <div className="relative w-32 h-32 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
-              {/* Rive Animation */}
-              <div className="relative w-24 h-24 flex items-center justify-center overflow-hidden rounded-full">
-                <div 
-                  className="relative rive-canvas-container"
-                  style={{
-                    filter: 'drop-shadow(0 0 0 transparent)',
+              {/* Plant Character Image */}
+              <div className="relative w-24 h-24 flex items-center justify-center">
+                <img 
+                  src={`/images/character-plant-${goalStatus}.png`}
+                  alt={`${goalStatus.charAt(0).toUpperCase() + goalStatus.slice(1)} Plant Character`}
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    const fallback = e.currentTarget.nextElementSibling as HTMLElement
+                    if (fallback) {
+                      fallback.style.display = 'flex'
+                    }
                   }}
-                >
-                  <RiveComponent 
-                    className="w-full h-full"
-                    style={{ 
-                      width: '96px', 
-                      height: '96px',
-                      backgroundColor: 'transparent'
-                    }}
-                  />
-                </div>
+                />
                 
-                {/* Fallback if Rive doesn't load */}
-                {!rive && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center relative">
-                      {/* Plant leaves */}
-                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
-                        <div className="w-4 h-6 bg-green-600 rounded-full transform rotate-12"></div>
-                        <div className="w-4 h-6 bg-green-600 rounded-full transform -rotate-12 -ml-2"></div>
-                      </div>
-                      {/* Face */}
-                      <div className="w-8 h-8 bg-green-300 rounded-full flex items-center justify-center">
-                        <div className="w-2 h-2 bg-black rounded-full"></div>
-                        <div className="w-2 h-2 bg-black rounded-full ml-1"></div>
-                        <div className="w-4 h-2 bg-black rounded-full absolute bottom-1"></div>
-                      </div>
+                {/* Fallback plant character when image fails to load */}
+                <div className="hidden w-full h-full flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center relative">
+                    {/* Plant leaves */}
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                      <div className="w-4 h-6 bg-green-600 rounded-full transform rotate-12"></div>
+                      <div className="w-4 h-6 bg-green-600 rounded-full transform -rotate-12 -ml-2"></div>
+                    </div>
+                    {/* Face */}
+                    <div className="w-8 h-8 bg-green-300 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-black rounded-full"></div>
+                      <div className="w-2 h-2 bg-black rounded-full ml-1"></div>
+                      <div className="w-4 h-2 bg-black rounded-full absolute bottom-1"></div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             </div>
 
