@@ -21,6 +21,13 @@
     background: transparent !important;
     background-color: transparent !important;
   }
+  
+  /* Try to remove black backgrounds from Rive animations */
+  .rive-canvas-container canvas {
+    background: transparent !important;
+    background-color: transparent !important;
+    mix-blend-mode: multiply !important;
+  }
 }
 
 @layer base {

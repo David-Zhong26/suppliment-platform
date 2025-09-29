@@ -80,15 +80,25 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
             {/* Animated Leaf Character */}
             <div className="relative w-32 h-32 bg-gradient-to-br from-green-50 to-emerald-50 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
               {/* Rive Animation */}
-              <div className="relative w-24 h-24 flex items-center justify-center">
-                <RiveComponent 
-                  className="w-full h-full [&>canvas]:bg-transparent"
-                  style={{ 
-                    width: '96px', 
-                    height: '96px',
-                    backgroundColor: 'transparent'
+              <div className="relative w-24 h-24 flex items-center justify-center overflow-hidden rounded-full">
+                <div 
+                  className="relative rive-canvas-container"
+                  style={{
+                    filter: 'drop-shadow(0 0 0 transparent)',
                   }}
-                />
+                >
+                  <RiveComponent 
+                    className="w-full h-full"
+                    style={{ 
+                      width: '96px', 
+                      height: '96px',
+                      backgroundColor: 'transparent',
+                      // Use CSS to remove black background
+                      filter: 'contrast(1.5) brightness(1.3)',
+                      mixBlendMode: 'multiply'
+                    }}
+                  />
+                </div>
                 
                 {/* Fallback if Rive doesn't load */}
                 {!rive && (
