@@ -6,6 +6,20 @@
 @layer base {
   canvas {
     background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+  
+  /* Specific targeting for Rive canvases */
+  [data-rive-canvas] {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+  
+  /* Target any canvas within Rive components */
+  div canvas {
+    background: transparent !important;
+    background-color: transparent !important;
   }
 }
 

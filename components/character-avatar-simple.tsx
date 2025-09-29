@@ -14,6 +14,7 @@ import {
   ShoppingBag
 } from 'lucide-react'
 import { useRive } from '@rive-app/react-canvas'
+import { useEffect } from 'react'
 
 interface CharacterAvatarProps {
   userXp: number
@@ -33,12 +34,36 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
       if (rive) {
         console.log('Available animations:', rive.animationNames)
         console.log('Available state machines:', rive.stateMachineNames)
+        // Force canvas transparency after load
+        const canvas = document.querySelector('canvas')
+        if (canvas) {
+          canvas.style.background = 'transparent'
+          canvas.style.backgroundColor = 'transparent'
+        }
       }
     },
     onLoadError: (err) => {
       console.error('Rive animation failed to load:', err)
     },
   })
+
+  // Force canvas transparency after component mounts
+  useEffect(() => {
+    const forceTransparency = () => {
+      const canvases = document.querySelectorAll('canvas')
+      canvases.forEach(canvas => {
+        canvas.style.background = 'transparent'
+        canvas.style.backgroundColor = 'transparent'
+        canvas.style.backgroundImage = 'none'
+      })
+    }
+    
+    // Run immediately and after a short delay
+    forceTransparency()
+    const timeout = setTimeout(forceTransparency, 100)
+    
+    return () => clearTimeout(timeout)
+  }, [])
 
   return (
     <div className="space-y-6">
