@@ -24,11 +24,20 @@ interface CharacterAvatarProps {
 }
 
 export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
-  // Load the Rive animation
-  const { RiveComponent } = useRive({
+  // Load the Rive animation with better error handling
+  const { RiveComponent, rive } = useRive({
     src: '/animations/leaf.riv',
     autoplay: true,
-    stateMachines: 'State Machine 1', // You may need to adjust this based on your Rive file
+    onLoad: () => {
+      console.log('Rive animation loaded successfully!')
+      if (rive) {
+        console.log('Available animations:', rive.animationNames)
+        console.log('Available state machines:', rive.stateMachineNames)
+      }
+    },
+    onLoadError: (err) => {
+      console.error('Rive animation failed to load:', err)
+    },
   })
 
   return (
@@ -51,6 +60,25 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
                   className="w-full h-full"
                   style={{ width: '96px', height: '96px' }}
                 />
+                
+                {/* Fallback if Rive doesn't load */}
+                {!rive && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center relative">
+                      {/* Plant leaves */}
+                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                        <div className="w-4 h-6 bg-green-600 rounded-full transform rotate-12"></div>
+                        <div className="w-4 h-6 bg-green-600 rounded-full transform -rotate-12 -ml-2"></div>
+                      </div>
+                      {/* Face */}
+                      <div className="w-8 h-8 bg-green-300 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-black rounded-full"></div>
+                        <div className="w-2 h-2 bg-black rounded-full ml-1"></div>
+                        <div className="w-4 h-2 bg-black rounded-full absolute bottom-1"></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
