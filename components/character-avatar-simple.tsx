@@ -27,18 +27,22 @@ interface CharacterAvatarProps {
 export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
   // Load the Rive animation with better error handling
   const { RiveComponent, rive } = useRive({
-    src: '/animations/leaf.riv?v=2', // Cache busting for updated file
+    src: '/animations/leaf.riv', // Try without cache busting first
     autoplay: true,
     onLoad: () => {
-      console.log('Rive animation loaded successfully!')
+      console.log('✅ Rive animation loaded successfully!')
       if (rive) {
-        console.log('Available animations:', rive.animationNames)
-        console.log('Available state machines:', rive.stateMachineNames)
+        console.log('📋 Available animations:', rive.animationNames)
+        console.log('🎛️ Available state machines:', rive.stateMachineNames)
+        console.log('📏 Rive instance:', rive)
         // Force canvas transparency after load
         const canvas = document.querySelector('canvas')
         if (canvas) {
+          console.log('🎨 Canvas found, setting transparency')
           canvas.style.background = 'transparent'
           canvas.style.backgroundColor = 'transparent'
+        } else {
+          console.log('❌ No canvas found!')
         }
       }
     },
@@ -95,6 +99,11 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
                       backgroundColor: 'transparent'
                     }}
                   />
+                </div>
+                
+                {/* Debug info */}
+                <div className="absolute -top-8 left-0 text-xs text-gray-500">
+                  {rive ? 'Rive loaded' : 'Rive not loaded'}
                 </div>
                 
                 {/* Fallback if Rive doesn't load */}
