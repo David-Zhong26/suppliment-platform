@@ -28,6 +28,20 @@ import {
 } from 'lucide-react'
 import PersistentNav from '@/components/navigation/persistent-nav'
 
+// Icon mapping for supplement types
+const getSupplementIcon = (category: string, iconName?: string) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    'Omega-3': <Fish className="h-8 w-8 text-blue-600" />,
+    'Vitamins': <Sun className="h-8 w-8 text-orange-500" />,
+    'Minerals': <Banana className="h-8 w-8 text-yellow-600" />,
+    'Probiotics': <Microscope className="h-8 w-8 text-green-600" />,
+    'Multivitamins': <Pill className="h-8 w-8 text-purple-600" />,
+    'Herbs': <Flower2 className="h-8 w-8 text-pink-600" />
+  }
+  
+  return iconMap[category] || <Pill className="h-8 w-8 text-gray-600" />
+}
+
 // Product data (same as in product-comparison.tsx)
 const products = [
   {
@@ -40,7 +54,7 @@ const products = [
     price: 29.99,
     pricePerServing: 1.00,
     servings: 30,
-    icon: <Fish className="h-8 w-8 text-[#16A34A]" />,
+    icon: 'Fish',
     benefits: ['Heart Health', 'Brain Function', 'Joint Support'],
     description: 'High-potency EPA/DHA from wild-caught fish for comprehensive cardiovascular and cognitive support.',
     category: 'Omega-3',
@@ -100,7 +114,7 @@ const products = [
     price: 24.99,
     pricePerServing: 0.83,
     servings: 30,
-    icon: <Sun className="h-8 w-8 text-[#16A34A]" />,
+    icon: 'Sun',
     benefits: ['Bone Health', 'Immune Support', 'Calcium Absorption'],
     description: 'Essential vitamins for bone and immune health with enhanced absorption',
     category: 'Vitamins',
@@ -160,7 +174,7 @@ const products = [
     price: 19.99,
     pricePerServing: 0.67,
     servings: 30,
-    icon: <Banana className="h-8 w-8 text-[#16A34A]" />,
+    icon: 'Banana',
     benefits: ['Sleep Quality', 'Muscle Relaxation', 'Stress Relief'],
     description: 'Highly absorbable magnesium for better sleep and relaxation',
     category: 'Minerals',
@@ -288,7 +302,7 @@ function ComparePageContent() {
                 <div key={product.id} className="p-6 border-r border-gray-200 last:border-r-0">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-[#F0FDF4] rounded-full flex items-center justify-center mx-auto mb-4">
-                      {product.icon}
+                      {getSupplementIcon(product.category, product.icon)}
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">{product.name}</h3>
                     <p className="text-sm text-gray-600 mb-3">{product.brand}</p>

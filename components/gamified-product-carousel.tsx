@@ -400,6 +400,19 @@ export default function GamifiedProductCarousel({
                 </div>
               </div>
 
+              {/* Compare Selection */}
+              <div className="px-6 mb-4">
+                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                  <span className="text-sm font-medium text-gray-700">Compare</span>
+                  <input
+                    type="checkbox"
+                    checked={selectedForComparison.includes(currentProduct.id)}
+                    onChange={() => onToggleComparison(currentProduct.id)}
+                    className="w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
+                  />
+                </div>
+              </div>
+
               {/* Action Buttons */}
               <div className="px-6 pb-6 space-y-3">
                 <Button
@@ -506,11 +519,21 @@ export default function GamifiedProductCarousel({
         </Button>
       </div>
 
-      {/* Product Counter */}
-      <div className="text-center mt-4">
+      {/* Product Counter and Comparison Status */}
+      <div className="text-center mt-4 space-y-2">
         <p className="text-sm text-gray-500">
           {currentIndex + 1} of {products.length} products
         </p>
+        {selectedForComparison.length > 0 && (
+          <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+            <p className="text-sm text-green-700 font-medium">
+              {selectedForComparison.length} product{selectedForComparison.length !== 1 ? 's' : ''} selected for comparison
+            </p>
+            <p className="text-xs text-green-600 mt-1">
+              Go to Full List tab to compare selected products
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
