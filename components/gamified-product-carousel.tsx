@@ -307,11 +307,11 @@ export default function GamifiedProductCarousel({
         {products.length > 1 && (
           <div 
             className={`absolute left-0 top-12 w-80 h-[650px] transform transition-all duration-300 ${
-              swipeDirection === 'left' ? 'scale-95 opacity-60 -translate-x-2' : 'scale-85 opacity-70'
+              swipeDirection === 'left' ? 'opacity-60' : 'opacity-70'
             }`}
             style={{ 
               zIndex: 1,
-              transform: `translateX(-70%) ${swipeDirection === 'left' ? 'scale(0.95)' : 'scale(0.85)'}`
+              transform: `translateX(calc(-70% + ${swipeDirection === 'left' ? '-8px' : '0px'})) ${swipeDirection === 'left' ? 'scale(0.95)' : 'scale(0.85)'}`
             }}
           >
             <Card className="h-full bg-white border-2 border-gray-200 rounded-3xl shadow-lg">
@@ -336,16 +336,17 @@ export default function GamifiedProductCarousel({
         {/* Current Card (Center) */}
         <div 
           ref={(el) => { cardRefs.current[currentIndex] = el }}
-          className={`absolute left-1/2 top-0 w-80 h-[700px] transform -translate-x-1/2 transition-all duration-300 ${
-            isAnimating 
+          className="absolute left-1/2 top-0 w-80 h-[700px] transform transition-all duration-300"
+          style={{ 
+            zIndex: 3,
+            transform: `translateX(calc(-50% + ${isAnimating 
               ? swipeDirection === 'right' 
-                ? 'translate-x-4 scale-105' 
+                ? '16px' 
                 : swipeDirection === 'left' 
-                  ? '-translate-x-4 scale-105' 
-                  : ''
-              : 'scale-100'
-          }`}
-          style={{ zIndex: 3 }}
+                  ? '-16px' 
+                  : '0px'
+              : '0px'})) ${isAnimating ? 'scale(1.05)' : 'scale(1)'}`
+          }}
         >
           <Card className="h-full bg-white border-2 border-gray-200 rounded-3xl shadow-2xl overflow-hidden">
             <CardContent className="p-0 h-full relative">
@@ -455,11 +456,11 @@ export default function GamifiedProductCarousel({
         {products.length > 1 && (
           <div 
             className={`absolute right-0 top-12 w-80 h-[650px] transform transition-all duration-300 ${
-              swipeDirection === 'right' ? 'scale-95 opacity-60 translate-x-2' : 'scale-85 opacity-70'
+              swipeDirection === 'right' ? 'opacity-60' : 'opacity-70'
             }`}
             style={{ 
               zIndex: 1,
-              transform: `translateX(70%) ${swipeDirection === 'right' ? 'scale(0.95)' : 'scale(0.85)'}`
+              transform: `translateX(calc(70% + ${swipeDirection === 'right' ? '8px' : '0px'})) ${swipeDirection === 'right' ? 'scale(0.95)' : 'scale(0.85)'}`
             }}
           >
             <Card className="h-full bg-white border-2 border-gray-200 rounded-3xl shadow-lg">
