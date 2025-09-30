@@ -150,7 +150,7 @@ export default function ComparisonPage() {
         safety: {
           interactions: ['May interact with blood thinners', 'Consult doctor if taking anticoagulants'],
           warnings: ['Fish allergy warning', 'May cause mild digestive upset'],
-          riskLevel: 'low'
+          riskLevel: 'low' as const
         },
         qualityAssurance: {
           testing: ['Third-party purity testing', 'Heavy metal screening', 'Potency verification'],
@@ -204,7 +204,7 @@ export default function ComparisonPage() {
         safety: {
           interactions: ['May interact with calcium channel blockers', 'Monitor if taking warfarin'],
           warnings: ['Avoid high-dose calcium without K2', 'Monitor vitamin D levels with doctor'],
-          riskLevel: 'low'
+          riskLevel: 'low' as const
         },
         qualityAssurance: {
           testing: ['Lab verified potency', 'Heavy metal screening', 'Vitamin K2 stability testing'],
@@ -252,7 +252,7 @@ export default function ComparisonPage() {
         safety: {
           interactions: ['May enhance effects of muscle relaxants', 'Monitor with kidney disease'],
           warnings: ['High doses may cause diarrhea', 'Consult doctor with kidney problems'],
-          riskLevel: 'low'
+          riskLevel: 'low' as const
         },
         qualityAssurance: {
           testing: ['Chelated form verification', 'Elemental magnesium testing', 'Heavy metal screening'],
@@ -306,7 +306,7 @@ export default function ComparisonPage() {
         safety: {
           interactions: ['Generally safe with most medications', 'Monitor with immunosuppressants'],
           warnings: ['Start with lower dose if sensitive', 'Refrigerate for potency'],
-          riskLevel: 'low'
+          riskLevel: 'low' as const
         },
         qualityAssurance: {
           testing: ['CFU count verification', 'Strain identification', 'Purity testing'],
@@ -360,7 +360,7 @@ export default function ComparisonPage() {
         safety: {
           interactions: ['Generally safe', 'Monitor vitamin D with separate supplements'],
           warnings: ['May cause nausea if taken on empty stomach', 'Consult doctor with kidney disease'],
-          riskLevel: 'low'
+          riskLevel: 'low' as const
         },
         qualityAssurance: {
           testing: ['Nutrient potency testing', 'Bioavailability verification', 'Heavy metal screening'],
@@ -414,7 +414,7 @@ export default function ComparisonPage() {
         safety: {
           interactions: ['May interact with blood thinners', 'Monitor with diabetes medications'],
           warnings: ['May cause mild stomach upset', 'Avoid with gallstones'],
-          riskLevel: 'medium'
+          riskLevel: 'medium' as const
         },
         qualityAssurance: {
           testing: ['Curcuminoid content verification', 'Piperine potency testing', 'Heavy metal screening'],
@@ -605,7 +605,7 @@ export default function ComparisonPage() {
                     safety: {
                       interactions: ['May interact with blood thinners', 'Consult doctor if taking anticoagulants'],
                       warnings: ['Fish allergy warning', 'May cause mild digestive upset'],
-                      riskLevel: 'low'
+                      riskLevel: 'low' as const
                     },
                     qualityAssurance: {
                       testing: ['Third-party purity testing', 'Heavy metal screening', 'Potency verification'],
@@ -659,7 +659,7 @@ export default function ComparisonPage() {
                     safety: {
                       interactions: ['May interact with calcium channel blockers', 'Monitor if taking warfarin'],
                       warnings: ['Avoid high-dose calcium without K2', 'Monitor vitamin D levels with doctor'],
-                      riskLevel: 'low'
+                      riskLevel: 'low' as const
                     },
                     qualityAssurance: {
                       testing: ['Lab verified potency', 'Heavy metal screening', 'Vitamin K2 stability testing'],
@@ -707,7 +707,7 @@ export default function ComparisonPage() {
                     safety: {
                       interactions: ['May enhance effects of muscle relaxants', 'Monitor with kidney disease'],
                       warnings: ['High doses may cause diarrhea', 'Consult doctor with kidney problems'],
-                      riskLevel: 'low'
+                      riskLevel: 'low' as const
                     },
                     qualityAssurance: {
                       testing: ['Chelated form verification', 'Elemental magnesium testing', 'Heavy metal screening'],
