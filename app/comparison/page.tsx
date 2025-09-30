@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -31,6 +32,7 @@ import ProductGrid from '@/components/product-grid'
 import PersistentNav from '@/components/navigation/persistent-nav'
 
 export default function ComparisonPage() {
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState('catalog')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -563,7 +565,7 @@ export default function ComparisonPage() {
                 <Button
                   onClick={() => {
                     const ids = selectedForComparison.join(',')
-                    window.location.href = `/compare?ids=${ids}`
+                    router.push(`/compare?ids=${ids}`)
                   }}
                   className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg"
                 >
@@ -805,7 +807,7 @@ export default function ComparisonPage() {
                 <Button
                   onClick={() => {
                     const ids = selectedForComparison.join(',')
-                    window.location.href = `/compare?ids=${ids}`
+                    router.push(`/compare?ids=${ids}`)
                   }}
                   className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg"
                 >

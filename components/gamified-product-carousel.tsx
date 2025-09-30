@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -208,6 +209,7 @@ export default function GamifiedProductCarousel({
   onToggleComparison,
   selectedForComparison
 }: GamifiedProductCarouselProps) {
+  const router = useRouter()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
@@ -336,19 +338,17 @@ export default function GamifiedProductCarousel({
                 </div>
               </div>
 
-              {/* Favorite Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onToggleFavorite(currentProduct.id)}
-                className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full shadow-lg transition-all ${
-                  favorites.includes(currentProduct.id) 
-                    ? 'bg-red-500 text-white hover:bg-red-600' 
-                    : 'bg-white text-gray-400 hover:bg-gray-50'
-                }`}
-              >
-                <Heart className={`h-5 w-5 ${favorites.includes(currentProduct.id) ? 'fill-current' : ''}`} />
-              </Button>
+              {/* Selection Checkbox */}
+              <div className="absolute top-4 right-4 z-10">
+                <div className="bg-white rounded-full p-2 shadow-lg">
+                  <input
+                    type="checkbox"
+                    checked={selectedForComparison.includes(currentProduct.id)}
+                    onChange={() => onToggleComparison(currentProduct.id)}
+                    className="w-6 h-6 text-green-500 bg-white border-2 border-gray-300 rounded-full focus:ring-green-500 focus:ring-2"
+                  />
+                </div>
+              </div>
 
               {/* Product Icon */}
               <div className="pt-16 pb-8">
@@ -400,18 +400,6 @@ export default function GamifiedProductCarousel({
                 </div>
               </div>
 
-              {/* Compare Selection */}
-              <div className="px-6 mb-4">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                  <span className="text-sm font-medium text-gray-700">Compare</span>
-                  <input
-                    type="checkbox"
-                    checked={selectedForComparison.includes(currentProduct.id)}
-                    onChange={() => onToggleComparison(currentProduct.id)}
-                    className="w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
-                  />
-                </div>
-              </div>
 
               {/* Action Buttons */}
               <div className="px-6 pb-6 space-y-3">
@@ -533,7 +521,7 @@ export default function GamifiedProductCarousel({
               <Button
                 onClick={() => {
                   const ids = selectedForComparison.join(',')
-                  window.location.href = `/compare?ids=${ids}`
+                  router.push(`/compare?ids=${ids}`)
                 }}
                 className="mt-2 w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
               >
