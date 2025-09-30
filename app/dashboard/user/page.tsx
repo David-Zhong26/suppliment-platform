@@ -45,12 +45,9 @@ export default function UserDashboard() {
   const { data: session, status } = useSession()
   const router = useRouter()
   
-  // Daily tracking state - allowing users to exceed goals
+  // Daily tracking state - supplements only
   const [dailyTracking, setDailyTracking] = useState({
-    water: { current: 10, goal: 8 }, // glasses - user exceeded goal!
-    supplements: { taken: 6, total: 5 }, // supplements taken - user exceeded goal!
-    sleep: { hours: 8.5, goal: 8 }, // hours - user exceeded goal!
-    activity: { steps: 12500, goal: 10000 } // steps - user exceeded goal!
+    supplements: { taken: 6, total: 5 } // supplements taken - user exceeded goal!
   })
 
   // Celebration state
@@ -61,73 +58,63 @@ export default function UserDashboard() {
   const [userPoints] = useState(1250)
   const [showEditTasksModal, setShowEditTasksModal] = useState(false)
 
-  // Determine character mood based on goal achievement
+  // Determine character mood based on supplement goal achievement
   const getCharacterMood = (): 'happy' | 'sad' | 'cool' => {
-    const goalsMet = [
-      dailyTracking.water.current >= dailyTracking.water.goal,
-      dailyTracking.supplements.taken >= dailyTracking.supplements.total,
-      dailyTracking.sleep.hours >= dailyTracking.sleep.goal,
-      dailyTracking.activity.steps >= dailyTracking.activity.goal
-    ]
+    const supplementsGoalMet = dailyTracking.supplements.taken >= dailyTracking.supplements.total
     
-    const goalsMetCount = goalsMet.filter(Boolean).length
-    
-    if (goalsMetCount >= 3) return 'happy' // Most goals met
-    if (goalsMetCount >= 1) return 'cool'  // Some goals met
-    return 'sad' // Few or no goals met
+    if (supplementsGoalMet) return 'happy' // Supplement goal met
+    if (dailyTracking.supplements.taken > 0) return 'cool'  // Some supplements taken
+    return 'sad' // No supplements taken
   }
 
   // Calendar tracking data - showing 5-day streak for demo with varied completion (September 2025)
   const [calendarData, setCalendarData] = useState<Record<string, {
-    water: boolean
     supplements: boolean
-    sleep: boolean
-    activity: boolean
   }>>({
     // 5-day streak ending today - mostly green with some variety
-    '2025-09-24': { water: true, supplements: true, sleep: true, activity: false }, // Day 1 - 75% complete
-    '2025-09-25': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 - 100% complete
-    '2025-09-26': { water: true, supplements: false, sleep: true, activity: true }, // Day 3 - 75% complete
-    '2025-09-27': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 - 100% complete
-    '2025-09-28': { water: true, supplements: true, sleep: false, activity: true }, // Day 5 - 75% complete (today)
+    '2025-09-24': { supplements: true }, // Day 1 - supplement taken
+    '2025-09-25': { supplements: true }, // Day 2 - supplement taken
+    '2025-09-26': { supplements: false }, // Day 3 - missed supplement
+    '2025-09-27': { supplements: true }, // Day 4 - supplement taken
+    '2025-09-28': { supplements: true }, // Day 5 - supplement taken (today)
     
     // Previous days - showing mixed progress with more green circles
-    '2025-09-19': { water: false, supplements: false, sleep: false, activity: false }, // Bad day - 0% complete
-    '2025-09-20': { water: true, supplements: false, sleep: false, activity: false }, // Started water - 25% complete
-    '2025-09-21': { water: true, supplements: true, sleep: false, activity: false }, // Added supplements - 50% complete
-    '2025-09-22': { water: true, supplements: true, sleep: true, activity: false }, // Added sleep - 75% complete
-    '2025-09-23': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak - 100% complete
+    '2025-09-19': { supplements: false }, // Bad day - no supplements
+    '2025-09-20': { supplements: false }, // No supplements
+    '2025-09-21': { supplements: true }, // Started supplements
+    '2025-09-22': { supplements: true }, // Continued supplements
+    '2025-09-23': { supplements: true }, // Perfect day before streak - supplements taken
     
     // Additional days for more variety
-    '2025-09-14': { water: true, supplements: false, sleep: true, activity: true }, // 75% complete
-    '2025-09-15': { water: false, supplements: true, sleep: true, activity: false }, // 50% complete
-    '2025-09-16': { water: true, supplements: true, sleep: false, activity: true }, // 75% complete
-    '2025-09-17': { water: true, supplements: true, sleep: true, activity: true }, // 100% complete
-    '2025-09-18': { water: true, supplements: false, sleep: false, activity: true }, // 50% complete
+    '2025-09-14': { supplements: false }, // No supplements
+    '2025-09-15': { supplements: true }, // Supplements taken
+    '2025-09-16': { supplements: true }, // Supplements taken
+    '2025-09-17': { supplements: true }, // Supplements taken
+    '2025-09-18': { supplements: false }, // No supplements
     
     // More recent days for better visibility
-    '2025-09-10': { water: false, supplements: true, sleep: true, activity: false }, // 50% complete
-    '2025-09-11': { water: true, supplements: false, sleep: false, activity: true }, // 50% complete
-    '2025-09-12': { water: true, supplements: true, sleep: true, activity: false }, // 75% complete
-    '2025-09-13': { water: true, supplements: true, sleep: true, activity: true }, // 100% complete
+    '2025-09-10': { supplements: true }, // Supplements taken
+    '2025-09-11': { supplements: false }, // No supplements
+    '2025-09-12': { supplements: true }, // Supplements taken
+    '2025-09-13': { supplements: true }, // Supplements taken
   })
 
   // Active challenges
   const [activeChallenges] = useState([
     {
       id: 1,
-      name: 'Hydration Hero',
-      icon: '💧',
-      progress: 15,
+      name: 'Supplement Streak',
+      icon: '💊',
+      progress: 5,
       total: 30,
       streak: 5,
       points: 150
     },
     {
       id: 2,
-      name: 'Supplement Streak',
-      icon: '💊',
-      progress: 7,
+      name: 'Consistency Master',
+      icon: '🎯',
+      progress: 12,
       total: 21,
       streak: 7,
       points: 210
@@ -142,14 +129,8 @@ export default function UserDashboard() {
     // Update tracking (simulate logging)
     setDailyTracking(prev => {
       switch (type) {
-        case 'water':
-          return { ...prev, water: { ...prev.water, current: prev.water.current + 1 }} // No limit!
         case 'supplements':
           return { ...prev, supplements: { ...prev.supplements, taken: prev.supplements.taken + 1 }} // No limit!
-        case 'sleep':
-          return { ...prev, sleep: { ...prev.sleep, hours: prev.sleep.hours + 0.5 }} // No limit!
-        case 'activity':
-          return { ...prev, activity: { ...prev.activity, steps: prev.activity.steps + 500 }} // No limit!
         default:
           return prev
       }
@@ -206,44 +187,8 @@ export default function UserDashboard() {
           </Button>
         </div>
 
-        {/* Daily Tracking Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Water Intake */}
-          <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-blue-100 rounded-full">
-                  <Droplets className="h-6 w-6 text-blue-600" />
-                </div>
-                <Badge 
-                  variant="secondary" 
-                  className={`${
-                    dailyTracking.water.current >= dailyTracking.water.goal 
-                      ? 'bg-green-100 text-green-700' 
-                      : 'bg-blue-100 text-blue-700'
-                  }`}
-                >
-                  {dailyTracking.water.current}/{dailyTracking.water.goal}
-                  {dailyTracking.water.current > dailyTracking.water.goal && ' 🎉'}
-                </Badge>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Water Intake</h3>
-              <Progress 
-                value={(dailyTracking.water.current / dailyTracking.water.goal) * 100} 
-                className="h-2 mb-3"
-              />
-              <Button 
-                size="sm" 
-                variant="outline" 
-                className="w-full"
-                onClick={() => logActivity('water')}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Log Glass
-              </Button>
-            </CardContent>
-          </Card>
-
+        {/* Daily Goals - Supplements Only */}
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
           {/* Supplement Intake */}
           <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="p-6">
@@ -279,78 +224,6 @@ export default function UserDashboard() {
               </Button>
             </CardContent>
           </Card>
-
-          {/* Sleep */}
-          <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-purple-100 rounded-full">
-                  <Moon className="h-6 w-6 text-purple-600" />
-                </div>
-                <Badge 
-                  variant="secondary" 
-                  className={`${
-                    dailyTracking.sleep.hours >= dailyTracking.sleep.goal 
-                      ? 'bg-green-100 text-green-700' 
-                      : 'bg-purple-100 text-purple-700'
-                  }`}
-                >
-                  {dailyTracking.sleep.hours.toFixed(1)}h/{dailyTracking.sleep.goal}h
-                  {dailyTracking.sleep.hours > dailyTracking.sleep.goal && ' 🎉'}
-                </Badge>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Sleep Quality</h3>
-              <Progress 
-                value={(dailyTracking.sleep.hours / dailyTracking.sleep.goal) * 100} 
-                className="h-2 mb-3"
-              />
-              <Button 
-                size="sm" 
-                variant="outline" 
-                className="w-full"
-                onClick={() => logActivity('sleep')}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Log Sleep
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Activity */}
-          <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-orange-100 rounded-full">
-                  <Activity className="h-6 w-6 text-orange-600" />
-                </div>
-                <Badge 
-                  variant="secondary" 
-                  className={`${
-                    dailyTracking.activity.steps >= dailyTracking.activity.goal 
-                      ? 'bg-green-100 text-green-700' 
-                      : 'bg-orange-100 text-orange-700'
-                  }`}
-                >
-                  {dailyTracking.activity.steps.toLocaleString()}/{dailyTracking.activity.goal.toLocaleString()}
-                  {dailyTracking.activity.steps > dailyTracking.activity.goal && ' 🎉'}
-                </Badge>
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Activity</h3>
-              <Progress 
-                value={(dailyTracking.activity.steps / dailyTracking.activity.goal) * 100} 
-                className="h-2 mb-3"
-              />
-              <Button 
-                size="sm" 
-                variant="outline" 
-                className="w-full"
-                onClick={() => logActivity('activity')}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Log Activity
-              </Button>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Calendar and Character Status */}
@@ -371,6 +244,7 @@ export default function UserDashboard() {
             <CharacterAvatar 
               userXp={userXp} 
               userPoints={userPoints}
+              userName={session?.user?.name?.split(' ')[0]} // Get first name from session
               goalStatus={getCharacterMood()}
               onPurchase={(itemId) => {
                 console.log('Purchase item:', itemId)
@@ -389,8 +263,14 @@ export default function UserDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-2xl font-bold mb-2">Active Challenge</h2>
-                <p className="text-green-100">Keep your streak going!</p>
+                <h2 className="text-2xl font-bold mb-2">Continue Challenge</h2>
+                <p className="text-green-100">You're doing great! Keep your supplement streak going to unlock rewards and level up your character.</p>
+                <div className="mt-2 text-sm text-green-200">
+                  <span>Current Streak: </span>
+                  <span className="font-bold">5 days</span>
+                  <span className="ml-4">Next Reward: </span>
+                  <span className="font-bold">+50 XP Bonus</span>
+                </div>
               </div>
               <Button 
                 variant="outline" 
@@ -421,9 +301,9 @@ export default function UserDashboard() {
                   <div className="flex items-center justify-between text-sm">
                     <span>{challenge.progress}/{challenge.total} days</span>
                     <span className="font-semibold">+{challenge.points} pts</span>
-                  </div>
-                </div>
-              ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>

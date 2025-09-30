@@ -18,12 +18,13 @@ import { useRive } from '@rive-app/react-canvas'
 interface CharacterAvatarProps {
   userXp: number
   userPoints: number
+  userName?: string // User's first name for greeting
   goalStatus?: 'happy' | 'sad' | 'cool' // Character mood based on goal achievement
   onPurchase?: (itemId: string) => void
   onEquip?: (itemId: string) => void
 }
 
-export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
+export default function CharacterAvatar({ userXp, userPoints, userName, goalStatus = 'happy', onPurchase, onEquip }: CharacterAvatarProps) {
   // Load the Rive animation with simple configuration
   const { RiveComponent } = useRive({
     src: '/animations/leaf-v3.riv',
@@ -37,7 +38,7 @@ export default function CharacterAvatar({ userXp, userPoints, goalStatus = 'happ
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Palette className="h-5 w-5 text-[#16A34A]" />
-            Hi, User name
+            Hi, {userName || 'User'}
           </CardTitle>
         </CardHeader>
         <CardContent>
