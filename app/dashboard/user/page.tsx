@@ -69,34 +69,37 @@ export default function UserDashboard() {
 
   // Calendar tracking data - showing 5-day streak for demo with varied completion (September 2025)
   const [calendarData, setCalendarData] = useState<Record<string, {
+    water: boolean
     supplements: boolean
+    sleep: boolean
+    activity: boolean
   }>>({
-    // 5-day streak ending today - mostly green with some variety
-    '2025-09-24': { supplements: true }, // Day 1 - supplement taken
-    '2025-09-25': { supplements: true }, // Day 2 - supplement taken
-    '2025-09-26': { supplements: false }, // Day 3 - missed supplement
-    '2025-09-27': { supplements: true }, // Day 4 - supplement taken
-    '2025-09-28': { supplements: true }, // Day 5 - supplement taken (today)
+    // 5-day streak ending today - mostly green with some variety (supplements-focused)
+    '2025-09-24': { water: true, supplements: true, sleep: true, activity: true }, // Day 1 - supplement taken
+    '2025-09-25': { water: true, supplements: true, sleep: true, activity: true }, // Day 2 - supplement taken
+    '2025-09-26': { water: true, supplements: false, sleep: true, activity: true }, // Day 3 - missed supplement
+    '2025-09-27': { water: true, supplements: true, sleep: true, activity: true }, // Day 4 - supplement taken
+    '2025-09-28': { water: true, supplements: true, sleep: true, activity: true }, // Day 5 - supplement taken (today)
     
-    // Previous days - showing mixed progress with more green circles
-    '2025-09-19': { supplements: false }, // Bad day - no supplements
-    '2025-09-20': { supplements: false }, // No supplements
-    '2025-09-21': { supplements: true }, // Started supplements
-    '2025-09-22': { supplements: true }, // Continued supplements
-    '2025-09-23': { supplements: true }, // Perfect day before streak - supplements taken
+    // Previous days - showing mixed progress with more green circles (supplements-focused)
+    '2025-09-19': { water: false, supplements: false, sleep: false, activity: false }, // Bad day - no supplements
+    '2025-09-20': { water: true, supplements: false, sleep: false, activity: false }, // No supplements
+    '2025-09-21': { water: true, supplements: true, sleep: false, activity: false }, // Started supplements
+    '2025-09-22': { water: true, supplements: true, sleep: true, activity: false }, // Continued supplements
+    '2025-09-23': { water: true, supplements: true, sleep: true, activity: true }, // Perfect day before streak - supplements taken
     
-    // Additional days for more variety
-    '2025-09-14': { supplements: false }, // No supplements
-    '2025-09-15': { supplements: true }, // Supplements taken
-    '2025-09-16': { supplements: true }, // Supplements taken
-    '2025-09-17': { supplements: true }, // Supplements taken
-    '2025-09-18': { supplements: false }, // No supplements
+    // Additional days for more variety (supplements-focused)
+    '2025-09-14': { water: true, supplements: false, sleep: true, activity: true }, // No supplements
+    '2025-09-15': { water: true, supplements: true, sleep: true, activity: false }, // Supplements taken
+    '2025-09-16': { water: true, supplements: true, sleep: false, activity: true }, // Supplements taken
+    '2025-09-17': { water: true, supplements: true, sleep: true, activity: true }, // Supplements taken
+    '2025-09-18': { water: true, supplements: false, sleep: false, activity: true }, // No supplements
     
-    // More recent days for better visibility
-    '2025-09-10': { supplements: true }, // Supplements taken
-    '2025-09-11': { supplements: false }, // No supplements
-    '2025-09-12': { supplements: true }, // Supplements taken
-    '2025-09-13': { supplements: true }, // Supplements taken
+    // More recent days for better visibility (supplements-focused)
+    '2025-09-10': { water: true, supplements: true, sleep: false, activity: true }, // Supplements taken
+    '2025-09-11': { water: true, supplements: false, sleep: true, activity: false }, // No supplements
+    '2025-09-12': { water: true, supplements: true, sleep: true, activity: false }, // Supplements taken
+    '2025-09-13': { water: true, supplements: true, sleep: true, activity: true }, // Supplements taken
   })
 
   // Active challenges
