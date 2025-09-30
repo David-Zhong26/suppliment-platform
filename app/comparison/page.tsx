@@ -557,6 +557,21 @@ export default function ComparisonPage() {
               </div>
             </div>
             
+            {/* Compare Button for Recommended Products */}
+            {selectedForComparison.length >= 2 && (
+              <div className="mb-6 text-center">
+                <Button
+                  onClick={() => {
+                    const ids = selectedForComparison.join(',')
+                    window.location.href = `/compare?ids=${ids}`
+                  }}
+                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg"
+                >
+                  Compare {selectedForComparison.length} Selected Products
+                </Button>
+              </div>
+            )}
+
             {/* Gamified Product Carousel */}
             <GamifiedProductCarousel
               products={[
@@ -783,6 +798,21 @@ export default function ComparisonPage() {
                 </SelectContent>
               </Select>
             </div>
+
+            {/* Compare Button */}
+            {selectedForComparison.length >= 2 && (
+              <div className="mb-6 text-center">
+                <Button
+                  onClick={() => {
+                    const ids = selectedForComparison.join(',')
+                    window.location.href = `/compare?ids=${ids}`
+                  }}
+                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg"
+                >
+                  Compare {selectedForComparison.length} Selected Products
+                </Button>
+              </div>
+            )}
 
             {/* Full Product Grid */}
             <ProductGrid

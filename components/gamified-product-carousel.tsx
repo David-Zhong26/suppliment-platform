@@ -529,9 +529,22 @@ export default function GamifiedProductCarousel({
             <p className="text-sm text-green-700 font-medium">
               {selectedForComparison.length} product{selectedForComparison.length !== 1 ? 's' : ''} selected for comparison
             </p>
-            <p className="text-xs text-green-600 mt-1">
-              Go to Full List tab to compare selected products
-            </p>
+            {selectedForComparison.length >= 2 && (
+              <Button
+                onClick={() => {
+                  const ids = selectedForComparison.join(',')
+                  window.location.href = `/compare?ids=${ids}`
+                }}
+                className="mt-2 w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
+              >
+                Compare Selected Products
+              </Button>
+            )}
+            {selectedForComparison.length === 1 && (
+              <p className="text-xs text-green-600 mt-1">
+                Select at least 2 products to compare
+              </p>
+            )}
           </div>
         )}
       </div>
