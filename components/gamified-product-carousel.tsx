@@ -297,7 +297,7 @@ export default function GamifiedProductCarousel({
 
         {/* Current Card (Center) */}
         <div 
-          ref={(el) => (cardRefs.current[currentIndex] = el)}
+          ref={(el) => { cardRefs.current[currentIndex] = el }}
           className={`absolute left-1/2 top-0 w-80 h-[550px] transform -translate-x-1/2 transition-all duration-300 ${
             isAnimating 
               ? swipeDirection === 'right' 
