@@ -412,24 +412,21 @@ export default function GamifiedProductCarousel({
                   Add to Cart
                 </Button>
                 
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    className="flex-1 border-2 border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium"
-                    onClick={() => onOpenDetails(currentProduct)}
-                  >
-                    <Info className="h-4 w-4 mr-2" />
-                    Details
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    className="flex-1 border-2 border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium"
-                  >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Ask Expert
-                  </Button>
-                </div>
+                <Button
+                  onClick={() => onOpenDetails(currentProduct)}
+                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
+                >
+                  <Info className="h-4 w-4 mr-2" />
+                  View More Details
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  className="w-full border-2 border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium"
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  Ask Expert
+                </Button>
               </div>
 
               {/* Leaf Buddy Mascot */}
