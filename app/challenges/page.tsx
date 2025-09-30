@@ -30,6 +30,8 @@ export default function ChallengesPage() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('ongoing')
   const [selectedChallenge, setSelectedChallenge] = useState<typeof challenges[0] | null>(null)
+  const [showJoinModal, setShowJoinModal] = useState(false)
+  const [challengeToJoin, setChallengeToJoin] = useState<typeof challenges[0] | null>(null)
 
   const challenges = [
     {
@@ -340,9 +342,11 @@ export default function ChallengesPage() {
                       onClick={(e) => {
                         e.stopPropagation()
                         if (challenge.status === 'upcoming') {
-                          // Join challenge
+                          setChallengeToJoin(challenge)
+                          setShowJoinModal(true)
                         } else if (challenge.status === 'ongoing') {
                           // Continue challenge
+                          setSelectedChallenge(challenge)
                         }
                       }}
                     >
@@ -543,6 +547,205 @@ export default function ChallengesPage() {
                   <Button variant="outline" className="px-8">
                     <Share2 className="h-4 w-4 mr-2" />
                     Share
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Join Challenge Modal */}
+        {showJoinModal && challengeToJoin && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-8">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-r from-[#16A34A] to-[#15803d] rounded-full flex items-center justify-center">
+                      <span className="text-3xl">{challengeToJoin.icon}</span>
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900">Join {challengeToJoin.name}</h2>
+                      <div className="flex items-center gap-3 mt-2">
+                        <Badge variant="secondary">{challengeToJoin.difficulty}</Badge>
+                        <Badge variant="outline">{challengeToJoin.duration}</Badge>
+                        <span className="text-sm text-gray-600">{challengeToJoin.participants.toLocaleString()} participants</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    onClick={() => setShowJoinModal(false)}
+                  >
+                    <X className="h-6 w-6" />
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column - Challenge Details */}
+                  <div className="space-y-6">
+                    {/* Description */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Challenge Overview</h3>
+                      <p className="text-gray-600 leading-relaxed">{challengeToJoin.description}</p>
+                    </div>
+
+                    {/* Challenge Requirements */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">What You'll Do</h3>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div className="flex items-start gap-3">
+                          <Target className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-2">Daily Commitment</h4>
+                            <p className="text-gray-700 text-sm">
+                              {challengeToJoin.name === 'Hydration Hero' && 'Drink 8 glasses of water every day for 30 days'}
+                              {challengeToJoin.name === 'Supplement Streak' && 'Take your daily supplements consistently for 21 days'}
+                              {challengeToJoin.name === 'Sleep Champion' && 'Maintain 7-8 hours of quality sleep for 14 days'}
+                              {challengeToJoin.name === 'Mindful Minutes' && 'Practice 10 minutes of mindfulness daily for 28 days'}
+                              {challengeToJoin.name === 'Movement Master' && 'Complete 30 minutes of physical activity daily for 21 days'}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Benefits */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Benefits You'll Gain</h3>
+                      <ul className="space-y-2">
+                        {challengeToJoin.benefits.map((benefit, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <CheckCircle className="h-5 w-5 text-[#16A34A] mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Success Tips */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Success Tips</h3>
+                      <ul className="space-y-2">
+                        {challengeToJoin.tips.map((tip, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <Zap className="h-5 w-5 text-[#F97316] mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Right Column - Rewards & Commitment */}
+                  <div className="space-y-6">
+                    {/* Rewards */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Rewards</h3>
+                      <div className="bg-[#F0FDF4] border border-[#16A34A] rounded-lg p-6">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-[#16A34A] rounded-full flex items-center justify-center">
+                              <Trophy className="h-6 w-6 text-white" />
+                            </div>
+                            <div>
+                              <div className="font-bold text-[#16A34A]">+{challengeToJoin.points} Points</div>
+                              <div className="text-sm text-gray-600">Boost your wellness score</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-[#F97316] rounded-full flex items-center justify-center">
+                              <Award className="h-6 w-6 text-white" />
+                            </div>
+                            <div>
+                              <div className="font-bold text-[#F97316]">{challengeToJoin.badge}</div>
+                              <div className="text-sm text-gray-600">Exclusive achievement badge</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                              <Star className="h-6 w-6 text-white" />
+                            </div>
+                            <div>
+                              <div className="font-bold text-purple-600">{challengeToJoin.discount} Discount</div>
+                              <div className="text-sm text-gray-600">On your next supplement purchase</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Commitment Level */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Your Commitment</h3>
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <div className="flex items-center gap-3 mb-3">
+                          <Clock className="h-5 w-5 text-gray-600" />
+                          <span className="font-semibold text-gray-900">Duration: {challengeToJoin.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-3 mb-3">
+                          <Users className="h-5 w-5 text-gray-600" />
+                          <span className="font-semibold text-gray-900">Join {challengeToJoin.participants.toLocaleString()} other participants</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Flame className="h-5 w-5 text-gray-600" />
+                          <span className="font-semibold text-gray-900">Build a {challengeToJoin.duration} streak</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Community Support */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">Community Support</h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+                          <MessageCircle className="h-5 w-5 text-blue-600" />
+                          <div>
+                            <div className="font-semibold text-gray-900">Daily Check-ins</div>
+                            <div className="text-sm text-gray-600">Share your progress with the community</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                          <Users className="h-5 w-5 text-green-600" />
+                          <div>
+                            <div className="font-semibold text-gray-900">Peer Support</div>
+                            <div className="text-sm text-gray-600">Get encouragement from fellow participants</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
+                          <Info className="h-5 w-5 text-purple-600" />
+                          <div>
+                            <div className="font-semibold text-gray-900">Expert Tips</div>
+                            <div className="text-sm text-gray-600">Weekly insights from wellness experts</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => setShowJoinModal(false)}
+                  >
+                    Maybe Later
+                  </Button>
+                  <Button 
+                    className="flex-1 bg-[#16A34A] hover:bg-[#15803d] text-white"
+                    onClick={() => {
+                      // Join the challenge logic here
+                      console.log('Joining challenge:', challengeToJoin.name)
+                      setShowJoinModal(false)
+                      // You could add a success toast or redirect here
+                    }}
+                  >
+                    <Trophy className="h-4 w-4 mr-2" />
+                    Join Challenge
                   </Button>
                 </div>
               </div>
