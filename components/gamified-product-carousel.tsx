@@ -279,11 +279,11 @@ export default function GamifiedProductCarousel({
       )}
 
       {/* Main Card Container */}
-      <div className="relative h-[600px] perspective-1000">
+      <div className="relative h-[750px] perspective-1000">
         {/* Previous Card (Left) */}
         {products.length > 1 && (
           <div 
-            className={`absolute left-0 top-12 w-80 h-[500px] transform transition-all duration-300 ${
+            className={`absolute left-0 top-12 w-80 h-[650px] transform transition-all duration-300 ${
               swipeDirection === 'left' ? 'scale-95 opacity-50' : 'scale-85 opacity-70'
             }`}
             style={{ 
@@ -313,7 +313,7 @@ export default function GamifiedProductCarousel({
         {/* Current Card (Center) */}
         <div 
           ref={(el) => { cardRefs.current[currentIndex] = el }}
-          className={`absolute left-1/2 top-0 w-80 h-[550px] transform -translate-x-1/2 transition-all duration-300 ${
+          className={`absolute left-1/2 top-0 w-80 h-[700px] transform -translate-x-1/2 transition-all duration-300 ${
             isAnimating 
               ? swipeDirection === 'right' 
                 ? 'translate-x-2 scale-105' 
@@ -457,7 +457,7 @@ export default function GamifiedProductCarousel({
         {/* Next Card (Right) */}
         {products.length > 1 && (
           <div 
-            className={`absolute right-0 top-12 w-80 h-[500px] transform transition-all duration-300 ${
+            className={`absolute right-0 top-12 w-80 h-[650px] transform transition-all duration-300 ${
               swipeDirection === 'right' ? 'scale-95 opacity-50' : 'scale-85 opacity-70'
             }`}
             style={{ 
