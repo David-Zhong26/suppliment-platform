@@ -152,20 +152,20 @@ export default function ProductCarousel({
   const visibleProducts = getVisibleProducts()
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto">
+    <div className="relative w-full max-w-6xl mx-auto px-4">
       {/* Carousel Container */}
-      <div className="relative h-[500px] overflow-hidden">
+      <div className="relative h-[450px] overflow-hidden">
         {/* Products */}
-        <div className="flex items-center justify-center h-full gap-8">
+        <div className="flex items-center justify-center h-full gap-4">
           {visibleProducts.map(({ product, index, position }) => (
             <div
               key={product.id}
               className={`transition-all duration-500 ease-in-out ${
                 position === 'current'
-                  ? 'transform scale-110 z-20 opacity-100'
+                  ? 'transform scale-105 z-20 opacity-100'
                   : position === 'prev'
-                  ? 'transform scale-90 -translate-x-8 z-10 opacity-80'
-                  : 'transform scale-90 translate-x-8 z-10 opacity-80'
+                  ? 'transform scale-85 -translate-x-4 z-10 opacity-75'
+                  : 'transform scale-85 translate-x-4 z-10 opacity-75'
               }`}
             >
               <Card className={`bg-white border-2 rounded-2xl shadow-lg transition-all duration-500 ${
@@ -173,9 +173,9 @@ export default function ProductCarousel({
                   ? 'border-[#16A34A] shadow-2xl' 
                   : 'border-gray-200 hover:border-gray-300'
               }`}>
-                <CardHeader className={`pb-4 ${position === 'current' ? 'p-6' : 'p-5'}`}>
+                <CardHeader className={`pb-3 ${position === 'current' ? 'p-4' : 'p-3'}`}>
                   {/* Match Score Badge */}
-                  <div className="flex justify-between items-start mb-5">
+                  <div className="flex justify-between items-start mb-3">
                     <div className="relative">
                       <div 
                         className="cursor-pointer hover:opacity-80 transition-all"
@@ -237,30 +237,30 @@ export default function ProductCarousel({
                   </div>
 
                   {/* Product Icon */}
-                  <div className="text-center mb-5">
-                    <div className={`bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-3 ${
-                      position === 'current' ? 'w-18 h-18' : 'w-14 h-14'
+                  <div className="text-center mb-3">
+                    <div className={`bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-2 ${
+                      position === 'current' ? 'w-14 h-14' : 'w-12 h-12'
                     }`}>
                       {product.icon}
                     </div>
-                    <div className="text-sm text-gray-500 font-medium">{product.brand}</div>
+                    <div className="text-xs text-gray-500 font-medium">{product.brand}</div>
                   </div>
 
-                  <CardTitle className={`text-center mb-3 text-gray-900 ${
-                    position === 'current' ? 'text-xl' : 'text-lg'
+                  <CardTitle className={`text-center mb-2 text-gray-900 ${
+                    position === 'current' ? 'text-lg' : 'text-base'
                   }`}>
                     {product.name}
                   </CardTitle>
 
                   {/* Why This Matches */}
-                  <div className="bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg p-3 mb-4">
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      {position === 'current' ? product.whyMatch : `${product.whyMatch.substring(0, 120)}...`}
+                  <div className="bg-[#F0FDF4] border border-[#BBF7D0] rounded-lg p-2 mb-3">
+                    <p className="text-xs text-gray-700 leading-relaxed">
+                      {position === 'current' ? product.whyMatch : `${product.whyMatch.substring(0, 80)}...`}
                     </p>
                   </div>
 
                   {/* Rating */}
-                  <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className="flex items-center justify-center gap-2 mb-3">
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
                         <Star
@@ -279,11 +279,11 @@ export default function ProductCarousel({
                   </div>
                 </CardHeader>
 
-                <CardContent className={`pt-0 ${position === 'current' ? 'p-6 pt-0' : 'p-5 pt-0'}`}>
+                <CardContent className={`pt-0 ${position === 'current' ? 'p-4 pt-0' : 'p-3 pt-0'}`}>
                   {/* Trust Notes */}
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-2">
-                      {product.trustNotes.slice(0, position === 'current' ? 4 : 3).map((note, i) => (
+                  <div className="mb-3">
+                    <div className="flex flex-wrap gap-1">
+                      {product.trustNotes.slice(0, position === 'current' ? 3 : 2).map((note, i) => (
                         <Badge key={i} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
                           <CheckCircle className="h-3 w-3 mr-1" />
                           {note}
@@ -293,59 +293,59 @@ export default function ProductCarousel({
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-                    {position === 'current' ? product.description : `${product.description.substring(0, 120)}...`}
+                  <p className="text-xs text-gray-600 mb-3 leading-relaxed">
+                    {position === 'current' ? product.description : `${product.description.substring(0, 80)}...`}
                   </p>
 
                   {/* Price */}
-                  <div className="text-center mb-5">
-                    <div className={`font-bold text-[#16A34A] ${position === 'current' ? 'text-3xl' : 'text-2xl'}`}>
+                  <div className="text-center mb-3">
+                    <div className={`font-bold text-[#16A34A] ${position === 'current' ? 'text-2xl' : 'text-xl'}`}>
                       ${product.price}
                     </div>
-                    <div className="text-sm text-gray-500">per bottle</div>
+                    <div className="text-xs text-gray-500">per bottle</div>
                   </div>
 
                   {/* Compare Selection */}
-                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg mb-3">
-                    <span className="text-sm font-medium text-gray-700">Compare</span>
+                  <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg mb-2">
+                    <span className="text-xs font-medium text-gray-700">Compare</span>
                     <input
                       type="checkbox"
                       checked={selectedForComparison.includes(product.id)}
                       onChange={() => onToggleComparison(product.id)}
-                      className="w-4 h-4 text-[#16A34A] bg-gray-100 border-gray-300 rounded focus:ring-[#16A34A] focus:ring-2"
+                      className="w-3 h-3 text-[#16A34A] bg-gray-100 border-gray-300 rounded focus:ring-[#16A34A] focus:ring-1"
                     />
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <Button
                       onClick={() => onAddToCart(product)}
-                      className={`w-full btn-primary-wellness hover:bg-[#15803d] ${
-                        position === 'current' ? 'text-base py-2' : 'text-sm py-2'
+                      className={`w-full btn-primary-wellness hover:bg-[#15803d] text-xs ${
+                        position === 'current' ? 'py-2' : 'py-1'
                       }`}
                       disabled={!product.inStock}
                     >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      <ShoppingCart className="h-3 w-3 mr-1" />
                       Add to Cart
                     </Button>
                     
                     <Button
                       variant="outline"
-                      className={`w-full border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white ${
-                        position === 'current' ? 'text-sm py-2' : 'text-xs py-2'
+                      className={`w-full border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white text-xs ${
+                        position === 'current' ? 'py-2' : 'py-1'
                       }`}
                       onClick={() => onOpenDetails(product)}
                     >
-                      <Info className="h-4 w-4 mr-2" />
+                      <Info className="h-3 w-3 mr-1" />
                       View Details
                     </Button>
                     
                     {position === 'current' && (
                       <Button
                         variant="outline"
-                        className="w-full text-sm border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white py-2"
+                        className="w-full text-xs border-[#16A34A] text-[#16A34A] hover:bg-[#16A34A] hover:text-white py-1"
                       >
-                        <MessageCircle className="h-4 w-4 mr-2" />
+                        <MessageCircle className="h-3 w-3 mr-1" />
                         Ask Nutritionist
                       </Button>
                     )}
