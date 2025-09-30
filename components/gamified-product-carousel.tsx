@@ -260,7 +260,7 @@ export default function GamifiedProductCarousel({
   const matchStyle = getMatchScoreStyle(currentProduct.matchPercentage)
 
   return (
-    <div className="relative w-full max-w-md mx-auto">
+    <div className="relative w-full max-w-lg mx-auto">
       {/* Confetti Animation */}
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none z-50">
@@ -275,14 +275,17 @@ export default function GamifiedProductCarousel({
       )}
 
       {/* Main Card Container */}
-      <div className="relative h-[600px] perspective-1000">
+      <div className="relative h-[600px] perspective-1000 overflow-hidden">
         {/* Previous Card (Left) */}
         {products.length > 1 && (
           <div 
-            className={`absolute left-4 top-8 w-80 h-[500px] transform transition-all duration-300 ${
-              swipeDirection === 'left' ? 'scale-95 opacity-50' : 'scale-90 opacity-60'
+            className={`absolute left-8 top-12 w-80 h-[500px] transform transition-all duration-300 ${
+              swipeDirection === 'left' ? 'scale-95 opacity-50' : 'scale-85 opacity-70'
             }`}
-            style={{ zIndex: 1 }}
+            style={{ 
+              zIndex: 1,
+              transform: `translateX(-60%) ${swipeDirection === 'left' ? 'scale(0.95)' : 'scale(0.85)'}`
+            }}
           >
             <Card className="h-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-3xl shadow-lg">
               <CardContent className="p-6 h-full flex flex-col justify-center items-center">
@@ -429,10 +432,13 @@ export default function GamifiedProductCarousel({
         {/* Next Card (Right) */}
         {products.length > 1 && (
           <div 
-            className={`absolute right-4 top-8 w-80 h-[500px] transform transition-all duration-300 ${
-              swipeDirection === 'right' ? 'scale-95 opacity-50' : 'scale-90 opacity-60'
+            className={`absolute right-8 top-12 w-80 h-[500px] transform transition-all duration-300 ${
+              swipeDirection === 'right' ? 'scale-95 opacity-50' : 'scale-85 opacity-70'
             }`}
-            style={{ zIndex: 1 }}
+            style={{ 
+              zIndex: 1,
+              transform: `translateX(60%) ${swipeDirection === 'right' ? 'scale(0.95)' : 'scale(0.85)'}`
+            }}
           >
             <Card className="h-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-3xl shadow-lg">
               <CardContent className="p-6 h-full flex flex-col justify-center items-center">
