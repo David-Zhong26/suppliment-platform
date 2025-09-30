@@ -35,7 +35,7 @@ interface Product {
   rating: number
   reviews: number
   price: number
-  icon: React.ReactNode
+  icon: string
   benefits: string[]
   description: string
   category: string
@@ -95,7 +95,7 @@ interface GamifiedProductCarouselProps {
 }
 
 // Fun illustrated icons for each supplement type
-const getSupplementIcon = (category: string) => {
+const getSupplementIcon = (category: string, iconName?: string) => {
   const iconMap: Record<string, { icon: React.ReactNode, bgColor: string, emoji: string }> = {
     'Omega-3': { 
       icon: <Fish className="h-8 w-8 text-blue-600" />, 
@@ -201,7 +201,7 @@ export default function GamifiedProductCarousel({
   }
 
   const currentProduct = products[currentIndex]
-  const supplementIcon = getSupplementIcon(currentProduct.category)
+  const supplementIcon = getSupplementIcon(currentProduct.category, currentProduct.icon)
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">

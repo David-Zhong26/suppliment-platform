@@ -19,7 +19,10 @@ import {
   Truck,
   CreditCard,
   TestTube,
-  ChevronLeft
+  ChevronLeft,
+  Fish,
+  Sun,
+  Banana
 } from 'lucide-react'
 import Link from 'next/link'
 import ProductComparison from '@/components/product-comparison'
@@ -242,7 +245,7 @@ export default function ComparisonPage() {
                   rating: 4.9,
                   reviews: 1247,
                   price: 29.99,
-                  icon: <Fish className="h-8 w-8 text-[#16A34A]" />,
+                  icon: 'Fish',
                   benefits: ['Heart Health', 'Brain Function', 'Joint Support'],
                   description: 'High-potency EPA/DHA from wild-caught fish for comprehensive cardiovascular and cognitive support.',
                   category: 'Omega-3',
@@ -296,7 +299,7 @@ export default function ComparisonPage() {
                   rating: 4.8,
                   reviews: 892,
                   price: 24.99,
-                  icon: <Sun className="h-8 w-8 text-[#F97316]" />,
+                  icon: 'Sun',
                   benefits: ['Bone Health', 'Immune Support', 'Calcium Absorption'],
                   description: 'Essential vitamins for bone and immune health with enhanced absorption',
                   category: 'Vitamins',
@@ -350,7 +353,7 @@ export default function ComparisonPage() {
                   rating: 4.9,
                   reviews: 1563,
                   price: 19.99,
-                  icon: <Banana className="h-8 w-8 text-[#16A34A]" />,
+                  icon: 'Banana',
                   benefits: ['Sleep Quality', 'Muscle Relaxation', 'Stress Relief'],
                   description: 'Highly absorbable magnesium for better sleep and relaxation',
                   category: 'Minerals',
