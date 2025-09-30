@@ -364,7 +364,7 @@ export default function GamifiedProductCarousel({
               {/* Benefits */}
               <div className="px-6 mb-6">
                 <div className="grid grid-cols-1 gap-3">
-                  {currentProduct.benefits.slice(0, 3).map((benefit, index) => {
+                  {currentProduct.benefits.slice(0, 2).map((benefit, index) => {
                     const benefitIcon = getBenefitIcon(benefit)
                     return (
                       <div key={index} className={`flex items-center gap-3 p-3 ${benefitIcon.bgColor} rounded-2xl`}>
@@ -377,13 +377,21 @@ export default function GamifiedProductCarousel({
                       </div>
                     )
                   })}
+                  {/* View More Detail Button */}
+                  <Button
+                    onClick={() => onOpenDetails(currentProduct)}
+                    className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-blue-600 rounded-2xl font-medium text-sm border border-blue-200"
+                  >
+                    <Info className="h-4 w-4" />
+                    View More Details
+                  </Button>
                 </div>
               </div>
 
               {/* Credibility Badges */}
               <div className="px-6 mb-6">
                 <div className="flex flex-wrap gap-2">
-                  {currentProduct.trustNotes.slice(0, 3).map((note, index) => (
+                  {currentProduct.trustNotes.slice(0, 2).map((note, index) => (
                     <Badge key={index} variant="secondary" className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
                       <CheckCircle className="h-3 w-3 mr-1" />
                       {note}
@@ -402,24 +410,7 @@ export default function GamifiedProductCarousel({
 
 
               {/* Action Buttons */}
-              <div className="px-6 pb-6 space-y-3">
-                <Button
-                  onClick={() => handleAddToCart(currentProduct)}
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 rounded-2xl shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
-                  disabled={!currentProduct.inStock}
-                >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  Add to Cart
-                </Button>
-                
-                <Button
-                  onClick={() => onOpenDetails(currentProduct)}
-                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
-                >
-                  <Info className="h-4 w-4 mr-2" />
-                  View More Details
-                </Button>
-                
+              <div className="px-6 pb-6">
                 <Button
                   variant="outline"
                   className="w-full border-2 border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-medium"
