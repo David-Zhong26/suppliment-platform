@@ -531,9 +531,9 @@ export default function ComparisonPage() {
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   Shopping Cart
-                  {shoppingCart.length > 0 && (
+                  {getCartItemCount() > 0 && (
                     <Badge className="ml-2 bg-[#F97316] text-white">
-                      {shoppingCart.length}
+                      {getCartItemCount()}
                     </Badge>
                   )}
                 </Button>
