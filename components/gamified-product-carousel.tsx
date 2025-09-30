@@ -473,38 +473,42 @@ export default function GamifiedProductCarousel({
         )}
       </div>
 
-      {/* Navigation Controls */}
-      <div className="flex justify-center items-center gap-6 mt-8">
-        <Button
-          onClick={goToPrevious}
-          disabled={isAnimating}
-          className="w-14 h-14 rounded-full bg-white border-2 border-gray-200 hover:bg-gray-50 shadow-lg transition-all duration-200 hover:scale-110"
-        >
-          <ChevronLeft className="h-6 w-6 text-gray-600" />
-        </Button>
+      {/* Navigation Arrows - Positioned at sides of cards */}
+      {products.length > 1 && (
+        <>
+          {/* Left Arrow */}
+          <Button
+            onClick={goToPrevious}
+            disabled={isAnimating}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-14 h-14 rounded-full bg-white border-2 border-gray-200 hover:bg-gray-50 shadow-lg transition-all duration-200 hover:scale-110 z-20"
+          >
+            <ChevronLeft className="h-6 w-6 text-gray-600" />
+          </Button>
 
-        {/* Pagination Dots */}
-        <div className="flex gap-2">
-          {products.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                index === currentIndex 
-                  ? 'bg-green-500 scale-125' 
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-            />
-          ))}
-        </div>
+          {/* Right Arrow */}
+          <Button
+            onClick={goToNext}
+            disabled={isAnimating}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-14 h-14 rounded-full bg-white border-2 border-gray-200 hover:bg-gray-50 shadow-lg transition-all duration-200 hover:scale-110 z-20"
+          >
+            <ChevronRight className="h-6 w-6 text-gray-600" />
+          </Button>
+        </>
+      )}
 
-        <Button
-          onClick={goToNext}
-          disabled={isAnimating}
-          className="w-14 h-14 rounded-full bg-white border-2 border-gray-200 hover:bg-gray-50 shadow-lg transition-all duration-200 hover:scale-110"
-        >
-          <ChevronRight className="h-6 w-6 text-gray-600" />
-        </Button>
+      {/* Pagination Dots - Centered at bottom */}
+      <div className="flex justify-center items-center gap-2 mt-8">
+        {products.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+              index === currentIndex 
+                ? 'bg-green-500 scale-125' 
+                : 'bg-gray-300 hover:bg-gray-400'
+            }`}
+          />
+        ))}
       </div>
 
       {/* Product Counter and Comparison Status */}
