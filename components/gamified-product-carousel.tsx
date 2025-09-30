@@ -256,7 +256,11 @@ export default function GamifiedProductCarousel({
   }
 
   const currentProduct = products[currentIndex]
+  const previousProduct = products[(currentIndex - 1 + products.length) % products.length]
+  const nextProduct = products[(currentIndex + 1) % products.length]
   const supplementIcon = getSupplementIcon(currentProduct.category, currentProduct.icon)
+  const previousIcon = getSupplementIcon(previousProduct.category, previousProduct.icon)
+  const nextIcon = getSupplementIcon(nextProduct.category, nextProduct.icon)
   const matchStyle = getMatchScoreStyle(currentProduct.matchPercentage)
 
   return (
@@ -287,11 +291,19 @@ export default function GamifiedProductCarousel({
               transform: `translateX(-70%) ${swipeDirection === 'left' ? 'scale(0.95)' : 'scale(0.85)'}`
             }}
           >
-            <Card className="h-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-3xl shadow-lg">
-              <CardContent className="p-6 h-full flex flex-col justify-center items-center">
-                <div className="text-center opacity-70">
-                  <div className="text-4xl mb-2">👈</div>
-                  <p className="text-sm text-gray-500">Swipe left</p>
+            <Card className="h-full bg-white border-2 border-gray-200 rounded-3xl shadow-lg">
+              <CardContent className="p-4 h-full flex flex-col justify-center items-center">
+                <div className="text-center">
+                  <div className={`w-12 h-12 ${previousIcon.bgColor} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                    {previousIcon.icon}
+                  </div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">{previousProduct.brand}</div>
+                  <h4 className="text-sm font-bold text-gray-900 mb-2 leading-tight">{previousProduct.name}</h4>
+                  <div className="flex items-center justify-center gap-1 mb-2">
+                    <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                    <span className="text-xs text-gray-600">{previousProduct.rating}</span>
+                  </div>
+                  <div className="text-sm font-bold text-green-600">${previousProduct.price}</div>
                 </div>
               </CardContent>
             </Card>
@@ -440,11 +452,19 @@ export default function GamifiedProductCarousel({
               transform: `translateX(70%) ${swipeDirection === 'right' ? 'scale(0.95)' : 'scale(0.85)'}`
             }}
           >
-            <Card className="h-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-gray-200 rounded-3xl shadow-lg">
-              <CardContent className="p-6 h-full flex flex-col justify-center items-center">
-                <div className="text-center opacity-70">
-                  <div className="text-4xl mb-2">👉</div>
-                  <p className="text-sm text-gray-500">Swipe right</p>
+            <Card className="h-full bg-white border-2 border-gray-200 rounded-3xl shadow-lg">
+              <CardContent className="p-4 h-full flex flex-col justify-center items-center">
+                <div className="text-center">
+                  <div className={`w-12 h-12 ${nextIcon.bgColor} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                    {nextIcon.icon}
+                  </div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">{nextProduct.brand}</div>
+                  <h4 className="text-sm font-bold text-gray-900 mb-2 leading-tight">{nextProduct.name}</h4>
+                  <div className="flex items-center justify-center gap-1 mb-2">
+                    <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                    <span className="text-xs text-gray-600">{nextProduct.rating}</span>
+                  </div>
+                  <div className="text-sm font-bold text-green-600">${nextProduct.price}</div>
                 </div>
               </CardContent>
             </Card>
