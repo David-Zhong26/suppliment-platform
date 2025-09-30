@@ -61,43 +61,6 @@ export default function ComparisonPage() {
   ]
 
   // Handler functions for the gamified carousel
-  const handleAddToCart = (product: any) => {
-    const existingItem = shoppingCart.find(item => item.id === product.id)
-    
-    if (existingItem) {
-      setShoppingCart(cart =>
-        cart.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      )
-        } else {
-      setShoppingCart(cart => [
-        ...cart,
-        {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-          quantity: 1
-        }
-      ])
-    }
-  }
-
-  const handleToggleFavorite = (productId: string) => {
-    setFavorites(prev =>
-      prev.includes(productId)
-        ? prev.filter(id => id !== productId)
-        : [...prev, productId]
-    )
-  }
-
-  const handleOpenDetails = (product: any) => {
-    // This would open a product details modal
-    console.log('Opening details for:', product.name)
-  }
-
   const handleToggleComparison = (productId: string) => {
     setSelectedForComparison(prev => 
       prev.includes(productId) 
