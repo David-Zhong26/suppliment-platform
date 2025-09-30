@@ -27,6 +27,7 @@ import {
 import Link from 'next/link'
 import ProductComparison from '@/components/product-comparison'
 import GamifiedProductCarousel from '@/components/gamified-product-carousel'
+import ProductGrid from '@/components/product-grid'
 import PersistentNav from '@/components/navigation/persistent-nav'
 
 export default function ComparisonPage() {
@@ -72,9 +73,9 @@ export default function ComparisonPage() {
       setShoppingCart(cart => [
         ...cart,
         {
-          id: product.id,
-          name: product.name,
-          price: product.price,
+        id: product.id,
+        name: product.name,
+        price: product.price,
           quantity: 1
         }
       ])
@@ -101,6 +102,328 @@ export default function ComparisonPage() {
         : [...prev, productId]
     )
   }
+
+  // Full product data for the grid
+  const getAllProducts = () => [
+    {
+      id: '1',
+      name: 'Premium Omega-3 Complex',
+      brand: 'Wellness Pro',
+      matchPercentage: 92,
+      rating: 4.9,
+      reviews: 1247,
+      price: 29.99,
+      icon: 'Fish',
+      benefits: ['Heart Health', 'Brain Function', 'Joint Support'],
+      description: 'High-potency EPA/DHA from wild-caught fish for comprehensive cardiovascular and cognitive support.',
+      category: 'Omega-3',
+      inStock: true,
+      whyMatch: 'Selected because your profile highlights cardiovascular health and no fish allergy; dosage aligns with clinical guidelines.',
+      trustNotes: ['4.9 (1,247 reviews)', 'Third-party tested', 'No added vitamin A', 'Gluten-free'],
+      matchBreakdown: {
+        ingredients: 60,
+        goalsFit: 20,
+        safety: 10,
+        evidence: 10
+      },
+      certifications: ['Third-party tested', 'GMP certified', 'Non-GMO'],
+      scientificInfo: {
+        keyIngredients: [
+          {
+            name: 'EPA (Eicosapentaenoic Acid)',
+            dosage: '400mg',
+            description: 'Supports cardiovascular health and reduces inflammation',
+            dailyValue: 'Recommended: 250-500mg EPA'
+          },
+          {
+            name: 'DHA (Docosahexaenoic Acid)',
+            dosage: '600mg',
+            description: 'Essential for brain function and cognitive health',
+            dailyValue: 'Recommended: 250-500mg DHA'
+          }
+        ],
+        evidence: {
+          summary: 'Multiple clinical trials demonstrate cardiovascular benefits and cognitive support. EPA/DHA combination shown to reduce inflammation markers.',
+          credibility: 'Backed by 12 RCTs',
+          studyCount: 12
+        },
+        safety: {
+          interactions: ['May interact with blood thinners', 'Consult doctor if taking anticoagulants'],
+          warnings: ['Fish allergy warning', 'May cause mild digestive upset'],
+          riskLevel: 'low'
+        },
+        qualityAssurance: {
+          testing: ['Third-party purity testing', 'Heavy metal screening', 'Potency verification'],
+          facility: ['FDA registered facility', 'GMP certified', 'ISO 9001 compliant'],
+          standards: ['USP standards', 'Pharmaceutical grade', 'Wild-caught sourcing']
+        }
+      }
+    },
+    {
+      id: '2',
+      name: 'Vitamin D3+K2',
+      brand: 'Sunshine Labs',
+      matchPercentage: 89,
+      rating: 4.8,
+      reviews: 892,
+      price: 24.99,
+      icon: 'Sun',
+      benefits: ['Bone Health', 'Immune Support', 'Calcium Absorption'],
+      description: 'Essential vitamins for bone and immune health with enhanced absorption',
+      category: 'Vitamins',
+      inStock: true,
+      whyMatch: 'Recommended based on your indoor lifestyle and bone health goals; optimal D3+K2 ratio',
+      trustNotes: ['4.8 (892 reviews)', 'Lab verified', 'Vegetarian capsules', 'No artificial colors'],
+      matchBreakdown: {
+        ingredients: 55,
+        goalsFit: 25,
+        safety: 15,
+        evidence: 5
+      },
+      certifications: ['Lab verified', 'Vegetarian', 'Non-GMO'],
+      scientificInfo: {
+        keyIngredients: [
+          {
+            name: 'Vitamin D3 (Cholecalciferol)',
+            dosage: '2000 IU',
+            description: 'Essential for bone health and immune function',
+            dailyValue: 'Recommended: 1000-4000 IU daily'
+          },
+          {
+            name: 'Vitamin K2 (MK-7)',
+            dosage: '100mcg',
+            description: 'Directs calcium to bones and away from arteries',
+            dailyValue: 'Recommended: 90-120mcg daily'
+          }
+        ],
+        evidence: {
+          summary: 'Clinical studies show D3+K2 combination improves bone density and reduces arterial calcification. Supported by NIH guidelines.',
+          credibility: 'NIH guidelines supported',
+          studyCount: 8
+        },
+        safety: {
+          interactions: ['May interact with calcium channel blockers', 'Monitor if taking warfarin'],
+          warnings: ['Avoid high-dose calcium without K2', 'Monitor vitamin D levels with doctor'],
+          riskLevel: 'low'
+        },
+        qualityAssurance: {
+          testing: ['Lab verified potency', 'Heavy metal screening', 'Vitamin K2 stability testing'],
+          facility: ['cGMP facility', 'FDA inspected', 'Third-party audited'],
+          standards: ['USP monographs', 'Pharmaceutical grade', 'Vegetarian capsules']
+        }
+      }
+    },
+    {
+      id: '3',
+      name: 'Magnesium Glycinate',
+      brand: 'Calm Wellness',
+      matchPercentage: 85,
+      rating: 4.9,
+      reviews: 1563,
+      price: 19.99,
+      icon: 'Banana',
+      benefits: ['Sleep Quality', 'Muscle Relaxation', 'Stress Relief'],
+      description: 'Highly absorbable magnesium for better sleep and relaxation',
+      category: 'Minerals',
+      inStock: true,
+      whyMatch: 'Perfect for your sleep goals and stress management; glycinate form for better absorption',
+      trustNotes: ['4.9 (1,563 reviews)', 'Chelated form', 'No fillers', 'Sleep support'],
+      matchBreakdown: {
+        ingredients: 50,
+        goalsFit: 30,
+        safety: 10,
+        evidence: 10
+      },
+      certifications: ['Chelated', 'No fillers', 'Sleep tested'],
+      scientificInfo: {
+        keyIngredients: [
+          {
+            name: 'Magnesium Glycinate',
+            dosage: '200mg',
+            description: 'Highly bioavailable form that supports sleep and muscle relaxation',
+            dailyValue: 'Recommended: 200-400mg elemental magnesium'
+          }
+        ],
+        evidence: {
+          summary: 'Randomized controlled trials show magnesium glycinate improves sleep quality and reduces stress markers. Chelated form has superior absorption.',
+          credibility: 'Backed by 6 RCTs',
+          studyCount: 6
+        },
+        safety: {
+          interactions: ['May enhance effects of muscle relaxants', 'Monitor with kidney disease'],
+          warnings: ['High doses may cause diarrhea', 'Consult doctor with kidney problems'],
+          riskLevel: 'low'
+        },
+        qualityAssurance: {
+          testing: ['Chelated form verification', 'Elemental magnesium testing', 'Heavy metal screening'],
+          facility: ['cGMP facility', 'Third-party certified', 'ISO 22000'],
+          standards: ['Pharmaceutical grade', 'Chelated for absorption', 'No artificial additives']
+        }
+      }
+    },
+    {
+      id: '4',
+      name: 'Probiotic Complex',
+      brand: 'Gut Health Co',
+      matchPercentage: 78,
+      rating: 4.7,
+      reviews: 734,
+      price: 34.99,
+      icon: 'Microscope',
+      benefits: ['Digestive Health', 'Immune Support', 'Gut Balance'],
+      description: '50 billion CFU probiotic blend for optimal gut health',
+      category: 'Probiotics',
+      inStock: true,
+      whyMatch: 'Supports your digestive wellness goals with clinically studied strains',
+      trustNotes: ['4.7 (734 reviews)', '50B CFU', 'Refrigerated', 'Clinically studied'],
+      matchBreakdown: {
+        ingredients: 45,
+        goalsFit: 20,
+        safety: 25,
+        evidence: 10
+      },
+      certifications: ['Clinically studied', 'Refrigerated', 'CFU guaranteed'],
+      scientificInfo: {
+        keyIngredients: [
+          {
+            name: 'Lactobacillus acidophilus',
+            dosage: '10B CFU',
+            description: 'Supports digestive health and immune function',
+            dailyValue: 'Clinical dose: 1-10 billion CFU'
+          },
+          {
+            name: 'Bifidobacterium bifidum',
+            dosage: '15B CFU',
+            description: 'Promotes gut barrier function and nutrient absorption',
+            dailyValue: 'Clinical dose: 1-15 billion CFU'
+          }
+        ],
+        evidence: {
+          summary: 'Clinical trials demonstrate improved digestive health and immune support. Strain-specific benefits backed by microbiome research.',
+          credibility: 'Clinically studied strains',
+          studyCount: 15
+        },
+        safety: {
+          interactions: ['Generally safe with most medications', 'Monitor with immunosuppressants'],
+          warnings: ['Start with lower dose if sensitive', 'Refrigerate for potency'],
+          riskLevel: 'low'
+        },
+        qualityAssurance: {
+          testing: ['CFU count verification', 'Strain identification', 'Purity testing'],
+          facility: ['Specialized probiotic facility', 'Refrigerated storage', 'Third-party validated'],
+          standards: ['Clinical grade strains', 'CFU guaranteed', 'Refrigerated shipping']
+        }
+      }
+    },
+    {
+      id: '5',
+      name: 'Multivitamin Complete',
+      brand: 'Daily Essentials',
+      matchPercentage: 81,
+      rating: 4.6,
+      reviews: 2156,
+      price: 22.99,
+      icon: 'Pill',
+      benefits: ['Daily Nutrition', 'Energy Support', 'Overall Wellness'],
+      description: 'Comprehensive daily multivitamin with 25 essential nutrients',
+      category: 'Multivitamins',
+      inStock: true,
+      whyMatch: 'Fills nutritional gaps in your diet with bioavailable forms of vitamins',
+      trustNotes: ['4.6 (2,156 reviews)', '25 nutrients', 'Bioavailable forms', 'One-a-day'],
+      matchBreakdown: {
+        ingredients: 40,
+        goalsFit: 35,
+        safety: 15,
+        evidence: 10
+      },
+      certifications: ['Bioavailable', 'One-a-day', 'Nutrient tested'],
+      scientificInfo: {
+        keyIngredients: [
+          {
+            name: 'B-Complex Vitamins',
+            dosage: '100% DV',
+            description: 'Essential for energy metabolism and nervous system function',
+            dailyValue: '100% daily value for most B vitamins'
+          },
+          {
+            name: 'Vitamin C (Ascorbic Acid)',
+            dosage: '90mg',
+            description: 'Antioxidant support and immune function',
+            dailyValue: 'Recommended: 65-90mg daily'
+          }
+        ],
+        evidence: {
+          summary: 'Comprehensive vitamin supplementation shown to fill nutritional gaps and support overall health. Bioavailable forms ensure optimal absorption.',
+          credibility: 'NIH recommended daily values',
+          studyCount: 25
+        },
+        safety: {
+          interactions: ['Generally safe', 'Monitor vitamin D with separate supplements'],
+          warnings: ['May cause nausea if taken on empty stomach', 'Consult doctor with kidney disease'],
+          riskLevel: 'low'
+        },
+        qualityAssurance: {
+          testing: ['Nutrient potency testing', 'Bioavailability verification', 'Heavy metal screening'],
+          facility: ['cGMP facility', 'FDA registered', 'Third-party audited'],
+          standards: ['USP standards', 'Bioavailable forms', 'One-a-day convenience']
+        }
+      }
+    },
+    {
+      id: '6',
+      name: 'Turmeric Curcumin',
+      brand: 'Golden Health',
+      matchPercentage: 73,
+      rating: 4.8,
+      reviews: 987,
+      price: 26.99,
+      icon: 'Flower2',
+      benefits: ['Anti-Inflammatory', 'Joint Health', 'Antioxidant Support'],
+      description: 'High-potency turmeric with enhanced absorption',
+      category: 'Herbs',
+      inStock: true,
+      whyMatch: 'Supports your inflammation management goals with 95% curcuminoids',
+      trustNotes: ['4.8 (987 reviews)', '95% curcuminoids', 'Enhanced absorption', 'Non-GMO'],
+      matchBreakdown: {
+        ingredients: 35,
+        goalsFit: 25,
+        safety: 20,
+        evidence: 20
+      },
+      certifications: ['95% curcuminoids', 'Enhanced absorption', 'Non-GMO'],
+      scientificInfo: {
+        keyIngredients: [
+          {
+            name: 'Curcumin (95% curcuminoids)',
+            dosage: '500mg',
+            description: 'Potent anti-inflammatory and antioxidant compound',
+            dailyValue: 'Clinical dose: 400-1000mg curcumin'
+          },
+          {
+            name: 'Piperine (Black Pepper Extract)',
+            dosage: '5mg',
+            description: 'Enhances curcumin absorption by up to 2000%',
+            dailyValue: 'Enhancement: 5-20mg for absorption'
+          }
+        ],
+        evidence: {
+          summary: 'Extensive research shows curcumin reduces inflammation markers and supports joint health. Piperine significantly enhances bioavailability.',
+          credibility: 'Backed by 20+ studies',
+          studyCount: 20
+        },
+        safety: {
+          interactions: ['May interact with blood thinners', 'Monitor with diabetes medications'],
+          warnings: ['May cause mild stomach upset', 'Avoid with gallstones'],
+          riskLevel: 'medium'
+        },
+        qualityAssurance: {
+          testing: ['Curcuminoid content verification', 'Piperine potency testing', 'Heavy metal screening'],
+          facility: ['cGMP facility', 'Third-party certified', 'ISO 9001'],
+          standards: ['95% curcuminoid guarantee', 'Enhanced absorption formula', 'Non-GMO verified']
+        }
+      }
+    }
+  ]
 
   return (
     <div className="min-h-screen bg-[#F9FAF9]">
@@ -462,7 +785,15 @@ export default function ComparisonPage() {
             </div>
 
             {/* Full Product Grid */}
-            <ProductComparison />
+            <ProductGrid
+              products={getAllProducts()}
+              onAddToCart={handleAddToCart}
+              onToggleFavorite={handleToggleFavorite}
+              onOpenDetails={handleOpenDetails}
+              favorites={favorites}
+              onToggleComparison={handleToggleComparison}
+              selectedForComparison={selectedForComparison}
+            />
           </>
         )}
           
