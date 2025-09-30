@@ -10,7 +10,6 @@ import { Progress } from '@/components/ui/progress'
 import { 
   Heart, 
   Pill, 
-  Target, 
   Users, 
   TrendingUp, 
   Shield, 
@@ -33,10 +32,8 @@ import {
   Moon,
   Activity,
   Trophy,
-  ArrowRight,
   CheckCircle,
-  Flame,
-  Info
+  Flame
 } from 'lucide-react'
 import QuestionnaireLauncher from '@/components/questionnaire/questionnaire-launcher'
 import PersistentNav from '@/components/navigation/persistent-nav'
@@ -137,33 +134,6 @@ export default function UserDashboard() {
     }
   ])
 
-  // Personal recommendations
-  const [recommendations] = useState([
-    {
-      id: 1,
-      name: 'Premium Omega-3 Complex',
-      matchScore: 95,
-      reason: 'Perfect for your heart health goals',
-      price: 29.99,
-      category: 'Heart Health'
-    },
-    {
-      id: 2,
-      name: 'Vitamin D3+K2',
-      matchScore: 88,
-      reason: 'Fills your vitamin D deficiency',
-      price: 24.99,
-      category: 'Bone Health'
-    },
-    {
-      id: 3,
-      name: 'Magnesium Glycinate',
-      matchScore: 92,
-      reason: 'Supports better sleep quality',
-      price: 19.99,
-      category: 'Sleep Support'
-    }
-  ])
 
   const logActivity = (type: string) => {
     setShowCelebration(type)
@@ -458,74 +428,7 @@ export default function UserDashboard() {
               </CardContent>
             </Card>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Personal Recommendations */}
-          <div className="lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                <CardTitle className="flex items-center space-x-2">
-                      <Target className="h-6 w-6 text-[#16A34A]" />
-                      <span>Personal Recommendations</span>
-                </CardTitle>
-                <CardDescription>
-                      Top supplement matches based on your profile
-                </CardDescription>
-                  </div>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => router.push('/comparison')}
-                  >
-                    Compare All
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {recommendations.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                      <div className="w-16 h-16 bg-[#F0FDF4] rounded-lg flex items-center justify-center">
-                        <Pill className="h-8 w-8 text-[#16A34A]" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <h3 className="font-semibold">{item.name}</h3>
-                          <Badge className="bg-[#16A34A] text-white">
-                            {item.matchScore}% match
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">{item.reason}</p>
-                        <Badge variant="outline" className="text-xs">
-                          {item.category}
-                            </Badge>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-lg text-[#16A34A]">${item.price}</div>
-                        <div className="flex gap-2 mt-2">
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            onClick={() => router.push('/comparison')}
-                          >
-                            <Info className="h-4 w-4 mr-1" />
-                            More Info
-                          </Button>
-                          <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803d]">
-                          <ShoppingCart className="h-4 w-4 mr-1" />
-                            Add to Cart
-                        </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
           {/* Right Column - Quick Links */}
           <div className="space-y-6">
             {/* Quick Links */}
