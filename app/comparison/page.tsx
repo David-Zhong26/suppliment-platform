@@ -34,7 +34,7 @@ import PersistentNav from '@/components/navigation/persistent-nav'
 
 export default function ComparisonPage() {
   const router = useRouter()
-  const { addToCart } = useShoppingCart()
+  const { addToCart, getCartItemCount } = useShoppingCart()
   const [activeTab, setActiveTab] = useState('catalog')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
