@@ -27,7 +27,8 @@ import {
   Pill,
   Flower2,
   Droplets,
-  Moon
+  Moon,
+  X
 } from 'lucide-react'
 
 interface Product {
@@ -214,6 +215,8 @@ export default function GamifiedProductCarousel({
   const [isAnimating, setIsAnimating] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null)
+  const [showDetailsModal, setShowDetailsModal] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   // Handle swipe navigation
@@ -246,6 +249,12 @@ export default function GamifiedProductCarousel({
     setTimeout(() => setShowConfetti(false), 2000)
   }
 
+  // Handle view details
+  const handleViewDetails = (product: Product) => {
+    setSelectedProduct(product)
+    setShowDetailsModal(true)
+  }
+
   if (products.length === 0) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -267,6 +276,17 @@ export default function GamifiedProductCarousel({
 
   return (
     <div className="relative w-full max-w-lg mx-auto px-8">
+      {/* Shopping Cart Icon */}
+      <div className="absolute top-0 right-0 z-30">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="w-12 h-12 rounded-full bg-white shadow-lg hover:bg-gray-50 border border-gray-200"
+          onClick={() => console.log('View Shopping Cart')}
+        >
+          <ShoppingCart className="h-6 w-6 text-gray-600" />
+        </Button>
+      </div>
       {/* Confetti Animation */}
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none z-50">
@@ -379,7 +399,7 @@ export default function GamifiedProductCarousel({
                   })}
                   {/* View More Detail Button */}
                   <Button
-                    onClick={() => onOpenDetails(currentProduct)}
+                    onClick={() => handleViewDetails(currentProduct)}
                     className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-blue-600 rounded-2xl font-medium text-sm border border-blue-200"
                   >
                     <Info className="h-4 w-4" />
@@ -507,27 +527,146 @@ export default function GamifiedProductCarousel({
         {selectedForComparison.length > 0 && (
           <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2">
             <p className="text-sm text-green-700 font-medium">
-              {selectedForComparison.length} product{selectedForComparison.length !== 1 ? 's' : ''} selected for comparison
+              {selectedForComparison.length} product{selectedForComparison.length !== 1 ? 's' : ''} selected
             </p>
-            {selectedForComparison.length >= 2 && (
+            <div className="flex gap-2 mt-2">
               <Button
                 onClick={() => {
-                  const ids = selectedForComparison.join(',')
-                  router.push(`/compare?ids=${ids}`)
+                  selectedForComparison.forEach(productId => {
+                    const product = products.find(p => p.id === productId)
+                    if (product) {
+                      onAddToCart(product)
+                    }
+                  })
                 }}
-                className="mt-2 w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
+                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
               >
-                Compare Selected Products
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Add to Shopping Cart
               </Button>
-            )}
+              {selectedForComparison.length >= 2 && (
+                <Button
+                  onClick={() => {
+                    const ids = selectedForComparison.join(',')
+                    router.push(`/compare?ids=${ids}`)
+                  }}
+                  className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
+                >
+                  Compare Products
+                </Button>
+              )}
+            </div>
             {selectedForComparison.length === 1 && (
-              <p className="text-xs text-green-600 mt-1">
-                Select at least 2 products to compare
+              <p className="text-xs text-green-600 mt-2">
+                Select more products to compare, or add to cart
               </p>
             )}
           </div>
         )}
       </div>
+
+      {/* Product Details Modal */}
+      {showDetailsModal && selectedProduct && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* Modal Header */}
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedProduct.name}</h2>
+                  <p className="text-gray-600">{selectedProduct.brand}</p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowDetailsModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-6 w-6" />
+                </Button>
+              </div>
+
+              {/* Product Icon */}
+              <div className="text-center mb-6">
+                <div className={`w-20 h-20 ${getSupplementIcon(selectedProduct.category).bgColor} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  {getSupplementIcon(selectedProduct.category).icon}
+                </div>
+                <div className="text-3xl font-bold text-green-600">${selectedProduct.price}</div>
+                <div className="text-sm text-gray-500">per bottle</div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Description</h3>
+                <p className="text-gray-600 leading-relaxed">{selectedProduct.description}</p>
+              </div>
+
+              {/* Benefits */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-3">Benefits</h3>
+                <div className="grid grid-cols-1 gap-3">
+                  {selectedProduct.benefits.map((benefit, index) => {
+                    const benefitIcon = getBenefitIcon(benefit)
+                    return (
+                      <div key={index} className={`flex items-center gap-3 p-3 ${benefitIcon.bgColor} rounded-xl`}>
+                        <div className={benefitIcon.color}>
+                          {benefitIcon.icon}
+                        </div>
+                        <span className="font-medium text-gray-800">{benefit}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Why This Matches */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Why This Matches</h3>
+                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                  <p className="text-gray-700">{selectedProduct.whyMatch}</p>
+                </div>
+              </div>
+
+              {/* Trust Notes */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-900 mb-3">Trust & Quality</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProduct.trustNotes.map((note, index) => (
+                    <Badge key={index} variant="secondary" className="bg-gray-100 text-gray-700 px-3 py-1">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      {note}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => {
+                    onToggleComparison(selectedProduct.id)
+                    setShowDetailsModal(false)
+                  }}
+                  className="flex-1"
+                  variant={selectedForComparison.includes(selectedProduct.id) ? "default" : "outline"}
+                >
+                  {selectedForComparison.includes(selectedProduct.id) ? "Remove from Selection" : "Select for Comparison"}
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleAddToCart(selectedProduct)
+                    setShowDetailsModal(false)
+                  }}
+                  className="flex-1 bg-green-500 hover:bg-green-600"
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Add to Cart
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
