@@ -307,7 +307,7 @@ export default function GamifiedProductCarousel({
         {products.length > 1 && (
           <div 
             className={`absolute left-0 top-12 w-80 h-[650px] transform transition-all duration-300 ${
-              swipeDirection === 'left' ? 'scale-95 opacity-50' : 'scale-85 opacity-70'
+              swipeDirection === 'left' ? 'scale-95 opacity-60 -translate-x-2' : 'scale-85 opacity-70'
             }`}
             style={{ 
               zIndex: 1,
@@ -339,9 +339,9 @@ export default function GamifiedProductCarousel({
           className={`absolute left-1/2 top-0 w-80 h-[700px] transform -translate-x-1/2 transition-all duration-300 ${
             isAnimating 
               ? swipeDirection === 'right' 
-                ? 'translate-x-2 scale-105' 
+                ? 'translate-x-4 scale-105' 
                 : swipeDirection === 'left' 
-                  ? '-translate-x-2 scale-105' 
+                  ? '-translate-x-4 scale-105' 
                   : ''
               : 'scale-100'
           }`}
@@ -455,7 +455,7 @@ export default function GamifiedProductCarousel({
         {products.length > 1 && (
           <div 
             className={`absolute right-0 top-12 w-80 h-[650px] transform transition-all duration-300 ${
-              swipeDirection === 'right' ? 'scale-95 opacity-50' : 'scale-85 opacity-70'
+              swipeDirection === 'right' ? 'scale-95 opacity-60 translate-x-2' : 'scale-85 opacity-70'
             }`}
             style={{ 
               zIndex: 1,
