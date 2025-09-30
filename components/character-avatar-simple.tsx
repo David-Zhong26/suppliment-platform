@@ -38,7 +38,7 @@ export default function CharacterAvatar({ userXp, userPoints, userName, goalStat
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Palette className="h-5 w-5 text-[#16A34A]" />
-            Hi, {userName || 'User'}
+            Hi, {userName || 'User'}!
           </CardTitle>
         </CardHeader>
         <CardContent>

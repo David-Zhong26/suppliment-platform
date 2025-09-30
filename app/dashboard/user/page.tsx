@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
+import { useSupplements } from '@/components/providers/supplement-context'
 import { 
   Heart, 
   Pill, 
@@ -44,11 +45,19 @@ import EditTasksModal from '@/components/edit-tasks-modal'
 export default function UserDashboard() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const { supplementGoals, waterTracking, logSupplement, logWater, getSupplementProgress, getWaterProgress } = useSupplements()
   
-  // Daily tracking state - supplements only
-  const [dailyTracking, setDailyTracking] = useState({
-    supplements: { taken: 6, total: 5 } // supplements taken - user exceeded goal!
-  })
+  // Daily tracking state - supplements and water (synced with context)
+  const dailyTracking = {
+    supplements: { 
+      taken: getSupplementProgress(), 
+      total: supplementGoals.length 
+    },
+    water: {
+      current: getWaterProgress(),
+      goal: waterTracking.goal
+    }
+  }
 
   // Celebration state
   const [showCelebration, setShowCelebration] = useState<string | null>(null)
@@ -58,13 +67,15 @@ export default function UserDashboard() {
   const [userPoints] = useState(1250)
   const [showEditTasksModal, setShowEditTasksModal] = useState(false)
 
-  // Determine character mood based on supplement goal achievement
+  // Determine character mood based on supplement and water goal achievement
   const getCharacterMood = (): 'happy' | 'sad' | 'cool' => {
     const supplementsGoalMet = dailyTracking.supplements.taken >= dailyTracking.supplements.total
+    const waterGoalMet = dailyTracking.water.current >= dailyTracking.water.goal
+    const goalsMet = [supplementsGoalMet, waterGoalMet].filter(Boolean).length
     
-    if (supplementsGoalMet) return 'happy' // Supplement goal met
-    if (dailyTracking.supplements.taken > 0) return 'cool'  // Some supplements taken
-    return 'sad' // No supplements taken
+    if (goalsMet >= 2) return 'happy' // Most goals met
+    if (goalsMet >= 1) return 'cool'  // Some goals met
+    return 'sad' // Few or no goals met
   }
 
   // Calendar tracking data - showing 5-day streak for demo with varied completion (September 2025)
@@ -129,15 +140,16 @@ export default function UserDashboard() {
     setShowCelebration(type)
     setTimeout(() => setShowCelebration(null), 2000)
     
-    // Update tracking (simulate logging)
-    setDailyTracking(prev => {
-      switch (type) {
-        case 'supplements':
-          return { ...prev, supplements: { ...prev.supplements, taken: prev.supplements.taken + 1 }} // No limit!
-        default:
-          return prev
+    // Update tracking using shared supplement context
+    if (type === 'supplements') {
+      // Find the first incomplete supplement and log it
+      const incompleteSupplement = supplementGoals.find(s => !s.completed)
+      if (incompleteSupplement) {
+        logSupplement(incompleteSupplement.id)
       }
-    })
+    } else if (type === 'water') {
+      logWater()
+    }
   }
 
   useEffect(() => {
@@ -190,8 +202,44 @@ export default function UserDashboard() {
           </Button>
         </div>
 
-        {/* Daily Goals - Supplements Only */}
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
+        {/* Daily Goals - Supplements and Water */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Water Intake */}
+          <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Droplets className="h-6 w-6 text-blue-600" />
+                </div>
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    dailyTracking.water.current >= dailyTracking.water.goal 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-blue-100 text-blue-700'
+                  }`}
+                >
+                  {dailyTracking.water.current}/{dailyTracking.water.goal}
+                  {dailyTracking.water.current > dailyTracking.water.goal && ' 🎉'}
+                </Badge>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Water Intake</h3>
+              <Progress 
+                value={(dailyTracking.water.current / dailyTracking.water.goal) * 100} 
+                className="h-2 mb-3"
+              />
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="w-full"
+                onClick={() => logActivity('water')}
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Log Glass
+              </Button>
+            </CardContent>
+          </Card>
+
           {/* Supplement Intake */}
           <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="p-6">
@@ -216,6 +264,23 @@ export default function UserDashboard() {
                 value={(dailyTracking.supplements.taken / dailyTracking.supplements.total) * 100} 
                 className="h-2 mb-3"
               />
+              <div className="space-y-2 mb-3">
+                {supplementGoals.map((supplement) => (
+                  <div key={supplement.id} className="flex items-center justify-between text-sm">
+                    <span className="text-gray-600">{supplement.name}</span>
+                    <span className={`font-medium ${
+                      supplement.taken >= supplement.dailyLimit 
+                        ? 'text-red-600' 
+                        : supplement.taken >= supplement.target 
+                        ? 'text-green-600' 
+                        : 'text-gray-600'
+                    }`}>
+                      {supplement.taken}/{supplement.dailyLimit}
+                      {supplement.taken >= supplement.dailyLimit && ' ⚠️'}
+                    </span>
+                </div>
+                ))}
+              </div>
               <Button 
                 size="sm" 
                 variant="outline" 
@@ -240,7 +305,7 @@ export default function UserDashboard() {
                 console.log('Day clicked:', date, data)
               }}
             />
-          </div>
+                </div>
 
           {/* Character Status - Right Side */}
           <div className="lg:col-span-1">
@@ -258,14 +323,14 @@ export default function UserDashboard() {
                 // TODO: Implement equip logic
               }}
             />
-          </div>
-                  </div>
+                </div>
+              </div>
 
         {/* Active Challenge Preview */}
         <Card className="bg-gradient-to-r from-[#16A34A] to-[#15803d] text-white mb-8">
-          <CardContent className="p-6">
+            <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <div>
+                <div>
                 <h2 className="text-2xl font-bold mb-2">Continue Challenge</h2>
                 <p className="text-green-100">You're doing great! Keep your supplement streak going to unlock rewards and level up your character.</p>
                 <div className="mt-2 text-sm text-green-200">

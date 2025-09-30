@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { useShoppingCart } from '@/components/providers/shopping-cart-context'
 import { 
   ArrowLeft, 
   Search, 
@@ -33,11 +34,11 @@ import PersistentNav from '@/components/navigation/persistent-nav'
 
 export default function ComparisonPage() {
   const router = useRouter()
+  const { addToCart } = useShoppingCart()
   const [activeTab, setActiveTab] = useState('catalog')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [sortBy, setSortBy] = useState('match')
-  const [shoppingCart, setShoppingCart] = useState<any[]>([])
   const [favorites, setFavorites] = useState<string[]>([])
   const [selectedForComparison, setSelectedForComparison] = useState<string[]>([])
 
@@ -103,6 +104,23 @@ export default function ComparisonPage() {
         ? prev.filter(id => id !== productId)
         : [...prev, productId]
     )
+  }
+
+  const handleAddToCart = (product: any) => {
+    addToCart(product)
+  }
+
+  const handleToggleFavorite = (productId: string) => {
+    setFavorites(prev => 
+      prev.includes(productId) 
+        ? prev.filter(id => id !== productId)
+        : [...prev, productId]
+    )
+  }
+
+  const handleOpenDetails = (product: any) => {
+    console.log('Open details for:', product.name)
+    // TODO: Implement product details modal or navigation
   }
 
   // Full product data for the grid

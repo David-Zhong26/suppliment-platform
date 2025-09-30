@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { useShoppingCart } from '@/components/providers/shopping-cart-context'
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -211,6 +212,7 @@ export default function GamifiedProductCarousel({
   selectedForComparison
 }: GamifiedProductCarouselProps) {
   const router = useRouter()
+  const { addToCart, getCartItemCount } = useShoppingCart()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
@@ -242,12 +244,6 @@ export default function GamifiedProductCarousel({
     }, 300)
   }
 
-  // Handle add to cart with confetti
-  const handleAddToCart = (product: Product) => {
-    onAddToCart(product)
-    setShowConfetti(true)
-    setTimeout(() => setShowConfetti(false), 2000)
-  }
 
   // Handle view details
   const handleViewDetails = (product: Product) => {
@@ -281,10 +277,15 @@ export default function GamifiedProductCarousel({
         <Button
           variant="ghost"
           size="icon"
-          className="w-12 h-12 rounded-full bg-white shadow-lg hover:bg-gray-50 border border-gray-200"
-          onClick={() => console.log('View Shopping Cart')}
+          className="w-12 h-12 rounded-full bg-white shadow-lg hover:bg-gray-50 border border-gray-200 relative"
+          onClick={() => console.log('View Shopping Cart - Items:', getCartItemCount())}
         >
           <ShoppingCart className="h-6 w-6 text-gray-600" />
+          {getCartItemCount() > 0 && (
+            <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+              {getCartItemCount()}
+            </span>
+          )}
         </Button>
       </div>
       {/* Confetti Animation */}
@@ -535,7 +536,9 @@ export default function GamifiedProductCarousel({
                   selectedForComparison.forEach(productId => {
                     const product = products.find(p => p.id === productId)
                     if (product) {
-                      onAddToCart(product)
+                      addToCart(product)
+                      setShowConfetti(true)
+                      setTimeout(() => setShowConfetti(false), 2000)
                     }
                   })
                 }}
@@ -654,7 +657,9 @@ export default function GamifiedProductCarousel({
                 </Button>
                 <Button
                   onClick={() => {
-                    handleAddToCart(selectedProduct)
+                    addToCart(selectedProduct)
+                    setShowConfetti(true)
+                    setTimeout(() => setShowConfetti(false), 2000)
                     setShowDetailsModal(false)
                   }}
                   className="flex-1 bg-green-500 hover:bg-green-600"

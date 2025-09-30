@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import PersistentNav from '@/components/navigation/persistent-nav'
 import CharacterAvatar from '@/components/character-avatar-simple'
+import { useSupplements } from '@/components/providers/supplement-context'
 import { 
   User, 
   Calendar, 
@@ -26,12 +27,15 @@ import {
   HelpCircle,
   Download,
   Globe,
-  Languages
+  Languages,
+  Droplets,
+  Plus
 } from 'lucide-react'
 
 export default function ProfilePage() {
   const [selectedTab, setSelectedTab] = useState('overview')
   const [selectedLanguage, setSelectedLanguage] = useState('en')
+  const { supplementGoals, waterTracking, logSupplement, logWater } = useSupplements()
   
   // Character and points system
   const [userXp] = useState(3247)
@@ -99,11 +103,6 @@ export default function ProfilePage() {
     ]
   }
 
-  const [supplementGoals, setSupplementGoals] = useState([
-    { id: 'omega3', name: 'Omega-3', icon: '🐟', target: 1, taken: 1, time: '08:00', completed: true },
-    { id: 'vitaminD', name: 'Vitamin D3', icon: '☀️', target: 1, taken: 0, time: '12:00', completed: false },
-    { id: 'magnesium', name: 'Magnesium', icon: '🍌', target: 1, taken: 0, time: '18:00', completed: false }
-  ])
 
   const recentActivity = [
     { date: '2024-01-15', action: 'Logged Omega-3', xp: 10, streak: true },
@@ -114,15 +113,6 @@ export default function ProfilePage() {
 
   const weeklyProgress = (userStats.weeklyProgress / userStats.weeklyGoal) * 100
 
-  const logSupplement = (supplementId: string) => {
-    setSupplementGoals(prev => 
-      prev.map(supplement => 
-        supplement.id === supplementId 
-          ? { ...supplement, completed: !supplement.completed, taken: supplement.completed ? 0 : 1 }
-          : supplement
-      )
-    )
-  }
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: User },
@@ -217,8 +207,44 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                {/* Daily Goals - Supplements Only */}
-                <div className="grid grid-cols-1 gap-6 mb-8">
+                {/* Daily Goals - Supplements and Water */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                  {/* Water Intake */}
+                  <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 bg-blue-100 rounded-full">
+                          <Droplets className="h-6 w-6 text-blue-600" />
+                        </div>
+                        <Badge 
+                          variant="secondary" 
+                          className={`${
+                            waterTracking.current >= waterTracking.goal 
+                              ? 'bg-green-100 text-green-700' 
+                              : 'bg-blue-100 text-blue-700'
+                          }`}
+                        >
+                          {waterTracking.current}/{waterTracking.goal}
+                          {waterTracking.current > waterTracking.goal && ' 🎉'}
+                        </Badge>
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Water Intake</h3>
+                      <Progress 
+                        value={(waterTracking.current / waterTracking.goal) * 100} 
+                        className="h-2 mb-3"
+                      />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => logWater()}
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        Log Glass
+                      </Button>
+                    </CardContent>
+                  </Card>
+
                   {/* Supplement Intake */}
                   <Card className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                     <CardContent className="p-6">
@@ -248,17 +274,32 @@ export default function ProfilePage() {
                           <div key={supplement.id} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
                             <div className="flex items-center space-x-3">
                               <span className="text-lg">{supplement.icon}</span>
-                              <span className="font-medium text-gray-900">{supplement.name}</span>
-                              <span className="text-sm text-gray-500">{supplement.time}</span>
+                              <div className="flex flex-col">
+                                <span className="font-medium text-gray-900">{supplement.name}</span>
+                                <span className="text-xs text-gray-500">{supplement.time}</span>
+                              </div>
                             </div>
-                            <Button
-                              variant={supplement.completed ? 'default' : 'outline'}
-                              size="sm"
-                              onClick={() => logSupplement(supplement.id)}
-                              className={supplement.completed ? 'bg-green-600 hover:bg-green-700' : ''}
-                            >
-                              {supplement.completed ? '✓ Taken' : 'Mark Taken'}
-                            </Button>
+                            <div className="flex items-center space-x-2">
+                              <span className={`text-xs font-medium ${
+                                supplement.taken >= supplement.dailyLimit 
+                                  ? 'text-red-600' 
+                                  : supplement.taken >= supplement.target 
+                                  ? 'text-green-600' 
+                                  : 'text-gray-600'
+                              }`}>
+                                {supplement.taken}/{supplement.dailyLimit}
+                                {supplement.taken >= supplement.dailyLimit && ' ⚠️'}
+                              </span>
+                              <Button
+                                variant={supplement.completed ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => logSupplement(supplement.id)}
+                                disabled={supplement.taken >= supplement.dailyLimit}
+                                className={supplement.completed ? 'bg-green-600 hover:bg-green-700' : ''}
+                              >
+                                {supplement.taken >= supplement.dailyLimit ? 'Limit' : supplement.completed ? '✓ Taken' : 'Add'}
+                              </Button>
+                            </div>
                           </div>
                         ))}
                       </div>
